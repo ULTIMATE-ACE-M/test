@@ -16,14 +16,11 @@ nav{position:sticky;top:0;z-index:100;backdrop-filter:blur(44px) saturate(250%) 
 .nav-link.active{background:linear-gradient(180deg,rgba(255,255,255,.72) 0%,rgba(255,255,255,.32) 100%);color:#FF6B1A;font-weight:600;border-color:rgba(255,255,255,.9);box-shadow:0 0 0 1.5px rgba(0,0,0,.09),0 4px 18px rgba(0,0,0,.1),inset 0 1.5px 0 rgba(255,255,255,.98)}
 .page{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:4rem 2rem 6rem}
 .profile-hero{text-align:center;margin-bottom:3.5rem}
-/* ── AVATAR - chrome glass circle ── */
 .avatar{width:110px;height:110px;border-radius:50%;background:linear-gradient(160deg,rgba(255,255,255,.68) 0%,rgba(255,255,255,.28) 100%);backdrop-filter:blur(60px) saturate(260%) brightness(1.08);-webkit-backdrop-filter:blur(60px) saturate(260%) brightness(1.08);border:1.5px solid rgba(255,255,255,.92);border-bottom-color:rgba(255,255,255,.45);box-shadow:0 0 0 1.5px rgba(0,0,0,.09),0 10px 40px rgba(0,0,0,.12),inset 0 1.5px 0 rgba(255,255,255,1);display:flex;align-items:center;justify-content:center;font-size:2.8rem;margin:0 auto 1.2rem;transition:all .28s ease;position:relative;overflow:hidden}
 .avatar::before{content:'';position:absolute;top:0;left:0;right:0;height:50%;background:linear-gradient(180deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,0) 100%);pointer-events:none}
 .avatar:hover{transform:scale(1.05);box-shadow:0 0 0 1.5px rgba(0,0,0,.11),0 14px 44px rgba(255,107,26,.22),inset 0 1.5px 0 rgba(255,255,255,1)}
 .profile-name{font-size:2.2rem;font-weight:800;letter-spacing:-.03em;color:#1a0f05;margin-bottom:.6rem}
-/* ── ROLE TAG - chrome glass pill ── */
 .profile-role{display:inline-block;font-size:.82rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#FF6B1A;background:linear-gradient(180deg,rgba(255,140,30,.22) 0%,rgba(255,88,10,.1) 100%);border:1.5px solid rgba(255,255,255,.88);border-bottom-color:rgba(255,107,26,.3);box-shadow:0 0 0 1.5px rgba(0,0,0,.07),0 3px 10px rgba(255,107,26,.12),inset 0 1px 0 rgba(255,210,140,.5);border-radius:50px;padding:.32rem 1rem}
-/* ── SECTION CARDS - chrome glass ── */
 .section{background:linear-gradient(160deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,.22) 100%);backdrop-filter:blur(60px) saturate(260%) brightness(1.08);-webkit-backdrop-filter:blur(60px) saturate(260%) brightness(1.08);border:1.5px solid rgba(255,255,255,.88);border-bottom-color:rgba(255,255,255,.42);box-shadow:0 0 0 1.5px rgba(0,0,0,.07),0 10px 40px rgba(0,0,0,.1),inset 0 1.5px 0 rgba(255,255,255,.98);border-radius:22px;padding:1.8rem 2rem;margin-bottom:1.4rem;transition:all .28s ease;position:relative;overflow:hidden}
 .section::before{content:'';position:absolute;top:0;left:0;right:0;height:48%;background:linear-gradient(180deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,0) 100%);pointer-events:none;border-radius:inherit}
 .section::after{content:'';position:absolute;inset:0;background:linear-gradient(130deg,rgba(255,255,255,0) 20%,rgba(255,255,255,.55) 50%,rgba(255,255,255,0) 80%);transform:translateX(-160%);transition:transform .5s ease;pointer-events:none;border-radius:inherit}
@@ -34,7 +31,6 @@ nav{position:sticky;top:0;z-index:100;backdrop-filter:blur(44px) saturate(250%) 
 .info-row:last-child{border-bottom:none}
 .info-label{font-size:.85rem;color:rgba(26,15,5,.5);font-weight:500}
 .info-value{font-size:.88rem;font-weight:600;color:#1a0f05}
-/* ── TAGS - chrome glass pills ── */
 .tags{display:flex;flex-wrap:wrap;gap:.55rem;position:relative;z-index:1}
 .tag{font-size:.8rem;font-weight:500;padding:.32rem .9rem;border-radius:50px;background:linear-gradient(180deg,rgba(255,255,255,.72) 0%,rgba(255,255,255,.28) 100%);backdrop-filter:blur(24px) saturate(220%);-webkit-backdrop-filter:blur(24px) saturate(220%);color:#1a0f05;border:1.5px solid rgba(255,255,255,.92);border-bottom-color:rgba(255,255,255,.45);box-shadow:0 0 0 1.5px rgba(0,0,0,.08),0 3px 10px rgba(0,0,0,.09),inset 0 1.5px 0 rgba(255,255,255,1);transition:all .22s ease;position:relative;overflow:hidden}
 .tag::before{content:'';position:absolute;top:0;left:0;right:0;height:50%;background:linear-gradient(180deg,rgba(255,255,255,.5) 0%,rgba(255,255,255,0) 100%);pointer-events:none;border-radius:inherit}
@@ -42,7 +38,6 @@ nav{position:sticky;top:0;z-index:100;backdrop-filter:blur(44px) saturate(250%) 
 .tag:hover{transform:translateY(-2px);box-shadow:0 0 0 1.5px rgba(0,0,0,.1),0 6px 18px rgba(0,0,0,.12),inset 0 1.5px 0 rgba(255,255,255,1)}
 .tag:hover::after{transform:translateX(160%)}
 .bio-text{font-size:.92rem;line-height:1.7;color:rgba(26,15,5,.75);position:relative;z-index:1}
-/* ── SOCIAL LINKS - chrome glass ── */
 .socials{display:flex;gap:.75rem;justify-content:center;margin-top:2rem;flex-wrap:wrap}
 .social-link{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:14px;background:linear-gradient(160deg,rgba(255,255,255,.68) 0%,rgba(255,255,255,.28) 100%);backdrop-filter:blur(28px) saturate(240%);-webkit-backdrop-filter:blur(28px) saturate(240%);color:rgba(26,15,5,.65);text-decoration:none;border:1.5px solid rgba(255,255,255,.92);border-bottom-color:rgba(255,255,255,.45);box-shadow:0 0 0 1.5px rgba(0,0,0,.08),0 4px 16px rgba(0,0,0,.1),inset 0 1.5px 0 rgba(255,255,255,1);transition:all .25s ease;position:relative;overflow:hidden}
 .social-link::before{content:'';position:absolute;top:0;left:0;right:0;height:50%;background:linear-gradient(180deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,0) 100%);pointer-events:none;border-radius:inherit}
@@ -66,25 +61,26 @@ nav{position:sticky;top:0;z-index:100;backdrop-filter:blur(44px) saturate(250%) 
 <div class="page">
   <div class="profile-hero">
     <div class="avatar">&#128187;</div>
-    <h1 class="profile-name">Your name here</h1>
-    <span class="profile-role">Your role here</span>
+    <h1 class="profile-name">Mitchell Nesselaar</h1>
+    <span class="profile-role">Student</span>
   </div>
   <div class="section">
     <div class="section-title">About me</div>
-    <div class="info-row"><span class="info-label">Name</span><span class="info-value">Your name here</span></div>
-    <div class="info-row"><span class="info-label">Location</span><span class="info-value">Your city, Country</span></div>
-    <div class="info-row"><span class="info-label">Occupation</span><span class="info-value">Your occupation</span></div>
-    <div class="info-row"><span class="info-label">Contact</span><span class="info-value">your@email.com</span></div>
+    <div class="info-row"><span class="info-label">Name</span><span class="info-value">Mitchell Nesselaar</span></div>
+    <div class="info-row"><span class="info-label">Location</span><span class="info-value">The Netherlands</span></div>
+    <div class="info-row"><span class="info-label">Occupation</span><span class="info-value">Student</span></div>
+    <div class="info-row"><span class="info-label">Contact</span><span class="info-value">Mitchellnesse@hotmail.com</span></div>
   </div>
   <div class="section">
     <div class="section-title">Skills &amp; interests</div>
     <div class="tags">
-      <span class="tag">Skill 1</span>
-      <span class="tag">Skill 2</span>
-      <span class="tag">Skill 3</span>
-      <span class="tag">Interest 1</span>
-      <span class="tag">Interest 2</span>
-      <span class="tag">Interest 3</span>
+      <span class="tag">Microsoft Cloud</span>
+      <span class="tag">Windows Server</span>
+      <span class="tag">Powershell</span>
+      <span class="tag">Military Simulation</span>
+      <span class="tag">Aviation</span>
+      <span class="tag">Technology</span>
+      <span class="tag">Traveling</span>
     </div>
   </div>
   <div class="section">
