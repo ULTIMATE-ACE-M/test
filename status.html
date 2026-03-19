@@ -1,57 +1,57 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html lang="en">
 <head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><title>Status - ACE-M</title>
 <style>
 *,::before,::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;min-height:100vh;background:#f8f4ee;color:#1a0f05;overflow-x:hidden}
-body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 70% 55% at 15% 10%,rgba(255,120,30,.38) 0%,transparent 55%),radial-gradient(ellipse 55% 65% at 85% 75%,rgba(255,170,60,.28) 0%,transparent 55%),radial-gradient(ellipse 50% 45% at 55% 40%,rgba(255,80,10,.14) 0%,transparent 60%);animation:bgpulse 14s ease-in-out infinite alternate}
-@keyframes bgpulse{0%{opacity:1;transform:scale(1)}100%{opacity:.82;transform:scale(1.06)}}
-nav{position:sticky;top:0;z-index:100;backdrop-filter:blur(32px) saturate(200%) brightness(1.04);-webkit-backdrop-filter:blur(32px) saturate(200%) brightness(1.04);background:rgba(255,255,255,.65);border-bottom:1px solid rgba(255,255,255,.7);box-shadow:0 1px 0 rgba(255,255,255,.8),0 4px 24px rgba(0,0,0,.06)}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;min-height:100vh;background:#f0ebe3;color:#1a0f05;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 60% 48% at 12% 10%,rgba(255,110,20,.58) 0%,transparent 52%),radial-gradient(ellipse 48% 55% at 88% 78%,rgba(255,165,50,.48) 0%,transparent 52%),radial-gradient(ellipse 42% 38% at 52% 36%,rgba(255,75,5,.22) 0%,transparent 58%);animation:bgpulse 14s ease-in-out infinite alternate}
+@keyframes bgpulse{0%{opacity:1;transform:scale(1)}100%{opacity:.85;transform:scale(1.07)}}
+nav{position:sticky;top:0;z-index:100;backdrop-filter:blur(40px) saturate(240%) brightness(1.06);-webkit-backdrop-filter:blur(40px) saturate(240%) brightness(1.06);background:rgba(255,255,255,.3);border-bottom:1.5px solid rgba(255,255,255,.85);box-shadow:0 1.5px 0 rgba(255,255,255,.95),0 4px 28px rgba(0,0,0,.08)}
 .nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:58px;padding:0 2rem}
 .nav-brand{font-size:1.15rem;font-weight:800;letter-spacing:-.5px;text-decoration:none;background:linear-gradient(135deg,#1a0f05 0%,#FF6B1A 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .nav-links{display:flex;gap:.25rem}
 .nav-link{font-size:.88rem;font-weight:500;text-decoration:none;color:rgba(26,15,5,.7);padding:.4rem .9rem;border-radius:20px;border:1px solid transparent;transition:all .22s ease}
-.nav-link:hover{background:rgba(255,107,26,.12);color:#FF6B1A;border-color:rgba(255,107,26,.2)}
-.nav-link.active{background:rgba(255,107,26,.16);color:#FF6B1A;border-color:rgba(255,107,26,.3);font-weight:600}
+.nav-link:hover{background:rgba(255,107,26,.15);color:#FF6B1A;border-color:rgba(255,107,26,.25)}
+.nav-link.active{background:rgba(255,107,26,.18);color:#FF6B1A;border-color:rgba(255,107,26,.35);font-weight:600}
 .page{position:relative;z-index:1;padding:3rem 2rem 6rem;max-width:1100px;margin:0 auto}
 .page-header{text-align:center;margin-bottom:3rem}
-.page-title{font-size:clamp(2rem,5vw,3.5rem);font-weight:800;letter-spacing:-.03em;background:linear-gradient(145deg,#1a0f05 0%,#FF6B1A 55%,#FF9240 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.75rem}
+.page-title{font-size:clamp(2rem,5vw,3.5rem);font-weight:800;letter-spacing:-.03em;color:#1a0f05;margin-bottom:.75rem}
 .page-sub{font-size:.95rem;color:rgba(26,15,5,.5)}
 .overall{display:flex;justify-content:center;margin-bottom:2rem}
-.overall-pill{display:inline-flex;align-items:center;gap:.55rem;font-size:.88rem;font-weight:600;padding:.5rem 1.2rem;border-radius:24px;background:rgba(255,255,255,.6);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.8);border-top-color:rgba(255,255,255,.95);box-shadow:0 4px 16px rgba(0,0,0,.06),inset 0 1px 0 rgba(255,255,255,.9);color:rgba(26,15,5,.55);transition:all .4s ease}
-.overall-pill.all-up{color:#FF6B1A;border-color:rgba(255,107,26,.3);box-shadow:0 4px 20px rgba(255,107,26,.18),inset 0 1px 0 rgba(255,255,255,.9)}
-.overall-pill.has-down{color:#d93a3a;border-color:rgba(217,58,58,.3);box-shadow:0 4px 20px rgba(217,58,58,.15),inset 0 1px 0 rgba(255,255,255,.9)}
+.overall-pill{display:inline-flex;align-items:center;gap:.55rem;font-size:.88rem;font-weight:600;padding:.5rem 1.2rem;border-radius:24px;background:rgba(255,255,255,.32);backdrop-filter:blur(40px) saturate(240%) brightness(1.06);-webkit-backdrop-filter:blur(40px) saturate(240%) brightness(1.06);border:1.5px solid rgba(255,255,255,.85);border-top-color:rgba(255,255,255,.98);box-shadow:0 4px 18px rgba(0,0,0,.07),inset 0 1.5px 0 rgba(255,255,255,.92);color:rgba(26,15,5,.55);transition:all .4s ease}
+.overall-pill.all-up{color:#FF6B1A;border-color:rgba(255,107,26,.35);box-shadow:0 4px 22px rgba(255,107,26,.22),inset 0 1.5px 0 rgba(255,255,255,.95)}
+.overall-pill.has-down{color:#d93a3a;border-color:rgba(217,58,58,.32);box-shadow:0 4px 22px rgba(217,58,58,.18),inset 0 1.5px 0 rgba(255,255,255,.95)}
 .dot{width:9px;height:9px;border-radius:50%;background:currentColor;flex-shrink:0}
 .overall-pill.all-up .dot{animation:pulse-o 2s ease-in-out infinite}
 @keyframes pulse-o{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
 .tabs{display:flex;gap:.4rem;justify-content:center;margin-bottom:2.5rem;flex-wrap:wrap}
-.tab-btn{font-size:.88rem;font-weight:500;padding:.45rem 1.1rem;border-radius:20px;border:1px solid rgba(255,255,255,.6);background:rgba(255,255,255,.45);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);color:rgba(26,15,5,.6);cursor:pointer;transition:all .22s ease;box-shadow:0 2px 8px rgba(0,0,0,.04)}
-.tab-btn:hover{background:rgba(255,255,255,.65);color:#1a0f05;box-shadow:0 4px 14px rgba(0,0,0,.07)}
-.tab-btn.active{background:linear-gradient(145deg,rgba(255,120,30,.22) 0%,rgba(255,80,10,.12) 100%);color:#FF6B1A;border-color:rgba(255,107,26,.35);font-weight:600;box-shadow:0 4px 16px rgba(255,107,26,.14)}
+.tab-btn{font-size:.88rem;font-weight:500;padding:.45rem 1.1rem;border-radius:20px;border:1.5px solid rgba(255,255,255,.72);background:rgba(255,255,255,.28);backdrop-filter:blur(24px) saturate(220%);-webkit-backdrop-filter:blur(24px) saturate(220%);color:rgba(26,15,5,.6);cursor:pointer;transition:all .22s ease;box-shadow:0 2px 10px rgba(0,0,0,.05),inset 0 1px 0 rgba(255,255,255,.8)}
+.tab-btn:hover{background:rgba(255,255,255,.48);color:#1a0f05;box-shadow:0 4px 16px rgba(0,0,0,.08),inset 0 1px 0 rgba(255,255,255,.92)}
+.tab-btn.active{background:linear-gradient(145deg,rgba(255,120,30,.25) 0%,rgba(255,80,10,.14) 100%);color:#FF6B1A;border-color:rgba(255,107,26,.38);font-weight:600;box-shadow:0 4px 18px rgba(255,107,26,.18),inset 0 1px 0 rgba(255,255,255,.85)}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.2rem}
-.service-card{background:rgba(255,255,255,.52);backdrop-filter:blur(40px) saturate(200%) brightness(1.06);-webkit-backdrop-filter:blur(40px) saturate(200%) brightness(1.06);border:1px solid rgba(255,255,255,.72);border-top-color:rgba(255,255,255,.92);border-left-color:rgba(255,255,255,.82);border-radius:20px;padding:1.5rem 1.6rem;position:relative;overflow:hidden;transition:all .3s cubic-bezier(.34,1.56,.64,1);box-shadow:0 6px 24px rgba(0,0,0,.07),inset 0 1px 0 rgba(255,255,255,.85)}
-.service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:50%;background:linear-gradient(180deg,rgba(255,255,255,.35) 0%,transparent 100%);pointer-events:none}
-.service-card::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.52) 50%,rgba(255,255,255,0) 100%);transform:translateX(-150%);transition:transform .5s ease;pointer-events:none}
-.service-card:hover::after{transform:translateX(150%)}
-.service-card:hover{background:rgba(255,255,255,.72);transform:translateY(-4px) scale(1.01);box-shadow:0 16px 40px rgba(255,100,20,.15),0 4px 16px rgba(0,0,0,.05),inset 0 1px 0 rgba(255,255,255,1)}
+.service-card{background:rgba(255,255,255,.32);backdrop-filter:blur(60px) saturate(260%) brightness(1.08);-webkit-backdrop-filter:blur(60px) saturate(260%) brightness(1.08);border:1.5px solid rgba(255,255,255,.82);border-top-color:rgba(255,255,255,.98);border-left-color:rgba(255,255,255,.9);border-radius:20px;padding:1.5rem 1.6rem;position:relative;overflow:hidden;transition:all .32s cubic-bezier(.34,1.56,.64,1);box-shadow:0 6px 28px rgba(0,0,0,.08),inset 0 1.5px 0 rgba(255,255,255,.92)}
+.service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:50%;background:linear-gradient(180deg,rgba(255,255,255,.48) 0%,transparent 100%);pointer-events:none}
+.service-card::after{content:'';position:absolute;inset:0;background:linear-gradient(130deg,rgba(255,255,255,0) 20%,rgba(255,255,255,.55) 50%,rgba(255,255,255,0) 80%);transform:translateX(-160%);transition:transform .55s ease;pointer-events:none}
+.service-card:hover::after{transform:translateX(160%)}
+.service-card:hover{background:rgba(255,255,255,.55);transform:translateY(-5px) scale(1.012);box-shadow:0 18px 44px rgba(255,100,20,.2),0 4px 16px rgba(0,0,0,.06),inset 0 1.5px 0 rgba(255,255,255,1)}
 .service-card.hidden{display:none}
 .card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:.9rem;position:relative;z-index:1}
 .card-name{font-size:1rem;font-weight:700;color:#1a0f05}
 .badge{font-size:.75rem;font-weight:600;padding:.28rem .7rem;border-radius:12px;letter-spacing:.02em;white-space:nowrap}
 .badge-checking{background:rgba(26,15,5,.06);color:rgba(26,15,5,.4);border:1px solid rgba(26,15,5,.1)}
-.badge-up{background:rgba(255,107,26,.14);color:#FF6B1A;border:1px solid rgba(255,107,26,.22)}
+.badge-up{background:rgba(255,107,26,.15);color:#FF6B1A;border:1px solid rgba(255,107,26,.25)}
 .badge-down{background:rgba(217,58,58,.1);color:#d93a3a;border:1px solid rgba(217,58,58,.2)}
 .card-url{font-size:.78rem;color:rgba(26,15,5,.38);position:relative;z-index:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.spinner{display:inline-block;width:10px;height:10px;border:2px solid rgba(26,15,5,.12);border-top-color:rgba(255,107,26,.65);border-radius:50%;animation:spin .7s linear infinite;margin-right:4px;vertical-align:middle}
+.spinner{display:inline-block;width:10px;height:10px;border:2px solid rgba(26,15,5,.12);border-top-color:rgba(255,107,26,.7);border-radius:50%;animation:spin .7s linear infinite;margin-right:4px;vertical-align:middle}
 @keyframes spin{to{transform:rotate(360deg)}}
-footer{border-top:1px solid rgba(255,255,255,.6);background:rgba(255,255,255,.4);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+footer{border-top:1.5px solid rgba(255,255,255,.7);background:rgba(255,255,255,.28);backdrop-filter:blur(40px) saturate(240%);-webkit-backdrop-filter:blur(40px) saturate(240%)}
 .footer-inner{max-width:1100px;margin:0 auto;padding:2.5rem 2rem;display:flex;flex-direction:column;align-items:center;gap:1.2rem}
-footer p{font-size:.82rem;color:rgba(26,15,5,.45)}
+footer p{font-size:.82rem;color:rgba(26,15,5,.42)}
 .socials{display:flex;gap:.75rem}
-.social-link{width:42px;height:42px;border-radius:14px;background:rgba(255,255,255,.55);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.75);border-top-color:rgba(255,255,255,.95);display:flex;align-items:center;justify-content:center;color:rgba(26,15,5,.6);text-decoration:none;transition:all .25s ease;box-shadow:0 2px 10px rgba(0,0,0,.05),inset 0 1px 0 rgba(255,255,255,.85);position:relative;overflow:hidden}
-.social-link::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.55) 50%,rgba(255,255,255,0) 100%);transform:translateX(-150%);transition:transform .4s ease;pointer-events:none}
-.social-link:hover::after{transform:translateX(150%)}
-.social-link:hover{background:rgba(255,107,26,.18);color:#FF6B1A;border-color:rgba(255,107,26,.3);box-shadow:0 6px 20px rgba(255,107,26,.2),inset 0 1px 0 rgba(255,255,255,.9);transform:translateY(-3px)}
+.social-link{width:42px;height:42px;border-radius:14px;background:rgba(255,255,255,.32);backdrop-filter:blur(24px) saturate(240%);-webkit-backdrop-filter:blur(24px) saturate(240%);border:1.5px solid rgba(255,255,255,.82);border-top-color:rgba(255,255,255,.98);display:flex;align-items:center;justify-content:center;color:rgba(26,15,5,.6);text-decoration:none;transition:all .25s ease;box-shadow:0 2px 12px rgba(0,0,0,.06),inset 0 1.5px 0 rgba(255,255,255,.9);position:relative;overflow:hidden}
+.social-link::after{content:'';position:absolute;inset:0;background:linear-gradient(130deg,rgba(255,255,255,0) 20%,rgba(255,255,255,.6) 50%,rgba(255,255,255,0) 80%);transform:translateX(-160%);transition:transform .45s ease;pointer-events:none}
+.social-link:hover::after{transform:translateX(160%)}
+.social-link:hover{background:rgba(255,107,26,.2);color:#FF6B1A;border-color:rgba(255,107,26,.35);box-shadow:0 6px 22px rgba(255,107,26,.25),inset 0 1.5px 0 rgba(255,255,255,.95);transform:translateY(-3px)}
 .social-link svg{width:18px;height:18px;flex-shrink:0;position:relative;z-index:1}
 </style>
 </head>
@@ -62,26 +62,26 @@ footer p{font-size:.82rem;color:rgba(26,15,5,.45)}
     <div class="nav-links">
       <a href="index.html" class="nav-link">Home</a>
       <a href="status.html" class="nav-link active">Status</a>
-      <a href="about.html" class="nav-link">Over mij</a>
+      <a href="about.html" class="nav-link">About me</a>
     </div>
   </div>
 </nav>
 <div class="page">
   <div class="page-header">
     <h1 class="page-title">Status Dashboard</h1>
-    <p class="page-sub" id="last-update">Bezig met laden...</p>
+    <p class="page-sub" id="last-update">Loading...</p>
   </div>
   <div class="overall">
     <div class="overall-pill" id="overall-pill">
       <span class="dot"></span>
-      <span id="overall-text">Controleren...</span>
+      <span id="overall-text">Checking...</span>
     </div>
   </div>
   <div class="tabs">
-    <button class="tab-btn active" data-tab="alle" onclick="switchTab('alle')">Alle</button>
-    <button class="tab-btn" data-tab="werk" onclick="switchTab('werk')">Werk</button>
+    <button class="tab-btn active" data-tab="alle" onclick="switchTab('alle')">All</button>
+    <button class="tab-btn" data-tab="werk" onclick="switchTab('werk')">Work</button>
     <button class="tab-btn" data-tab="microsoft" onclick="switchTab('microsoft')">Microsoft</button>
-    <button class="tab-btn" data-tab="infra" onclick="switchTab('infra')">Infrastructuur</button>
+    <button class="tab-btn" data-tab="infra" onclick="switchTab('infra')">Infrastructure</button>
   </div>
   <div class="grid" id="grid"></div>
 </div>
@@ -101,7 +101,7 @@ footer p{font-size:.82rem;color:rgba(26,15,5,.45)}
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057.1 18.09.12 18.12.142 18.14a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>
       </a>
     </div>
-    <p>Pas de links aan naar jouw eigen profielen</p>
+    <p>Update the links to your own profiles</p>
   </div>
 </footer>
 <script>
@@ -153,7 +153,7 @@ function buildCard(svc) {
   var spin = document.createElement('span');
   spin.className = 'spinner';
   badge.appendChild(spin);
-  badge.appendChild(document.createTextNode('Controleren'));
+  badge.appendChild(document.createTextNode('Checking'));
   top.appendChild(name);
   top.appendChild(badge);
   var urlEl = document.createElement('div');
@@ -206,16 +206,16 @@ function updateOverall() {
   var text = document.getElementById('overall-text');
   if (done < total) {
     pill.className = 'overall-pill';
-    text.textContent = 'Controleren (' + done + '/' + total + ')';
+    text.textContent = 'Checking (' + done + '/' + total + ')';
   } else if (downs === 0) {
     pill.className = 'overall-pill all-up';
-    text.textContent = 'Alle systemen operationeel';
+    text.textContent = 'All systems operational';
   } else {
     pill.className = 'overall-pill has-down';
     text.textContent = downs + ' service' + (downs > 1 ? 's' : '') + ' offline';
   }
   var now = new Date();
-  document.getElementById('last-update').textContent = 'Laatste controle: ' + now.toLocaleTimeString('nl-NL');
+  document.getElementById('last-update').textContent = 'Last checked: ' + now.toLocaleTimeString('en-GB');
 }
 
 function init() {
