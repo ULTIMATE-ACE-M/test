@@ -14,7 +14,15 @@ nav{position:sticky;top:0;z-index:100;backdrop-filter:blur(44px) saturate(250%) 
 .nav-link:hover{background:rgba(255,255,255,.45);color:#1a0f05;border-color:rgba(255,255,255,.88);box-shadow:0 0 0 1px rgba(255,255,255,.28),0 3px 10px rgba(0,0,0,.1),inset 0 2px 0 rgba(255,255,255,1)}
 .nav-link:hover::after{transform:translateX(160%)}
 .nav-link.active{background:linear-gradient(180deg,rgba(255,255,255,.8) 0%,rgba(255,255,255,.04) 44%,rgba(255,255,255,.18) 100%);color:#FF6B1A;font-weight:600;border-color:rgba(255,255,255,.92);box-shadow:0 0 0 1px rgba(255,255,255,.28),0 4px 18px rgba(0,0,0,.08),inset 0 2px 0 rgba(255,255,255,1)}
-main{flex:1;position:relative;z-index:1}
+main{flex:1;position:relative;z-index:1;display:flex;align-items:center;justify-content:center;padding:3rem 2rem}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;width:100%;max-width:900px}
+.tile{background:linear-gradient(180deg,rgba(255,255,255,.8) 0%,rgba(255,255,255,.04) 44%,rgba(255,255,255,.18) 100%);backdrop-filter:blur(60px) saturate(220%) brightness(1.06);-webkit-backdrop-filter:blur(60px) saturate(220%) brightness(1.06);border:1.5px solid rgba(255,255,255,.92);border-bottom-color:rgba(255,255,255,.55);box-shadow:0 0 0 1px rgba(255,255,255,.28),0 10px 40px rgba(0,0,0,.1),inset 0 2px 0 rgba(255,255,255,1);border-radius:22px;aspect-ratio:1;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .28s ease;position:relative;overflow:hidden;text-decoration:none;color:#1a0f05}
+.tile::before{content:'';position:absolute;top:0;left:0;right:0;height:54%;background:linear-gradient(180deg,rgba(255,255,255,.82) 0%,rgba(255,255,255,0) 100%);pointer-events:none;border-radius:inherit}
+.tile::after{content:'';position:absolute;inset:0;background:linear-gradient(130deg,rgba(255,255,255,0) 20%,rgba(255,255,255,.65) 50%,rgba(255,255,255,0) 80%);transform:translateX(-160%);transition:transform .5s ease;pointer-events:none;border-radius:inherit}
+.tile:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 0 0 1px rgba(255,255,255,.38),0 18px 52px rgba(0,0,0,.13),inset 0 2px 0 rgba(255,255,255,1)}
+.tile:hover::after{transform:translateX(160%)}
+.tile-label{font-size:.95rem;font-weight:600;color:rgba(26,15,5,.45);position:relative;z-index:1;letter-spacing:.01em}
+@media(max-width:600px){.grid{grid-template-columns:repeat(2,1fr)}}
 footer{position:relative;z-index:1;border-top:1.5px solid rgba(255,255,255,.55);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px)}
 .footer-inner{max-width:1100px;margin:0 auto;padding:2.5rem 2rem;display:flex;flex-direction:column;align-items:center;gap:1.2rem}
 .socials{display:flex;gap:.75rem}
@@ -38,7 +46,16 @@ footer{position:relative;z-index:1;border-top:1.5px solid rgba(255,255,255,.55);
     </div>
   </div>
 </nav>
-<main></main>
+<main>
+  <div class="grid">
+    <a href="#" class="tile"><span class="tile-label">Tile 1</span></a>
+    <a href="#" class="tile"><span class="tile-label">Tile 2</span></a>
+    <a href="#" class="tile"><span class="tile-label">Tile 3</span></a>
+    <a href="#" class="tile"><span class="tile-label">Tile 4</span></a>
+    <a href="#" class="tile"><span class="tile-label">Tile 5</span></a>
+    <a href="#" class="tile"><span class="tile-label">Tile 6</span></a>
+  </div>
+</main>
 <footer>
   <div class="footer-inner">
     <div class="socials">
