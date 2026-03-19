@@ -32,7 +32,7 @@ nav{position:sticky;top:0;z-index:100;backdrop-filter:blur(44px) saturate(250%) 
 .info-label{font-size:.85rem;color:rgba(26,15,5,.5);font-weight:500}
 .info-value{font-size:.88rem;font-weight:600;color:#1a0f05}
 .tags{display:flex;flex-wrap:wrap;gap:.55rem;position:relative;z-index:1}
-.tag{font-size:.8rem;font-weight:500;padding:.32rem .9rem;border-radius:50px;background:linear-gradient(180deg,rgba(255,255,255,.8) 0%,rgba(255,255,255,.04) 44%,rgba(255,255,255,.18) 100%);backdrop-filter:blur(24px) saturate(220%);-webkit-backdrop-clip:text;-webkit-backdrop-filter:blur(24px) saturate(220%);color:#1a0f05;border:1.5px solid rgba(255,255,255,.92);border-bottom-color:rgba(255,255,255,.55);box-shadow:0 0 0 1px rgba(255,255,255,.28),0 3px 10px rgba(0,0,0,.09),inset 0 2px 0 rgba(255,255,255,1);transition:all .22s ease;position:relative;overflow:hidden}
+.tag{font-size:.8rem;font-weight:500;padding:.32rem .9rem;border-radius:50px;background:linear-gradient(180deg,rgba(255,255,255,.8) 0%,rgba(255,255,255,.04) 44%,rgba(255,255,255,.18) 100%);backdrop-filter:blur(24px) saturate(220%);-webkit-backdrop-filter:blur(24px) saturate(220%);color:#1a0f05;border:1.5px solid rgba(255,255,255,.92);border-bottom-color:rgba(255,255,255,.55);box-shadow:0 0 0 1px rgba(255,255,255,.28),0 3px 10px rgba(0,0,0,.09),inset 0 2px 0 rgba(255,255,255,1);transition:all .22s ease;position:relative;overflow:hidden}
 .tag::before{content:'';position:absolute;top:0;left:0;right:0;height:54%;background:linear-gradient(180deg,rgba(255,255,255,.82) 0%,rgba(255,255,255,0) 100%);pointer-events:none;border-radius:inherit}
 .tag::after{content:'';position:absolute;inset:0;background:linear-gradient(130deg,rgba(255,255,255,0) 20%,rgba(255,255,255,.65) 50%,rgba(255,255,255,0) 80%);transform:translateX(-160%);transition:transform .4s ease;pointer-events:none;border-radius:inherit}
 .tag:hover{transform:translateY(-2px);box-shadow:0 0 0 1px rgba(255,255,255,.35),0 6px 18px rgba(0,0,0,.1),inset 0 2px 0 rgba(255,255,255,1)}
@@ -136,15 +136,124 @@ nav{position:sticky;top:0;z-index:100;backdrop-filter:blur(44px) saturate(250%) 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
 <script>
 // ============================================================
-// COUNTRIES VISITED - edit the array below
-// Use ISO 3166-1 numeric codes. Common codes:
-//   528=Netherlands  276=Germany  826=UK  56=Belgium
-//   250=France  724=Spain  380=Italy  300=Greece
-//   840=USA  124=Canada  36=Australia  392=Japan
+// COUNTRIES VISITED — set true to highlight, false to leave unvisited
 // ============================================================
-var visitedCountries = [528, 276, 826, 56, 250, 724, 380];
+var visited = {
+  'Afghanistan':          false,
+  'Albania':              false,
+  'Algeria':              false,
+  'Andorra':              false,
+  'Angola':               false,
+  'Argentina':            false,
+  'Australia':            false,
+  'Austria':              false,
+  'Bangladesh':           false,
+  'Belgium':              true,
+  'Bhutan':               false,
+  'Bolivia':              false,
+  'Brazil':               false,
+  'Bulgaria':             false,
+  'Cambodia':             false,
+  'Cameroon':             false,
+  'Canada':               false,
+  'Chile':                false,
+  'China':                false,
+  'Colombia':             false,
+  'Costa Rica':           false,
+  'Croatia':              false,
+  'Cuba':                 false,
+  'Cyprus':               false,
+  'Czechia':              false,
+  'Denmark':              false,
+  'Ecuador':              false,
+  'Egypt':                false,
+  'Ethiopia':             false,
+  'Finland':              false,
+  'France':               true,
+  'Gabon':                false,
+  'Germany':              true,
+  'Ghana':                false,
+  'Greece':               false,
+  'Guatemala':            false,
+  'Haiti':                false,
+  'Honduras':             false,
+  'Hungary':              false,
+  'India':                false,
+  'Indonesia':            false,
+  'Iran':                 false,
+  'Iraq':                 false,
+  'Ireland':              false,
+  'Israel':               false,
+  'Italy':                true,
+  'Jamaica':              false,
+  'Japan':                false,
+  'Jordan':               false,
+  'Kazakhstan':           false,
+  'Kenya':                false,
+  'Kuwait':               false,
+  'Laos':                 false,
+  'Lebanon':              false,
+  'Libya':                false,
+  'Luxembourg':           false,
+  'Malaysia':             false,
+  'Mexico':               false,
+  'Morocco':              false,
+  'Namibia':              false,
+  'Nepal':                false,
+  'Netherlands':          true,
+  'New Zealand':          false,
+  'Nigeria':              false,
+  'North Korea':          false,
+  'Norway':               false,
+  'Oman':                 false,
+  'Pakistan':             false,
+  'Panama':               false,
+  'Papua New Guinea':     false,
+  'Paraguay':             false,
+  'Peru':                 false,
+  'Philippines':          false,
+  'Poland':               false,
+  'Portugal':             false,
+  'Qatar':                false,
+  'Romania':              false,
+  'Russia':               false,
+  'Rwanda':               false,
+  'Saudi Arabia':         false,
+  'Senegal':              false,
+  'Slovakia':             false,
+  'Slovenia':             false,
+  'Somalia':              false,
+  'South Africa':         false,
+  'South Korea':          false,
+  'Spain':                true,
+  'Sri Lanka':            false,
+  'Sudan':                false,
+  'Sweden':               false,
+  'Switzerland':          false,
+  'Syria':                false,
+  'Taiwan':               false,
+  'Thailand':             false,
+  'Turkey':               false,
+  'Uganda':               false,
+  'Ukraine':              false,
+  'United Arab Emirates': false,
+  'United Kingdom':       true,
+  'United States':        false,
+  'Uruguay':              false,
+  'Uzbekistan':           false,
+  'Venezuela':            false,
+  'Vietnam':              false,
+  'Yemen':                false,
+  'Zambia':               false,
+  'Zimbabwe':             false
+};
 
 var countryNames = {4:'Afghanistan',8:'Albania',12:'Algeria',20:'Andorra',24:'Angola',32:'Argentina',36:'Australia',40:'Austria',50:'Bangladesh',56:'Belgium',64:'Bhutan',68:'Bolivia',76:'Brazil',100:'Bulgaria',116:'Cambodia',120:'Cameroon',124:'Canada',152:'Chile',156:'China',170:'Colombia',188:'Costa Rica',191:'Croatia',192:'Cuba',196:'Cyprus',203:'Czechia',208:'Denmark',218:'Ecuador',818:'Egypt',231:'Ethiopia',246:'Finland',250:'France',266:'Gabon',276:'Germany',288:'Ghana',300:'Greece',320:'Guatemala',332:'Haiti',340:'Honduras',348:'Hungary',356:'India',360:'Indonesia',364:'Iran',368:'Iraq',372:'Ireland',376:'Israel',380:'Italy',388:'Jamaica',392:'Japan',400:'Jordan',398:'Kazakhstan',404:'Kenya',408:'North Korea',410:'South Korea',414:'Kuwait',418:'Laos',422:'Lebanon',434:'Libya',442:'Luxembourg',458:'Malaysia',484:'Mexico',504:'Morocco',516:'Namibia',524:'Nepal',528:'Netherlands',554:'New Zealand',566:'Nigeria',578:'Norway',512:'Oman',586:'Pakistan',591:'Panama',598:'Papua New Guinea',600:'Paraguay',604:'Peru',608:'Philippines',616:'Poland',620:'Portugal',634:'Qatar',642:'Romania',643:'Russia',646:'Rwanda',682:'Saudi Arabia',686:'Senegal',703:'Slovakia',705:'Slovenia',706:'Somalia',710:'South Africa',724:'Spain',144:'Sri Lanka',729:'Sudan',752:'Sweden',756:'Switzerland',760:'Syria',158:'Taiwan',764:'Thailand',792:'Turkey',800:'Uganda',804:'Ukraine',784:'United Arab Emirates',826:'United Kingdom',840:'United States',858:'Uruguay',860:'Uzbekistan',862:'Venezuela',704:'Vietnam',887:'Yemen',894:'Zambia',716:'Zimbabwe'};
+
+// Build the visited ID list from the 'visited' object above
+var nameToId = {};
+for (var id in countryNames) { nameToId[countryNames[id]] = +id; }
+var visitedCountries = Object.keys(visited).filter(function(n){ return visited[n]; }).map(function(n){ return nameToId[n]; }).filter(Boolean);
 
 (function() {
   var card = document.getElementById('map-card');
