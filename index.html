@@ -6,80 +6,43 @@
   <title>Status Dashboard</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: #0f1117;
-      color: #e0e0e0;
-      min-height: 100vh;
-      padding: 2rem 1rem;
-    }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f1117; color: #e0e0e0; min-height: 100vh; padding: 2rem 1rem; }
     header { text-align: center; margin-bottom: 2.5rem; }
     header h1 { font-size: 2rem; font-weight: 700; color: #fff; letter-spacing: -0.5px; }
     header p { color: #6b7280; margin-top: 0.4rem; font-size: 0.95rem; }
-    .overall-status {
-      display: inline-flex; align-items: center; gap: 0.5rem;
-      padding: 0.5rem 1.2rem; border-radius: 999px;
-      font-size: 0.9rem; font-weight: 600; margin-top: 1rem;
-    }
-    .overall-status.all-up   { background: #052e16; color: #4ade80; }
+    .overall-status { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1.2rem; border-radius: 999px; font-size: 0.9rem; font-weight: 600; margin-top: 1rem; }
+    .overall-status.all-up { background: #052e16; color: #4ade80; }
     .overall-status.some-down { background: #431407; color: #fb923c; }
-    .overall-status.checking  { background: #1e293b; color: #94a3b8; }
+    .overall-status.checking { background: #1e293b; color: #94a3b8; }
     .overall-status .dot { width: 10px; height: 10px; border-radius: 50%; background: currentColor; }
     .overall-status.all-up .dot { animation: pulse-green 2s infinite; }
     .overall-status.some-down .dot { animation: pulse-red 2s infinite; }
-    @keyframes pulse-green {
-      0%,100% { box-shadow: 0 0 0 0 rgba(74,222,128,.6); }
-      50% { box-shadow: 0 0 0 6px rgba(74,222,128,0); }
-    }
-    @keyframes pulse-red {
-      0%,100% { box-shadow: 0 0 0 0 rgba(251,146,60,.6); }
-      50% { box-shadow: 0 0 0 6px rgba(251,146,60,0); }
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.2rem; max-width: 900px; margin: 0 auto;
-    }
-    .card {
-      background: #1a1d27; border: 1px solid #2a2d3a;
-      border-radius: 14px; padding: 1.4rem 1.6rem;
-      display: flex; flex-direction: column; gap: 1rem;
-    }
-    .card.up   { border-color: #14532d; box-shadow: 0 0 0 1px #14532d inset; }
+    @keyframes pulse-green { 0%,100% { box-shadow: 0 0 0 0 rgba(74,222,128,.6); } 50% { box-shadow: 0 0 0 6px rgba(74,222,128,0); } }
+    @keyframes pulse-red { 0%,100% { box-shadow: 0 0 0 0 rgba(251,146,60,.6); } 50% { box-shadow: 0 0 0 6px rgba(251,146,60,0); } }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.2rem; max-width: 900px; margin: 0 auto; }
+    .card { background: #1a1d27; border: 1px solid #2a2d3a; border-radius: 14px; padding: 1.4rem 1.6rem; display: flex; flex-direction: column; gap: 1rem; transition: border-color .3s, box-shadow .3s; }
+    .card.up { border-color: #14532d; box-shadow: 0 0 0 1px #14532d inset; }
     .card.down { border-color: #7f1d1d; box-shadow: 0 0 0 1px #7f1d1d inset; }
     .card-top { display: flex; align-items: center; justify-content: space-between; }
     .service-name { font-size: 1.1rem; font-weight: 600; color: #fff; }
     .service-url { font-size: 0.75rem; color: #4b5563; margin-top: 0.15rem; }
-    .badge {
-      display: inline-flex; align-items: center; gap: 0.4rem;
-      padding: 0.3rem 0.75rem; border-radius: 999px;
-      font-size: 0.8rem; font-weight: 700; flex-shrink: 0;
-    }
-    .badge.up       { background: #052e16; color: #4ade80; }
-    .badge.down     { background: #450a0a; color: #f87171; }
+    .badge { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.3rem 0.75rem; border-radius: 999px; font-size: 0.8rem; font-weight: 700; flex-shrink: 0; }
+    .badge.up { background: #052e16; color: #4ade80; }
+    .badge.down { background: #450a0a; color: #f87171; }
     .badge.checking { background: #1e293b; color: #94a3b8; }
     .badge-dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
     .badge.up .badge-dot { animation: pulse-green 2s infinite; }
-    .card-meta {
-      display: flex; justify-content: space-between; align-items: center;
-      font-size: 0.78rem; color: #4b5563;
-      border-top: 1px solid #2a2d3a; padding-top: 0.8rem;
-    }
-    .response-time span { color: #94a3b8; font-weight: 600; }
+    .card-meta { display: flex; justify-content: space-between; align-items: center; font-size: 0.78rem; color: #4b5563; border-top: 1px solid #2a2d3a; padding-top: 0.8rem; }
+    .http-code span { color: #94a3b8; font-weight: 600; }
     .controls { text-align: center; margin: 2rem auto 0; }
-    .refresh-btn {
-      background: #1a1d27; border: 1px solid #2a2d3a; color: #94a3b8;
-      padding: 0.6rem 1.4rem; border-radius: 8px; font-size: 0.88rem;
-      cursor: pointer; transition: background 0.2s, color 0.2s;
-    }
+    .refresh-btn { background: #1a1d27; border: 1px solid #2a2d3a; color: #94a3b8; padding: 0.6rem 1.4rem; border-radius: 8px; font-size: 0.88rem; cursor: pointer; transition: background .2s, color .2s; }
     .refresh-btn:hover { background: #22263a; color: #fff; }
     .refresh-btn:disabled { opacity: 0.5; cursor: not-allowed; }
     .next-check { font-size: 0.8rem; color: #374151; margin-top: 0.6rem; }
-    .spinner {
-      display: inline-block; width: 10px; height: 10px;
-      border: 2px solid #4b5563; border-top-color: #94a3b8;
-      border-radius: 50%; animation: spin 0.7s linear infinite;
-    }
+    .powered-by { text-align: center; margin-top: 3rem; font-size: 0.75rem; color: #374151; }
+    .powered-by a { color: #4b5563; text-decoration: none; }
+    .powered-by a:hover { color: #9ca3af; }
+    .spinner { display: inline-block; width: 10px; height: 10px; border: 2px solid #4b5563; border-top-color: #94a3b8; border-radius: 50%; animation: spin .7s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
   </style>
 </head>
@@ -97,6 +60,7 @@
     <button class="refresh-btn" id="refresh-btn" onclick="runChecks()">&#8635; Refresh now</button>
     <div class="next-check" id="next-check"></div>
   </div>
+  <div class="powered-by">Status checks via <a href="https://allorigins.win" target="_blank">allorigins.win</a></div>
   <script>
     const SERVICES = [
       { name: 'AFAS',          url: 'https://www.afas.nl' },
@@ -104,59 +68,48 @@
       { name: 'Presentis',     url: 'https://www.presentis.nl' },
       { name: 'De Meerwaarde', url: 'https://www.demeerwaarde.nl' },
     ];
-    const TIMEOUT_MS = 8000;
-    const REFRESH_INTERVAL = 60;
-    let states = SERVICES.map(() => ({ status: 'checking', ms: null, checkedAt: null }));
-    let countdown = REFRESH_INTERVAL;
-    let countdownTimer = null;
+    const PROXY = 'https://api.allorigins.win/get?url=';
+    const TIMEOUT_MS = 10000;
+    const REFRESH_SEC = 60;
+    let states = SERVICES.map(() => ({ status: 'checking', code: null, checkedAt: null }));
+    let countdown = REFRESH_SEC;
+    let countdownTimer;
 
     const grid = document.getElementById('grid');
     SERVICES.forEach((s, i) => {
       const card = document.createElement('div');
       card.className = 'card'; card.id = 'card-' + i;
       card.innerHTML =
-        '<div class="card-top">' +
-          '<div>' +
-            '<div class="service-name">' + s.name + '<\/div>' +
-            '<div class="service-url">' + s.url.replace('https://', '') + '<\/div>' +
-          '<\/div>' +
-          '<div class="badge checking" id="badge-' + i + '"><span class="spinner"><\/span> Checking<\/div>' +
-        '<\/div>' +
-        '<div class="card-meta">' +
-          '<span id="checked-' + i + '">—<\/span>' +
-          '<span class="response-time" id="rt-' + i + '"><\/span>' +
-        '<\/div>';
+        '<div class="card-top"><div>' +
+        '<div class="service-name">' + s.name + '<\/div>' +
+        '<div class="service-url">' + s.url.replace('https://', '') + '<\/div>' +
+        '<\/div><div class="badge checking" id="badge-' + i + '"><span class="spinner"><\/span> Checking<\/div><\/div>' +
+        '<div class="card-meta"><span id="checked-' + i + '">\u2014<\/span><span class="http-code" id="code-' + i + '"><\/span><\/div>';
       grid.appendChild(card);
     });
 
     async function checkService(url) {
-      const start = performance.now();
       const controller = new AbortController();
       const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
       try {
-        await fetch(url, { mode: 'no-cors', signal: controller.signal });
+        const res = await fetch(PROXY + encodeURIComponent(url), { signal: controller.signal });
         clearTimeout(timer);
-        return { up: true, ms: Math.round(performance.now() - start) };
-      } catch {
-        clearTimeout(timer);
-        return { up: false, ms: null };
-      }
+        if (!res.ok) return { up: false, code: null };
+        const data = await res.json();
+        const code = data.status && data.status.http_code;
+        return { up: code >= 200 && code < 400, code };
+      } catch { clearTimeout(timer); return { up: false, code: null }; }
     }
 
-    function updateCard(i, status, ms, checkedAt) {
-      const card = document.getElementById('card-' + i);
+    function updateCard(i, status, code, checkedAt) {
+      document.getElementById('card-' + i).className = 'card ' + status;
       const badge = document.getElementById('badge-' + i);
-      const rtEl = document.getElementById('rt-' + i);
-      const checkedEl = document.getElementById('checked-' + i);
-      card.className = 'card ' + status;
       badge.className = 'badge ' + status;
-      badge.innerHTML = status === 'up'
-        ? '<span class="badge-dot"><\/span> Up'
-        : '<span class="badge-dot"><\/span> Down';
-      rtEl.innerHTML = (status === 'up' && ms !== null) ? '<span>' + ms + 'ms<\/span>' : '';
-      checkedEl.textContent = checkedAt
-        ? 'Checked at ' + checkedAt.toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit', second: '2-digit' })
-        : '—';
+      badge.innerHTML = '<span class="badge-dot"><\/span> ' + (status === 'up' ? 'Up' : 'Down');
+      document.getElementById('code-' + i).innerHTML = code ? 'HTTP <span>' + code + '<\/span>' : '';
+      document.getElementById('checked-' + i).textContent = checkedAt
+        ? 'Checked ' + checkedAt.toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit', second: '2-digit' })
+        : '\u2014';
     }
 
     function updateOverall() {
@@ -178,23 +131,22 @@
     }
 
     async function runChecks() {
-      clearInterval(countdownTimer);
-      countdown = REFRESH_INTERVAL;
+      clearInterval(countdownTimer); countdown = REFRESH_SEC;
       document.getElementById('refresh-btn').disabled = true;
-      states = SERVICES.map(() => ({ status: 'checking', ms: null, checkedAt: null }));
+      document.getElementById('next-check').textContent = '';
+      states = SERVICES.map(() => ({ status: 'checking', code: null, checkedAt: null }));
       SERVICES.forEach((_, i) => {
-        const badge = document.getElementById('badge-' + i);
-        badge.className = 'badge checking';
-        badge.innerHTML = '<span class="spinner"><\/span> Checking';
         document.getElementById('card-' + i).className = 'card';
+        const b = document.getElementById('badge-' + i);
+        b.className = 'badge checking';
+        b.innerHTML = '<span class="spinner"><\/span> Checking';
+        document.getElementById('code-' + i).innerHTML = '';
       });
       updateOverall();
       await Promise.all(SERVICES.map(async (s, i) => {
-        const result = await checkService(s.url);
-        const now = new Date();
-        states[i] = { status: result.up ? 'up' : 'down', ms: result.ms, checkedAt: now };
-        updateCard(i, states[i].status, states[i].ms, now);
-        updateOverall();
+        const r = await checkService(s.url); const now = new Date();
+        states[i] = { status: r.up ? 'up' : 'down', code: r.code, checkedAt: now };
+        updateCard(i, states[i].status, states[i].code, now); updateOverall();
       }));
       document.getElementById('refresh-btn').disabled = false;
       countdownTimer = setInterval(() => {
@@ -206,4 +158,4 @@
     runChecks();
   <\/script>
 </body>
-  </html>
+        </html>
