@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Travel Blog — ACE-M</title>
+<style>
+*,::before,::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;min-height:100vh;background:#dedad5;color:#1a0f05;overflow-x:hidden;display:flex;flex-direction:column}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 85% 65% at 12% 10%,rgba(255,110,20,.16) 0%,rgba(255,110,20,.06) 45%,transparent 72%)}
+nav{position:sticky;top:0;z-index:100;backdrop-filter:blur(44px) saturate(250%) brightness(1.08);-webkit-backdrop-filter:blur(44px) saturate(250%) brightness(1.08);background:rgba(255,255,255,0);border-bottom:1px solid rgba(255,255,255,.3)}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:58px;padding:0 2rem}
+.nav-brand{font-size:1.15rem;font-weight:800;letter-spacing:-.5px;text-decoration:none;background:linear-gradient(135deg,#1a0f05 0%,#FF6B1A 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-links{display:flex;gap:.25rem}
+.nav-link{font-size:.88rem;font-weight:500;text-decoration:none;color:rgba(26,15,5,.7);padding:.38rem .95rem;border-radius:20px;border:1.5px solid transparent;transition:all .22s ease;position:relative}
+.nav-link::after{content:'';position:absolute;inset:0;background:linear-gradient(130deg,rgba(255,255,255,0) 20%,rgba(255,255,255,.55) 50%,rgba(255,255,255,0) 80%);transform:translateX(-160%);transition:transform .4s ease;border-radius:inherit;pointer-events:none}
+.nav-link:hover{background:rgba(255,255,255,.45);color:#1a0f05;border-color:rgba(255,255,255,.88);box-shadow:0 0 0 1px rgba(255,255,255,.28),0 3px 10px rgba(0,0,0,.1),inset 0 2px 0 rgba(255,255,255,2)}
+.nav-link:hover::after{transform:translateX(160%)}
+.nav-link.active{background:linear-gradient(180deg,rgba(255,255,255,.8) 0%,rgba(255,255,255,.04) 44%,rgba(255,255,255,.18) 100%);color:#FF6B1A;font-weight:600;border-color:rgba(255,255,255,.9);box-shadow:0 0 0 1px rgba(255,255,255,.9)}
+main{flex:1;position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;padding:3rem 2rem 4rem}
+.page-header{width:100%;max-width:1100px;margin-bottom:2rem}
+.page-title{font-size:2rem;font-weight:800;color:#1a0f05;letter-spacing:-.03em;margin-bottom:.35rem}
+.page-sub{font-size:.9rem;color:rgba(26,15,5,.4)}
+.filter-bar{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:2rem;width:100%;max-width:1100px}
+.filter-btn{padding:.38rem 1rem;border-radius:30px;font-size:.78rem;font-weight:600;cursor:pointer;border:1.5px solid rgba(255,255,255,.7);background:rgba(255,255,255,.45);color:rgba(26,15,5,.55);backdrop-filter:blur(20px);transition:all .2s ease}
+.filter-btn:hover{background:rgba(255,255,255,.7);color:#1a0f05;border-color:rgba(255,255,255,.9)}
+.filter-btn.active{background:linear-gradient(180deg,rgba(255,255,255,.85) 0%,rgba(255,255,255,.5) 100%);color:#1a0f05;border-color:rgba(255,255,255,.92);box-shadow:0 0 0 1px rgba(255,255,255,.28),0 4px 12px rgba(0,0,0,.08),inset 0 2px 0 rgba(255,255,255,1)}
+.travel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;width:100%;max-width:1100px}
+@media(max-width:700px){.travel-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:450px){.travel-grid{grid-template-columns:1fr}}
+.travel-card{background:linear-gradient(180deg,rgba(255,255,255,.82) 0%,rgba(255,255,255,.44) 100%);backdrop-filter:blur(60px) saturate(220%) brightness(1.06);-webkit-backdrop-filter:blur(60px) saturate(220%) brightness(1.06);border:1.5px solid rgba(255,255,255,.92);border-bottom-color:rgba(255,255,255,.55);box-shadow:0 0 0 1px rgba(255,255,255,.28),0 8px 28px rgba(0,0,0,.09),inset 0 2px 0 rgba(255,255,255,1);border-radius:20px;cursor:pointer;text-decoration:none;color:#1a0f05;transition:transform .28s ease,box-shadow .28s ease;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.travel-card::before{content:'';position:absolute;top:0;left:0;right:0;height:54%;background:linear-gradient(180deg,rgba(255,255,255,.82) 0%,rgba(255,255,255,0) 100%);pointer-events:none;border-radius:inherit;z-index:1}
+.travel-card::after{content:'';position:absolute;inset:0;background:linear-gradient(130deg,rgba(255,255,255,0) 20%,rgba(255,255,255,.65) 50%,rgba(255,255,255,0) 80%);transform:translateX(-160%);transition:transform .5s ease;pointer-events:none;border-radius:inherit;z-index:1}
+.travel-card:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 0 0 1px rgba(255,255,255,.38),0 18px 52px rgba(0,0,0,.13),inset 0 2px 0 rgba(255,255,255,1)}
+.travel-card:hover::after{transform:translateX(160%)}
+.card-img{height:180px;position:relative;overflow:hidden;border-bottom:1px solid rgba(255,255,255,.5);display:flex;align-items:center;justify-content:center;font-size:4rem;flex-shrink:0}
+.card-img-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(26,15,5,.08) 100%);pointer-events:none}
+.card-body{padding:.9rem 1rem 1rem;position:relative;z-index:2;flex:1;display:flex;flex-direction:column;gap:.3rem}
+.card-tag{display:inline-flex;align-items:center;gap:.3rem;background:rgba(255,107,26,.1);border:1px solid rgba(255,107,26,.22);border-radius:30px;padding:.15rem .6rem;font-size:.62rem;font-weight:600;color:rgba(180,65,0,.75);width:fit-content}
+.card-title{font-size:.9rem;font-weight:700;color:#1a0f05;line-height:1.3;margin-top:.1rem}
+.card-meta{font-size:.68rem;color:rgba(26,15,5,.38);margin-top:auto;padding-top:.35rem;display:flex;gap:.6rem;align-items:center}
+.meta-dot{width:3px;height:3px;border-radius:50%;background:rgba(26,15,5,.2)}
+.empty{text-align:center;padding:4rem 2rem;color:rgba(26,15,5,.35)}
+.empty-icon{font-size:2.5rem;margin-bottom:.75rem;opacity:.5}
+.empty-text{font-size:.9rem;font-weight:500}
+footer{position:relative;z-index:1;border-top:1.5px solid rgba(255,255,255,.55);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px)}
+.footer-inner{max-width:1100px;margin:0 auto;padding:2.5rem 2rem;display:flex;flex-direction:column;align-items:center;gap:1.2rem}
+.socials{display:flex;gap:.75rem}
+.social-link{position:relative;z-index:1;display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:13px;background:linear-gradient(180deg,rgba(255,255,255,.8) 0%,rgba(255,255,255,0) 100%),rgba(255,255,255,.45);border:1.5px solid rgba(255,255,255,.88);box-shadow:0 0 0 1px rgba(255,255,255,.28),0 4px 14px rgba(0,0,0,.07),inset 0 2px 0 rgba(255,255,255,1);color:rgba(26,15,5,.55);text-decoration:none;transition:all .3s ease;overflow:hidden}
+.social-link:hover{color:#FF6B1A;transform:translateY(-3px);border-color:rgba(255,255,255,.96);box-shadow:0 0 0 1px rgba(255,255,255,.35),0 10px 28px rgba(255,107,26,.2),inset 0 2px 0 rgba(255,255,255,1)}
+.social-link svg{width:20px;height:20px;position:relative;z-index:1}
+.footer-note{font-size:.78rem;color:rgba(26,15,5,.38)}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">ACE-M</a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="about.html" class="nav-link">About me</a>
+    </div>
+  </div>
+</nav>
+<main>
+  <div class="page-header">
+    <div class="page-title">Travel Blog ✈️</div>
+    <div class="page-sub">Places I've been, things I've seen.</div>
+  </div>
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterCards('all',this)">All</button>
+    <button class="filter-btn" onclick="filterCards('asia',this)">Asia</button>
+    <button class="filter-btn" onclick="filterCards('europe',this)">Europe</button>
+    <button class="filter-btn" onclick="filterCards('oceania',this)">Oceania</button>
+    <button class="filter-btn" onclick="filterCards('americas',this)">Americas</button>
+  </div>
+  <div class="travel-grid" id="grid">
+    <a href="#" class="travel-card" data-region="asia">
+      <div class="card-img" style="background:linear-gradient(135deg,rgba(255,180,80,.2),rgba(255,107,26,.1))">
+        🗼<div class="card-img-overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="card-tag"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Asia</div>
+        <div class="card-title">Tokyo, Japan</div>
+        <div class="card-meta"><span>7 days</span><div class="meta-dot"></div><span>Spring 2024</span></div>
+      </div>
+    </a>
+    <a href="#" class="travel-card" data-region="europe">
+      <div class="card-img" style="background:linear-gradient(135deg,rgba(100,160,255,.18),rgba(60,100,200,.08))">
+        🏛️<div class="card-img-overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="card-tag" style="background:rgba(60,130,246,.1);border-color:rgba(60,130,246,.22);color:rgba(30,80,200,.7)"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Europe</div>
+        <div class="card-title">Rome, Italy</div>
+        <div class="card-meta"><span>5 days</span><div class="meta-dot"></div><span>Summer 2023</span></div>
+      </div>
+    </a>
+    <a href="#" class="travel-card" data-region="oceania">
+      <div class="card-img" style="background:linear-gradient(135deg,rgba(61,186,111,.15),rgba(30,120,70,.07))">
+        🌿<div class="card-img-overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="card-tag" style="background:rgba(61,186,111,.1);border-color:rgba(61,186,111,.22);color:rgba(30,120,70,.75)"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Oceania</div>
+        <div class="card-title">Queenstown, NZ</div>
+        <div class="card-meta"><span>4 days</span><div class="meta-dot"></div><span>Winter 2023</span></div>
+      </div>
+    </a>
+    <a href="#" class="travel-card" data-region="asia">
+      <div class="card-img" style="background:linear-gradient(135deg,rgba(255,200,100,.2),rgba(255,150,30,.1))">
+        🏯<div class="card-img-overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="card-tag"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Asia</div>
+        <div class="card-title">Kyoto, Japan</div>
+        <div class="card-meta"><span>3 days</span><div class="meta-dot"></div><span>Spring 2024</span></div>
+      </div>
+    </a>
+    <a href="#" class="travel-card" data-region="europe">
+      <div class="card-img" style="background:linear-gradient(135deg,rgba(200,160,255,.18),rgba(139,92,246,.08))">
+        🗺️<div class="card-img-overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="card-tag" style="background:rgba(60,130,246,.1);border-color:rgba(60,130,246,.22);color:rgba(30,80,200,.7)"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Europe</div>
+        <div class="card-title">Amsterdam, NL</div>
+        <div class="card-meta"><span>4 days</span><div class="meta-dot"></div><span>Summer 2023</span></div>
+      </div>
+    </a>
+    <a href="#" class="travel-card" data-region="americas">
+      <div class="card-img" style="background:linear-gradient(135deg,rgba(255,107,26,.15),rgba(200,60,0,.08))">
+        🏄<div class="card-img-overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="card-tag" style="background:rgba(180,65,0,.08);border-color:rgba(180,65,0,.2);color:rgba(140,45,0,.7)"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Americas</div>
+        <div class="card-title">New York, USA</div>
+        <div class="card-meta"><span>6 days</span><div class="meta-dot"></div><span>Autumn 2022</span></div>
+      </div>
+    </a>
+  </div>
+</main>
+<footer>
+  <div class="footer-inner">
+    <div class="socials">
+      <a href="https://www.instagram.com/_ace_m_/" class="social-link" title="Instagram" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg></a>
+      <a href="https://github.com/ULTIMATE-ACE-M" class="social-link" title="GitHub" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></a>
+      <a href="https://www.linkedin.com/in/mitchell-nesselaar-1b309134a/" class="social-link" title="LinkedIn" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+    </div>
+    <div class="footer-note">© ACE-M</div>
+  </div>
+</footer>
+<script>
+function filterCards(region, btn) {
+  document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active')});
+  btn.classList.add('active');
+  var cards = document.querySelectorAll('.travel-card');
+  cards.forEach(function(card) {
+    var match = region === 'all' || card.dataset.region === region;
+    card.style.transition = 'opacity .25s ease, transform .25s ease';
+    if (match) { card.style.opacity='1'; card.style.pointerEvents=''; card.style.display=''; }
+    else { card.style.opacity='0'; card.style.pointerEvents='none'; setTimeout(function(){ card.style.display='none'; }, 250); }
+  });
+  var visible = Array.from(cards).filter(function(c){ return region==='all'||c.dataset.region===region; });
+  var empty = document.getElementById('empty-state');
+  if (!visible.length && !empty) {
+    var el=document.createElement('div'); el.id='empty-state'; el.className='empty';
+    el.innerHTML='<div class="empty-icon">🗺️</div><div class="empty-text">No trips here yet.</div>';
+    document.getElementById('grid').appendChild(el);
+  } else if (empty && visible.length) { empty.remove(); }
+}
+</script>
+</body>
+</html>
