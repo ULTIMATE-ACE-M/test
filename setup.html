@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setup/Gear â ACE-M</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #dedad5;
+            color: #1a0f05;
+            line-height: 1.6;
+        }
+
+        body {
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at 20% -10%, rgba(255, 107, 26, 0.15), transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 2rem;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.44) 100%);
+            backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
+            -webkit-backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
+            border-bottom: 1.5px solid rgba(255, 255, 255, 0.92);
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.28), 0 8px 28px rgba(0, 0, 0, 0.09), inset 0 2px 0 rgba(255, 255, 255, 1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-brand {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1a0f05;
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #1a0f05;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #FF6B1A;
+        }
+
+        /* Main content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .page-header {
+            margin-bottom: 3rem;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.1rem;
+            color: #1a0f05;
+            opacity: 0.75;
+        }
+
+        /* Sections */
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #FF6B1A;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .section-title-emoji {
+            font-size: 1.4rem;
+        }
+
+        .section-link {
+            color: #1a0f05;
+            font-size: 0.85rem;
+            text-decoration: none;
+            opacity: 0.6;
+            transition: opacity 0.3s;
+        }
+
+        .section-link:hover {
+            opacity: 1;
+            color: #FF6B1A;
+        }
+
+        .tiles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            gap: 1rem;
+        }
+
+        /* Glass tile */
+        .tile {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.44) 100%);
+            backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
+            -webkit-backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
+            border: 1.5px solid rgba(255, 255, 255, 0.92);
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.28), 0 8px 28px rgba(0, 0, 0, 0.09), inset 0 2px 0 rgba(255, 255, 255, 1);
+            border-radius: 16px;
+            padding: 0.9rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.3rem;
+            min-width: 110px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .tile:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.28), 0 12px 36px rgba(0, 0, 0, 0.12), inset 0 2px 0 rgba(255, 255, 255, 1);
+        }
+
+        .tile.fav {
+            background: linear-gradient(135deg, rgba(255, 107, 26, 0.15), rgba(255, 255, 255, 0.88));
+            border-color: rgba(255, 107, 26, 0.3);
+        }
+
+        .tile-badge {
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: #FF6B1A;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .tile-emoji {
+            font-size: 1.6rem;
+            line-height: 1;
+        }
+
+        .tile-name {
+            font-size: 0.78rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .tile-subtitle {
+            font-size: 0.65rem;
+            opacity: 0.6;
+            line-height: 1.1;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.44) 100%);
+            backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
+            -webkit-backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
+            border-top: 1.5px solid rgba(255, 255, 255, 0.92);
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.28), 0 8px 28px rgba(0, 0, 0, 0.09), inset 0 2px 0 rgba(255, 255, 255, 1);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+
+        .social-links a {
+            color: #1a0f05;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #FF6B1A;
+        }
+
+        .footer-text {
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 1.5rem;
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            main {
+                padding: 2rem 1.5rem;
+            }
+
+            .page-title {
+                font-size: 1.8rem;
+            }
+
+            .tiles-grid {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+                gap: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="nav-brand">ACE-M</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About me</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <div class="page-header">
+            <h1 class="page-title">Setup/Gear</h1>
+            <p class="page-subtitle">Everything I use, carry and rely on</p>
+        </div>
+
+        <!-- Desk Section -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="section-title-emoji">ð¥</span>
+                    Desk
+                </h2>
+                <a href="setup-desk.html" class="section-link">View all â</a>
+            </div>
+            <div class="tiles-grid">
+                <a href="setup-desk.html" class="tile fav">
+                    <span class="tile-badge">â­</span>
+                    <span class="tile-emoji">ð»</span>
+                    <span class="tile-name">MacBook Pro</span>
+                    <span class="tile-subtitle">M3 ProÂ·16"</span>
+                </a>
+                <a href="setup-desk.html" class="tile">
+                    <span class="tile-emoji">ðº</span>
+                    <span class="tile-name">LG 27" 4K</span>
+                    <span class="tile-subtitle">USB-C</span>
+                </a>
+                <a href="setup-desk.html" class="tile">
+                    <span class="tile-emoji">â¨ï¸</span>
+                    <span class="tile-name">Keychron Q3</span>
+                    <span class="tile-subtitle">Brown switches</span>
+                </a>
+                <a href="setup-desk.html" class="tile">
+                    <span class="tile-emoji">ð±</span>
+                    <span class="tile-name">MX Master 3S</span>
+                    <span class="tile-subtitle">Logitech</span>
+                </a>
+                <a href="setup-desk.html" class="tile">
+                    <span class="tile-emoji">ð¡</span>
+                    <span class="tile-name">Key Light Air</span>
+                    <span class="tile-subtitle">Elgato</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Bag Section -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="section-title-emoji">ð</span>
+                    Bag
+                </h2>
+                <a href="setup-bag.html" class="section-link">View all â</a>
+            </div>
+            <div class="tiles-grid">
+                <a href="setup-bag.html" class="tile fav">
+                    <span class="tile-badge">â­</span>
+                    <span class="tile-emoji">ð</span>
+                    <span class="tile-name">Peak Design</span>
+                    <span class="tile-subtitle">Everyday 20L</span>
+                </a>
+                <a href="setup-bag.html" class="tile">
+                    <span class="tile-emoji">ð</span>
+                    <span class="tile-name">Anker Hub</span>
+                    <span class="tile-subtitle">7-in-1 USB-C</span>
+                </a>
+                <a href="setup-bag.html" class="tile">
+                    <span class="tile-emoji">ð</span>
+                    <span class="tile-name">PowerCore</span>
+                    <span class="tile-subtitle">20,000mAh</span>
+                </a>
+                <a href="setup-bag.html" class="tile">
+                    <span class="tile-emoji">ð</span>
+                    <span class="tile-name">AirFly Pro</span>
+                    <span class="tile-subtitle">BT transmitter</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Mobile Section -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="section-title-emoji">ð±</span>
+                    Mobile
+                </h2>
+                <a href="setup-mobile.html" class="section-link">View all â</a>
+            </div>
+            <div class="tiles-grid">
+                <a href="setup-mobile.html" class="tile fav">
+                    <span class="tile-badge">â­</span>
+                    <span class="tile-emoji">ð±</span>
+                    <span class="tile-name">iPhone 15 Pro</span>
+                    <span class="tile-subtitle">Titanium</span>
+                </a>
+                <a href="setup-mobile.html" class="tile">
+                    <span class="tile-emoji">â</span>
+                    <span class="tile-name">Apple Watch</span>
+                    <span class="tile-subtitle">Series 9</span>
+                </a>
+                <a href="setup-mobile.html" class="tile">
+                    <span class="tile-emoji">ðµ</span>
+                    <span class="tile-name">AirPods Pro</span>
+                    <span class="tile-subtitle">2nd gen</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Audio Section -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="section-title-emoji">ð§</span>
+                    Audio
+                </h2>
+                <a href="setup-audio.html" class="section-link">View all â</a>
+            </div>
+            <div class="tiles-grid">
+                <a href="setup-audio.html" class="tile fav">
+                    <span class="tile-badge">â­</span>
+                    <span class="tile-emoji">ð§</span>
+                    <span class="tile-name">Sony XM5</span>
+                    <span class="tile-subtitle">ANC headphones</span>
+                </a>
+                <a href="setup-audio.html" class="tile">
+                    <span class="tile-emoji">ð</span>
+                    <span class="tile-name">Blue Yeti</span>
+                    <span class="tile-subtitle">USB mic</span>
+                </a>
+                <a href="setup-audio.html" class="tile">
+                    <span class="tile-emoji">ð</span>
+                    <span class="tile-name">Yamaha HS5</span>
+                    <span class="tile-subtitle">Studio monitors</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="https://instagram.com" aria-label="Instagram">Instagram</a>
+                <a href="https://github.com" aria-label="GitHub">GitHub</a>
+                <a href="https://linkedin.com" aria-label="LinkedIn">LinkedIn</a>
+            </div>
+            <p class="footer-text">Â© ACE-M</p>
+        </div>
+    </footer>
+</body>
+  </html>
