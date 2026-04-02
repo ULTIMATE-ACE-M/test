@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><title>Gallery - ACE-M</title>
+<style>
+*,::before,::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;min-height:100vh;background:#dedad5;color:#1a0f05;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 85% 65% at 12% 10%,rgba(255,110,20,.16) 0%,rgba(255,110,20,.06) 45%,transparent 72%),radial-gradient(ellipse 80% 70% at 88% 20%,rgba(255,80,0,.13) 0%,rgba(255,80,0,.04) 45%,transparent 70%),radial-gradient(ellipse 95% 75% at 50% 92%,rgba(255,130,40,.12) 0%,rgba(255,130,40,.04) 45%,transparent 68%)}
+nav{position:sticky;top:0;z-index:100;backdrop-filter:blur(44px) saturate(250%) brightness(1.08);-webkit-backdrop-filter:blur(44px) saturate(250%) brightness(1.08);background:rgba(255,255,255,.28);border-bottom:1.5px solid rgba(255,255,255,.72);box-shadow:0 0 0 1px rgba(0,0,0,.06),0 2px 16px rgba(0,0,0,.08)}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:58px;padding:0 2rem}
+.nav-brand{font-size:1.15rem;font-weight:800;letter-spacing:-.5px;text-decoration:none;background:linear-gradient(135deg,#1a0f05 0%,#FF6B1A 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-links{display:flex;gap:.25rem}
+.nav-link{font-size:.88rem;font-weight:500;text-decoration:none;color:rgba(26,15,5,.7);padding:.38rem .95rem;border-radius:20px;border:1.5px solid transparent;transition:all .22s ease;position:relative;overflow:hidden}
+.nav-link::after{content:'';position:absolute;inset:0;background:linear-gradient(130deg,rgba(255,255,255,0) 20%,rgba(255,255,255,.55) 50%,rgba(255,255,255,0) 80%);transform:translateX(-160%);transition:transform .4s ease;pointer-events:none;border-radius:inherit}
+.nav-link:hover{background:rgba(255,255,255,.45);color:#1a0f05;border-color:rgba(255,255,255,.88);box-shadow:0 0 0 1px rgba(255,255,255,.28),0 3px 10px rgba(0,0,0,.1),inset 0 2px 0 rgba(255,255,255,1)}
+.nav-link:hover::after{transform:translateX(160%)}
+.nav-link.active{background:linear-gradient(180deg,rgba(255,255,255,.8) 0%,rgba(255,255,255,.04) 44%,rgba(255,255,255,.18) 100%);color:#FF6B1A;font-weight:600;border-color:rgba(255,255,255,.92);box-shadow:0 0 0 1px rgba(255,255,255,.28),0 4px 18px rgba(0,0,0,.08),inset 0 2px 0 rgba(255,255,255,1)}
+.page{position:relative;z-index:1;padding:3rem 2rem 6rem;max-width:1100px;margin:0 auto}
+.page-header{text-align:center;margin-bottom:2.5rem}
+.page-title{font-size:clamp(2rem,5vw,3.5rem);font-weight:800;letter-spacing:-.03em;color:#1a0f05;margin-bottom:.75rem}
+.page-sub{font-size:.95rem;color:rgba(26,15,5,.55)}
+.upload-zone{border:2px dashed rgba(255,107,26,.35);border-radius:22px;padding:3rem 2rem;text-align:center;margin-bottom:2.5rem;background:rgba(255,255,255,.25);backdrop-filter:blur(20px);transition:all .25s ease;cursor:pointer;position:relative}
+.upload-zone:hover,.upload-zone.drag-over{border-color:rgba(255,107,26,.7);background:rgba(255,255,255,.38);box-shadow:0 0 0 1px rgba(255,255,255,.3),0 8px 32px rgba(255,107,26,.1)}
+.upload-icon{width:52px;height:52px;margin:0 auto 1rem;opacity:.5}
+.upload-text{font-size:1rem;font-weight:600;color:rgba(26,15,5,.6);margin-bottom:.4rem}
+.upload-sub{font-size:.82rem;color:rgba(26,15,5,.4);margin-bottom:1.4rem}
+.upload-btn{display:inline-flex;align-items:center;gap:.45rem;font-size:.88rem;font-weight:600;padding:.55rem 1.4rem;border-radius:50px;border:1.5px solid rgba(255,255,255,.92);border-bottom-color:rgba(255,255,255,.55);background:linear-gradient(180deg,rgba(255,140,40,.28) 0%,rgba(255,88,10,.14) 100%);color:#FF6B1A;cursor:pointer;box-shadow:0 0 0 1px rgba(255,255,255,.28),0 4px 18px rgba(255,107,26,.18),inset 0 2px 0 rgba(255,210,140,.6);transition:all .22s ease}
+.upload-btn:hover{transform:translateY(-2px);box-shadow:0 0 0 1px rgba(255,255,255,.35),0 8px 24px rgba(255,107,26,.28),inset 0 2px 0 rgba(255,210,140,.6)}
+#file-input{display:none}
+.empty-state{text-align:center;padding:3rem 0;display:none}
+.empty-state.show{display:block}
+.empty-icon{font-size:3.5rem;margin-bottom:1rem;opacity:.4}
+.empty-text{font-size:.95rem;color:rgba(26,15,5,.4)}
+.gallery-grid{columns:3 280px;gap:1.2rem}
+.gallery-item{break-inside:avoid;margin-bottom:1.2rem;position:relative;border-radius:18px;overflow:hidden;cursor:pointer;background:rgba(255,255,255,.6);box-shadow:0 0 0 1px rgba(255,255,255,.28),0 8px 32px rgba(0,0,0,.08);transition:all .28s ease}
+.gallery-item:hover{transform:translateY(-4px);box-shadow:0 0 0 1px rgba(255,255,255,.38),0 18px 52px rgba(0,0,0,.13)}
+.gallery-item img{width:100%;height:auto;display:block;border-radius:18px}
+.item-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,15,5,.55) 0%,transparent 50%);opacity:0;transition:opacity .25s ease;border-radius:18px;display:flex;align-items:flex-end;justify-content:space-between;padding:.9rem 1rem}
+.gallery-item:hover .item-overlay{opacity:1}
+.del-btn{background:rgba(255,255,255,.18);backdrop-filter:blur(10px);border:1.5px solid rgba(255,255,255,.4);color:#fff;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;transition:all .2s ease;flex-shrink:0}
+.del-btn:hover{background:rgba(220,50,30,.7)}
+.view-btn{background:rgba(255,255,255,.18);backdrop-filter:blur(10px);border:1.5px solid rgba(255,255,255,.4);color:#fff;border-radius:50px;padding:.3rem .85rem;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .2s ease}
+.view-btn:hover{background:rgba(255,255,255,.32)}
+.lightbox{position:fixed;inset:0;z-index:1000;background:rgba(26,15,5,.88);backdrop-filter:blur(20px);display:none;align-items:center;justify-content:center;padding:2rem}
+.lightbox.open{display:flex}
+.lightbox-img{max-width:90vw;max-height:88vh;border-radius:14px;box-shadow:0 30px 80px rgba(0,0,0,.5);object-fit:contain}
+.lightbox-close{position:fixed;top:1.4rem;right:1.6rem;background:rgba(255,255,255,.14);border:1.5px solid rgba(255,255,255,.3);color:#fff;border-radius:50%;width:44px;height:44px;font-size:1.4rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s ease;z-index:1001}
+.lightbox-close:hover{background:rgba(255,255,255,.25)}
+.lightbox-nav{position:fixed;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.14);border:1.5px solid rgba(255,255,255,.3);color:#fff;border-radius:50%;width:48px;height:48px;font-size:1.5rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s ease;z-index:1001}
+.lightbox-nav:hover{background:rgba(255,255,255,.25)}
+.lightbox-prev{left:1.2rem}
+.lightbox-next{right:1.2rem}
+.count-badge{display:inline-flex;align-items:center;gap:.4rem;font-size:.82rem;font-weight:600;color:rgba(26,15,5,.5);margin-bottom:1.5rem}
+@media(max-width:600px){.gallery-grid{columns:2 160px}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-brand">ACE-M</a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Home</a>
+      <a href="status.html" class="nav-link">Status</a>
+      <a href="about.html" class="nav-link">About me</a>
+    </div>
+  </div>
+</nav>
+<div class="page">
+  <div class="page-header">
+    <h1 class="page-title">Gallery</h1>
+    <p class="page-sub">Your personal photo collection</p>
+  </div>
+  <div class="upload-zone" id="upload-zone">
+    <input type="file" id="file-input" accept="image/*" multiple>
+    <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="rgba(255,107,26,.6)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+    <p class="upload-text">Drop photos here or click to upload</p>
+    <p class="upload-sub">PNG, JPG, GIF, WEBP - any size</p>
+    <button class="upload-btn" type="button">+ Add Photos</button>
+  </div>
+  <div id="count-wrap" style="display:none"><div class="count-badge"><span id="count-text"></span></div></div>
+  <div class="empty-state" id="empty-state"><div class="empty-icon">&#128444;</div><p class="empty-text">No photos yet - upload some above</p></div>
+  <div class="gallery-grid" id="gallery-grid"></div>
+</div>
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">&#215;</button>
+  <button class="lightbox-nav lightbox-prev" onclick="navLightbox(-1)">&#8249;</button>
+  <img class="lightbox-img" id="lightbox-img" src="" alt=""/>
+  <button class="lightbox-nav lightbox-next" onclick="navLightbox(1)">&#8250;</button>
+</div>
+<script>
+var KEY='ace_gallery_v1',lbIdx=0;
+function load(){try{return JSON.parse(localStorage.getItem(KEY)||'[]');}catch(e){return[];}}
+function save(p){try{localStorage.setItem(KEY,JSON.stringify(p));}catch(e){alert('Storage full - delete some photos first.');}}
+function compress(file,cb){
+  var r=new FileReader();
+  r.onload=function(e){
+    var i=new Image();
+    i.onload=function(){
+      var mw=1400,mh=1400,w=i.width,h=i.height;
+      if(w>mw||h>mh){var s=Math.min(mw/w,mh/h);w=Math.round(w*s);h=Math.round(h*s);}
+      var c=document.createElement('canvas');c.width=w;c.height=h;
+      c.getContext('2d').drawImage(i,0,0,w,h);
+      cb({src:c.toDataURL('image/jpeg',file.size>500000?.72:.85),name:file.name,ts:Date.now()});
+    };i.src=e.target.result;
+  };r.readAsDataURL(file);
+}
+function render(){
+  var p=load(),g=document.getElementById('gallery-grid'),e=document.getElementById('empty-state'),cw=document.getElementById('count-wrap');
+  g.innerHTML='';
+  if(!p.length){e.classList.add('show');cw.style.display='none';return;}
+  e.classList.remove('show');cw.style.display='block';
+  document.getElementById('count-text').textContent=p.length+' photo'+(p.length!==1?'s':'');
+  p.forEach(function(ph,i){
+    var d=document.createElement('div');d.className='gallery-item';
+    d.innerHTML='<img src="'+ph.src+'" alt="'+(ph.name||'Photo')+'" loading="lazy"><div class="item-overlay"><button class="view-btn" onclick="lb('+i+',event)">View</button><button class="del-btn" onclick="del('+i+',event)">&#215;</button></div>';
+    d.addEventListener('click',function(){lb(i);});g.appendChild(d);
+  });
+}
+function del(i,e){if(e)e.stopPropagation();var p=load();p.splice(i,1);save(p);render();}
+function lb(i,e){if(e)e.stopPropagation();var p=load();if(!p[i])return;lbIdx=i;document.getElementById('lightbox-img').src=p[i].src;document.getElementById('lightbox').classList.add('open');document.body.style.overflow='hidden';}
+function closeLightbox(){document.getElementById('lightbox').classList.remove('open');document.getElementById('lightbox-img').src='';document.body.style.overflow='';}
+function navLightbox(d){var p=load();lbIdx=(lbIdx+d+p.length)%p.length;document.getElementById('lightbox-img').src=p[lbIdx].src;}
+function handleFiles(files){if(!files.length)return;var p=load(),n=files.length;files.forEach(function(f){compress(f,function(ph){p.push(ph);if(!--n){save(p);render();}});});}
+var fi=document.getElementById('file-input'),uz=document.getElementById('upload-zone');
+uz.addEventListener('click',function(e){if(e.target.tagName!=='BUTTON'&&e.target.tagName!=='INPUT')fi.click();});
+uz.querySelector('.upload-btn').addEventListener('click',function(e){e.stopPropagation();fi.click();});
+fi.addEventListener('change',function(){handleFiles(Array.from(fi.files));fi.value='';});
+uz.addEventListener('dragover',function(e){e.preventDefault();uz.classList.add('drag-over');});
+uz.addEventListener('dragleave',function(){uz.classList.remove('drag-over');});
+uz.addEventListener('drop',function(e){e.preventDefault();uz.classList.remove('drag-over');handleFiles(Array.from(e.dataTransfer.files).filter(function(f){return f.type.startsWith('image/');}));});
+document.addEventListener('keydown',function(e){var l=document.getElementById('lightbox');if(!l.classList.contains('open'))return;if(e.key==='Escape')closeLightbox();if(e.key==='ArrowRight')navLightbox(1);if(e.key==='ArrowLeft')navLightbox(-1);});
+document.getElementById('lightbox').addEventListener('click',function(e){if(e.target===this)closeLightbox();});
+render();
+</script>
+</body>
+</html>
