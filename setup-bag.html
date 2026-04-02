@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bag â Setup/Gear â ACE-M</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            }
+
+        html, body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #dedad5;
+            color: #1a0f05;
+            line-height: 1.6;
+            }
+
+        body {
+            position: relative;
+            overflow-x: hidden;
+            }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at 20% -10%, rgba(255, 107, 26, 0.15), transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+            }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 2rem;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.44) 100%);
+            backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
+            -webkit-backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
+            border-bottom: 1.5px solid rgba(255, 255, 255, 0.92);
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.28), 0 8px 28px rgba(0, 0, 0, 0.09), inset 0 2px 0 rgba(255, 255, 255, 1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            }
+
+        .nav-brand {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1a0f05;
+            text-decoration: none;
+            letter-spacing: -0.02em;
+            }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            }
+
+        .nav-links a {
+            color: #1a0f05;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+            }
+
+        .nav-links a:hover {
+            color: #FF6B1A;
+            }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            }
+
+        .back-link {
+            display: inline-block;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.44) 100%);
+            backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
+            -webkit-backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
+            border: 1.5px solid rgba(255, 255, 255, 0.92);
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.28), 0 8px 28px rgba(0, 0, 0, 0.09), inset 0 2px 0 rgba(255, 255, 255, 1);
+            border-radius: 50px;
+            padding: 0.6rem 1.2rem;
+            color: #1a0f05;
+            text-decoration: none;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            transition: opacity 0.3s, color 0.3s;
+            margin-bottom: 2rem;
+            }
+
+        .back-link:hover {
+            opacity: 1;
+            color: #FF6B1A;
+            }
+
+        .page-header {
+            margin-bottom: 2.5rem;
+            }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            }
+
+        .page-subtitle {
+            font-size: 1.1rem;
+            color: #1a0f05;
+            opacity: 0.75;
+            }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1.7fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            }
+
+        .left-column {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            }
+
+        .right-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 0.9rem;
+            }
+
+        .hero-card {
+            background: linear-gradient(135deg, rgba(255, 107, 26, 0.12), rgba(255, 255, 255, 0.85));
+            backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
+            -webkit-backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
+            border: 1.5px solid rgba(255, 107, 26, 0.25);
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.28), 0 8px 28px rgba(0, 0, 0, 0.09), inset 0 2px 0 rgba(255, 255, 255, 1);
+            border-radius: 20px;
+            padding: 1.6rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            }
+
+        .icon-box {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #FF6B1A, #FFB84D);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 4px 16px rgba(255, 107, 26, 0.2);
+            }
+
+        .hero-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #FF6B1A;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            background: rgba(255, 107, 26, 0.08);
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            width: fit-content;
+            }
+
+        .hero-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            line-height: 1.3;
+            }
+
+        .hero-description {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            opacity: 0.85;
+            }
+
+        .hero-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            }
+
+        .tag {
+            font-size: 0.75rem;
+            background: rgba(255, 107, 26, 0.1);
+            color: #FF6B1A;
+            padding: 0.35rem 0.8rem;
+            border-radius: 12px;
+            font-weight: 500;
+            }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            }
+
+        .card {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.44) 100%);
+            backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
+            -webkit-backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
+            border: 1.5px solid rgba(255, 255, 255, 0.92);
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.28), 0 8px 28px rgba(0, 0, 0, 0.09), inset 0 2px 0 rgba(255, 255, 255, 1);
+            border-radius: 16px;
+            padding: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            }
+
+        .card-emoji {
+            font-size: 1.8rem;
+            }
+
+        .card-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            line-height: 1.3;
+            }
+
+        .card-description {
+            font-size: 0.85rem;
+            line-height: 1.6;
+            opacity: 0.8;
+            }
+
+        .card-tag {
+            align-self: flex-start;
+            font-size: 0.7rem;
+            background: rgba(255, 107, 26, 0.1);
+            color: #FF6B1A;
+            padding: 0.3rem 0.7rem;
+            border-radius: 10px;
+            font-weight: 500;
+            }
+
+        .sidebar-card {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.44) 100%);
+            backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
+            -webkit-backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
+            border: 1.5px solid rgba(255, 255, 255, 0.92);
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.28), 0 8px 28px rgba(0, 0, 0, 0.09), inset 0 2px 0 rgba(255, 255, 255, 1);
+            border-radius: 16px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            }
+
+        .sidebar-emoji {
+            font-size: 1.6rem;
+            }
+
+        .sidebar-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            line-height: 1.3;
+            }
+
+        .sidebar-description {
+            font-size: 0.8rem;
+            line-height: 1.6;
+            opacity: 0.75;
+            }
+
+        .sidebar-tag {
+            align-self: flex-start;
+            font-size: 0.65rem;
+            background: rgba(255, 107, 26, 0.1);
+            color: #FF6B1A;
+            padding: 0.25rem 0.6rem;
+            border-radius: 8px;
+            font-weight: 500;
+            }
+
+        footer {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.44) 100%);
+            backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
+            -webkit-backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
+            border-top: 1.5px solid rgba(255, 255, 255, 0.92);
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.28), 0 8px 28px rgba(0, 0, 0, 0.09), inset 0 2px 0 rgba(255, 255, 255, 1);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 3rem;
+            }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: center;
+            }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            }
+
+        .social-links a {
+            color: #1a0f05;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+            }
+
+        .social-links a:hover {
+            color: #FF6B1A;
+            }
+
+        .footer-text {
+            font-size: 0.85rem;
+            opacity: 0.7;
+            }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 1.5rem;
+                }
+            .nav-links {
+                gap: 1.5rem;
+                font-size: 0.9rem;
+                }
+            main {
+                padding: 2rem 1.5rem;
+                }
+            .page-title {
+                font-size: 1.8rem;
+                }
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                }
+            .card-grid {
+                grid-template-columns: 1fr;
+                }
+            .right-sidebar {
+                gap: 0.9rem;
+                }
+            }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="nav-brand">ACE-M</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About me</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <a href="setup.html" class="back-link">â° Setup/Gear</a>
+
+        <div class="page-header">
+            <h1 class="page-title">ð Bag</h1>
+            <p class="page-subtitle">What I pack every day</p>
+        </div>
+
+        <div class="content-grid">
+            <div class="left-column">
+                <div class="hero-card">
+                    <div class="icon-box">ð</div>
+                    <span class="hero-badge">â­ Favourite pick</span>
+                    <h2 class="hero-title">Peak Design Everyday Backpack 20L</h2>
+                    <p class="hero-description">The best bag I've ever owned. FlexFold dividers let me configure it for any trip â laptop on one side, camera gear on the other. The MagLatch is deeply satisfying and the weatherproofing has saved me more than once. I take this everywhere, every day.</p>
+                    <div class="hero-tags">
+                        <span class="tag">Everyday carry</span>
+                        <span class="tag">20L</span>
+                        <span class="tag">Midnight</span>
+                        <span class="tag">Weather resistant</span>
+                    </div>
+                </div>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-emoji">ð</div>
+                        <h3 class="card-title">Anker 7-in-1 USB-C Hub</h3>
+                        <p class="card-description">Single cable to my monitor, external SSD and phone charger. Tiny enough to forget it's in there until you need it.</p>
+                        <span class="card-tag">Accessories</span>
+                    </div>
+                    <div class="card">
+                        <div class="card-emoji">ð</div>
+                        <h3 class="card-title">Anker PowerCore 20,000</h3>
+                        <p class="card-description">Emough charge to top up my phone four or five times. Never been left stranded since I started carrying this.</p>
+                        <span class="card-tag">Power</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-sidebar">
+                <div class="sidebar-card">
+                    <div class="sidebar-emoji">ð</div>
+                    <h3 class="sidebar-title">Twelve South AirFly Pro</h3>
+                    <p class="sidebar-description">Plugs into any 3.5mm jack and beams audio to my AirPods. An absolute essential on planes and hotel gym equipment.</p>
+                    <span class="sidebar-tag">Audio</span>
+                </div>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bag â Setup/Gear â ACE-M</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            }
+
+        html, body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #dedad5;
+            color: #1a0f05;
+            line-height: 1.6;
+            }
+
+        body {
+            position: relative;
+            overflow-x: hidden;
+            }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at 20% -10%, rgba(255, 107, 26, 0.15), transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+            }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 2rem;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.44) 100%);
+            backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
+            -webkit-backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
+            border-bottom: 1.5px solid rgba(255, 255, 255, 0.92);
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.28), 0 8px 28px rgba(0, 0, 0, 0.09), inset 0 2px 0 rgba(255, 255, 255, 1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            }
+
+        .nav-brand {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1a0f05;
+            text-decoration: none;
+            letter-spacing: -0.02em;
+            }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            }
+
+        .nav-links a {
+            color: #1a0f05;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+            }
+
+        .nav-links a:hover {
+            color: #FF6B1A;
+            }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            }
+
+        .back-link {
+            display: inline-block;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.44) 100%);
+            backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
+            -webkit-backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
+            border: 1.5px solid rgba(255, 255, 255, 0.92);
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.28), 0 8px 28px rgba(0, 0, 0, 0.09), inset 0 2px 0 rgba(255, 255, 255, 1);
+            border-radius: 50px;
+            padding: 0.6rem 1.2rem;
+            color: #1a0f05;
+            text-decoration: none;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            transition: opacity 0.3s, color 0.3s;
+            margin-bottom: 2rem;
+            }
+
+        .back-link:hover {
+            opacity: 1;
+            color: #FF6B1A;
+            }
+
+        .page-header {
+            margin-bottom: 2.5rem;
+            }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            }
+
+        .page-subtitle {
+            font-size: 1.1rem;
+            color: #1a0f05;
+            opacity: 0.75;
+            }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1.7fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            }
+
+        .left-column {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            }
+
+        .right-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 0.9rem;
+            }
+
+        .hero-card {
+            background: linear-gradient(135deg, rgba(255, 107, 26, 0.12), rgba(255, 255, 255, 0.85));
+            backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
+            -webkit-backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
+            border: 1.5px solid rgba(255, 107, 26, 0.25);
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.28), 0 8px 28px rgba(0, 0, 0, 0.09), inset 0 2px 0 rgba(255, 255, 255, 1);
+            border-radius: 20px;
+            padding: 1.6rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            }
+
+        .icon-box {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #FF6B1A, #FFB84D);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 4px 16px rgba(255, 107, 26, 0.2);
+            }
+
+        .hero-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #FF6B1A;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            background: rgba(255, 107, 26, 0.08);
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            width: fit-content;
+            }
+
+        .hero-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            line-height: 1.3;
+            }
+
+        .hero-description {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            opacity: 0.85;
+            }
+
+        .hero-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            }
+
+        .tag {
+            font-size: 0.75rem;
+            background: rgba(255, 107, 26, 0.1);
+            color: #FF6B1A;
+            padding: 0.35rem 0.8rem;
+            border-radius: 12px;
+            font-weight: 500;
+            }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            }
+
+        .card {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.44) 100%);
+            backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
+            -webkit-backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
+            border: 1.5px solid rgba(255, 255, 255, 0.92);
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.28), 0 8px 28px rgba(0, 0, 0, 0.09), inset 0 2px 0 rgba(255, 255, 255, 1);
+            border-radius: 16px;
+            padding: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            }
+
+        .card-emoji {
+            font-size: 1.8rem;
+            }
+
+        .card-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            line-height: 1.3;
+            }
+
+        .card-description {
+            font-size: 0.85rem;
+            line-height: 1.6;
+            opacity: 0.8;
+            }
+
+        .card-tag {
+            align-self: flex-start;
+            font-size: 0.7rem;
+            background: rgba(255, 107, 26, 0.1);
+            color: #FF6B1A;
+            padding: 0.3rem 0.7rem;
+            border-radius: 10px;
+            font-weight: 500;
+            }
+
+        .sidebar-card {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.44) 100%);
+            backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
+            -webkit-backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
+            border: 1.5px solid rgba(255, 255, 255, 0.92);
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.28), 0 8px 28px rgba(0, 0, 0, 0.09), inset 0 2px 0 rgba(255, 255, 255, 1);
+            border-radius: 16px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            }
+
+        .sidebar-emoji {
+            font-size: 1.6rem;
+            }
+
+        .sidebar-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            line-height: 1.3;
+            }
+
+        .sidebar-description {
+            font-size: 0.8rem;
+            line-height: 1.6;
+            opacity: 0.75;
+            }
+
+        .sidebar-tag {
+            align-self: flex-start;
+            font-size: 0.65rem;
+            background: rgba(255, 107, 26, 0.1);
+            color: #FF6B1A;
+            padding: 0.25rem 0.6rem;
+            border-radius: 8px;
+            font-weight: 500;
+            }
+
+        footer {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.44) 100%);
+            backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
+            -webkit-backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
+            border-top: 1.5px solid rgba(255, 255, 255, 0.92);
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.28), 0 8px 28px rgba(0, 0, 0, 0.09), inset 0 2px 0 rgba(255, 255, 255, 1);
+            padding: 2rem;
+            text-align: center;
+            margin-top: 3rem;
+            }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: center;
+            }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            }
+
+        .social-links a {
+            color: #1a0f05;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+            }
+
+        .social-links a:hover {
+            color: #FF6B1A;
+            }
+
+        .footer-text {
+            font-size: 0.85rem;
+            opacity: 0.7;
+            }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 1.5rem;
+                }
+            .nav-links {
+                gap: 1.5rem;
+                font-size: 0.9rem;
+                }
+            main {
+                padding: 2rem 1.5rem;
+                }
+            .page-title {
+                font-size: 1.8rem;
+                }
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                }
+            .card-grid {
+                grid-template-columns: 1fr;
+                }
+            .right-sidebar {
+                gap: 0.9rem;
+                }
+            }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="nav-brand">ACE-M</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About me</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <a href="setup.html" class="back-link">â° Setup/Gear</a>
+
+        <div class="page-header">
+            <h1 class="page-title">ð Bag</h1>
+            <p class="page-subtitle">What I pack every day</p>
+        </div>
+
+        <div class="content-grid">
+            <div class="left-column">
+                <div class="hero-card">
+                    <div class="icon-box">ð</div>
+                    <span class="hero-badge">â­ Favourite pick</span>
+                    <h2 class="hero-title">Peak Design Everyday Backpack 20L</h2>
+                    <p class="hero-description">The best bag I've ever owned. FlexFold dividers let me configure it for any trip â laptop on one side, camera gear on the other. The MagLatch is deeply satisfying and the weatherproofing has saved me more than once. I take this everywhere, every day.</p>
+                    <div class="hero-tags">
+                        <span class="tag">Everyday carry</span>
+                        <span class="tag">20L</span>
+                        <span class="tag">Midnight</span>
+                        <span class="tag">Weather resistant</span>
+                    </div>
+                </div>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-emoji">ð</div>
+                        <h3 class="card-title">Anker 7-in-1 USB-C Hub</h3>
+                        <p class="card-description">Single cable to my monitor, external SSD and phone charger. Tiny enough to forget it's in there until you need it.</p>
+                        <span class="card-tag">Accessories</span>
+                    </div>
+                    <div class="card">
+                        <div class="card-emoji">ð</div>
+                        <h3 class="card-title">Anker PowerCore 20,000</h3>
+                        <p class="card-description">Emough charge to top up my phone four or five times. Never been left stranded since I started carrying this.</p>
+                        <span class="card-tag">Power</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-sidebar">
+                <div class="sidebar-card">
+                    <div class="sidebar-emoji">ð</div>
+                    <h3 class="sidebar-title">Twelve South AirFly Pro</h3>
+                    <p class="sidebar-description">Plugs into any 3.5mm jack and beams audio to my AirPods. An absolute essential on planes and hotel gym equipment.</p>
+                    <span class="sidebar-tag">Audio</span>
+                </div>
+
+                <div class="sidebar-card">
+                    <div class="sidebar-emoji">ð¦</div>
+                    <h3 class="sidebar-title">Olight Baton 3</h3>
+                    <p class="sidebar-description">Tiny magnetic pocket torch that clips onto a keyring. 1200 lumens is ridiculous for the size â genuinely useful, not just a gadget.</p>
+                    <span class="sidebar-tag">EEC</span>
+                </div>
+
+                <div class="sidebar-card">
+                    <div class="sidebar-emoji">ð</div>
+                    <h3 class="sidebar-title">Bellroy Card Sleeve</h3>
+                    <p class="sidebar-description">Replaced my bulky wallet entirely. Holds 6 cards and folded cash, sits perfectly flat in my front pocket.</p>
+                    <span class="sidebar-tag">Wallet</span>
+                </div>
+
+                <div class="sidebar-card">
+                    <div class="sidebar-emoji">ð</div>
+                    <h3 class="sidebar-title">Orbitkey Key Organiser</h3>
+                    <p class="sidebar-description">Keys stacked, silent, and scratch-proof. No more jingle, no more gouges on my phone screen.</p>
+                    <span class="sidebar-tag">EDH;span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="https://instagram.com" aria-label="Instagram">Instagram</a>
+                <a href="https://github.com" aria-label="GitHub">GitHub</a>
+                <a href="https://linkedin.com" aria-label="LinkedIn">LinkedIn</a>
+            </div>
+            <p class="footer-text">Â© ACE-M</p>
+        </div>
+    </footer>
+</body>
+                          </html>
