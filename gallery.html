@@ -18,29 +18,32 @@ nav{position:sticky;top:0;z-index:100;backdrop-filter:blur(44px) saturate(250%) 
 .page-header{text-align:center;margin-bottom:2.5rem}
 .page-title{font-size:clamp(2rem,5vw,3.5rem);font-weight:800;letter-spacing:-.03em;color:#1a0f05;margin-bottom:.75rem}
 .page-sub{font-size:.95rem;color:rgba(26,15,5,.55)}
-.upload-zone{border:2px dashed rgba(255,107,26,.35);border-radius:22px;padding:3rem 2rem;text-align:center;margin-bottom:2.5rem;background:rgba(255,255,255,.25);backdrop-filter:blur(20px);transition:all .25s ease;cursor:pointer;position:relative}
-.upload-zone:hover,.upload-zone.drag-over{border-color:rgba(255,107,26,.7);background:rgba(255,255,255,.38);box-shadow:0 0 0 1px rgba(255,255,255,.3),0 8px 32px rgba(255,107,26,.1)}
-.upload-icon{width:52px;height:52px;margin:0 auto 1rem;opacity:.5}
-.upload-text{font-size:1rem;font-weight:600;color:rgba(26,15,5,.6);margin-bottom:.4rem}
-.upload-sub{font-size:.82rem;color:rgba(26,15,5,.4);margin-bottom:1.4rem}
-.upload-btn{display:inline-flex;align-items:center;gap:.45rem;font-size:.88rem;font-weight:600;padding:.55rem 1.4rem;border-radius:50px;border:1.5px solid rgba(255,255,255,.92);border-bottom-color:rgba(255,255,255,.55);background:linear-gradient(180deg,rgba(255,140,40,.28) 0%,rgba(255,88,10,.14) 100%);color:#FF6B1A;cursor:pointer;box-shadow:0 0 0 1px rgba(255,255,255,.28),0 4px 18px rgba(255,107,26,.18),inset 0 2px 0 rgba(255,210,140,.6);transition:all .22s ease}
-.upload-btn:hover{transform:translateY(-2px);box-shadow:0 0 0 1px rgba(255,255,255,.35),0 8px 24px rgba(255,107,26,.28),inset 0 2px 0 rgba(255,210,140,.6)}
-#file-input{display:none}
-.empty-state{text-align:center;padding:3rem 0;display:none}
-.empty-state.show{display:block}
-.empty-icon{font-size:3.5rem;margin-bottom:1rem;opacity:.4}
-.empty-text{font-size:.95rem;color:rgba(26,15,5,.4)}
+.upload-banner{background:linear-gradient(180deg,rgba(255,255,255,.8) 0%,rgba(255,255,255,.04) 44%,rgba(255,255,255,.18) 100%);backdrop-filter:blur(40px) saturate(220%);border:1.5px solid rgba(255,255,255,.92);border-bottom-color:rgba(255,255,255,.55);box-shadow:0 0 0 1px rgba(255,255,255,.28),0 8px 32px rgba(0,0,0,.08),inset 0 2px 0 rgba(255,255,255,1);border-radius:20px;padding:1.6rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;margin-bottom:2.5rem;flex-wrap:wrap}
+.banner-title{font-size:1rem;font-weight:700;color:#1a0f05;margin-bottom:.3rem}
+.banner-sub{font-size:.82rem;color:rgba(26,15,5,.5)}
+.banner-sub code{font-family:monospace;background:rgba(26,15,5,.07);padding:.1rem .35rem;border-radius:5px;font-size:.8rem}
+.banner-actions{display:flex;gap:.6rem;flex-shrink:0;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:.45rem;font-size:.85rem;font-weight:600;padding:.52rem 1.2rem;border-radius:50px;border:1.5px solid rgba(255,255,255,.92);border-bottom-color:rgba(255,255,255,.55);cursor:pointer;transition:all .22s ease;text-decoration:none;white-space:nowrap;position:relative;overflow:hidden}
+.btn-primary{background:linear-gradient(180deg,rgba(255,140,40,.28) 0%,rgba(255,88,10,.14) 100%);color:#FF6B1A;box-shadow:0 0 0 1px rgba(255,255,255,.28),0 4px 18px rgba(255,107,26,.18),inset 0 2px 0 rgba(255,210,140,.6)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 0 1px rgba(255,255,255,.35),0 8px 24px rgba(255,107,26,.28),inset 0 2px 0 rgba(255,210,140,.6)}
+.btn-ghost{background:linear-gradient(180deg,rgba(255,255,255,.8) 0%,rgba(255,255,255,.04) 44%,rgba(255,255,255,.18) 100%);color:rgba(26,15,5,.65);box-shadow:0 0 0 1px rgba(255,255,255,.28),0 4px 14px rgba(0,0,0,.08),inset 0 2px 0 rgba(255,255,255,1)}
+.btn-ghost:hover{transform:translateY(-2px);box-shadow:0 0 0 1px rgba(255,255,255,.35),0 8px 22px rgba(0,0,0,.1),inset 0 2px 0 rgba(255,255,255,1)}
+.state-box{text-align:center;padding:4rem 2rem}
+.state-icon{font-size:3rem;margin-bottom:1rem;opacity:.4}
+.state-title{font-size:1.05rem;font-weight:600;color:rgba(26,15,5,.55);margin-bottom:.4rem}
+.state-sub{font-size:.85rem;color:rgba(26,15,5,.35)}
+.spinner{width:36px;height:36px;border:3px solid rgba(255,107,26,.2);border-top-color:#FF6B1A;border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 1.2rem}
+@keyframes spin{to{transform:rotate(360deg)}}
+.count-row{display:flex;align-items:center;margin-bottom:1.2rem}
+.count-badge{font-size:.82rem;font-weight:600;color:rgba(26,15,5,.45)}
 .gallery-grid{columns:3 280px;gap:1.2rem}
 .gallery-item{break-inside:avoid;margin-bottom:1.2rem;position:relative;border-radius:18px;overflow:hidden;cursor:pointer;background:rgba(255,255,255,.6);box-shadow:0 0 0 1px rgba(255,255,255,.28),0 8px 32px rgba(0,0,0,.08);transition:all .28s ease}
 .gallery-item:hover{transform:translateY(-4px);box-shadow:0 0 0 1px rgba(255,255,255,.38),0 18px 52px rgba(0,0,0,.13)}
 .gallery-item img{width:100%;height:auto;display:block;border-radius:18px}
-.item-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,15,5,.55) 0%,transparent 50%);opacity:0;transition:opacity .25s ease;border-radius:18px;display:flex;align-items:flex-end;justify-content:space-between;padding:.9rem 1rem}
+.item-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,15,5,.55) 0%,transparent 50%);opacity:0;transition:opacity .25s ease;border-radius:18px;display:flex;align-items:flex-end;padding:.9rem 1rem}
 .gallery-item:hover .item-overlay{opacity:1}
-.del-btn{background:rgba(255,255,255,.18);backdrop-filter:blur(10px);border:1.5px solid rgba(255,255,255,.4);color:#fff;border-radius:50%;width:34px;height:34px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;transition:all .2s ease;flex-shrink:0}
-.del-btn:hover{background:rgba(220,50,30,.7)}
-.view-btn{background:rgba(255,255,255,.18);backdrop-filter:blur(10px);border:1.5px solid rgba(255,255,255,.4);color:#fff;border-radius:50px;padding:.3rem .85rem;font-size:.78rem;font-weight:600;cursor:pointer;transition:all .2s ease}
-.view-btn:hover{background:rgba(255,255,255,.32)}
-.lightbox{position:fixed;inset:0;z-index:1000;background:rgba(26,15,5,.88);backdrop-filter:blur(20px);display:none;align-items:center;justify-content:center;padding:2rem}
+.item-name{font-size:.75rem;font-weight:500;color:rgba(255,255,255,.8);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lightbox{position:fixed;inset:0;z-index:1000;background:rgba(26,15,5,.9);backdrop-filter:blur(24px);display:none;align-items:center;justify-content:center;padding:2rem}
 .lightbox.open{display:flex}
 .lightbox-img{max-width:90vw;max-height:88vh;border-radius:14px;box-shadow:0 30px 80px rgba(0,0,0,.5);object-fit:contain}
 .lightbox-close{position:fixed;top:1.4rem;right:1.6rem;background:rgba(255,255,255,.14);border:1.5px solid rgba(255,255,255,.3);color:#fff;border-radius:50%;width:44px;height:44px;font-size:1.4rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s ease;z-index:1001}
@@ -49,8 +52,8 @@ nav{position:sticky;top:0;z-index:100;backdrop-filter:blur(44px) saturate(250%) 
 .lightbox-nav:hover{background:rgba(255,255,255,.25)}
 .lightbox-prev{left:1.2rem}
 .lightbox-next{right:1.2rem}
-.count-badge{display:inline-flex;align-items:center;gap:.4rem;font-size:.82rem;font-weight:600;color:rgba(26,15,5,.5);margin-bottom:1.5rem}
-@media(max-width:600px){.gallery-grid{columns:2 160px}}
+.lightbox-caption{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);background:rgba(26,15,5,.6);backdrop-filter:blur(10px);color:rgba(255,255,255,.8);font-size:.8rem;padding:.4rem 1rem;border-radius:50px;border:1px solid rgba(255,255,255,.15)}
+@media(max-width:600px){.gallery-grid{columns:2 140px}.upload-banner{flex-direction:column;align-items:flex-start}}
 </style>
 </head>
 <body>
@@ -67,69 +70,74 @@ nav{position:sticky;top:0;z-index:100;backdrop-filter:blur(44px) saturate(250%) 
 <div class="page">
   <div class="page-header">
     <h1 class="page-title">Gallery</h1>
-    <p class="page-sub">Your personal photo collection</p>
+    <p class="page-sub">Photos stored in your GitHub repo</p>
   </div>
-  <div class="upload-zone" id="upload-zone">
-    <input type="file" id="file-input" accept="image/*" multiple>
-    <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="rgba(255,107,26,.6)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-    <p class="upload-text">Drop photos here or click to upload</p>
-    <p class="upload-sub">PNG, JPG, GIF, WEBP - any size</p>
-    <button class="upload-btn" type="button">+ Add Photos</button>
+  <div class="upload-banner">
+    <div class="banner-text">
+      <div class="banner-title">Add photos</div>
+      <div class="banner-sub">Drop images into the <code>images/</code> folder on GitHub &#8212; they appear here automatically.</div>
+    </div>
+    <div class="banner-actions">
+      <a href="https://github.com/ULTIMATE-ACE-M/test/upload/main/images" target="_blank" class="btn btn-primary">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        Upload Photos
+      </a>
+      <button class="btn btn-ghost" onclick="loadGallery()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+        Refresh
+      </button>
+    </div>
   </div>
-  <div id="count-wrap" style="display:none"><div class="count-badge"><span id="count-text"></span></div></div>
-  <div class="empty-state" id="empty-state"><div class="empty-icon">&#128444;</div><p class="empty-text">No photos yet - upload some above</p></div>
-  <div class="gallery-grid" id="gallery-grid"></div>
+  <div id="state-loading" class="state-box"><div class="spinner"></div><div class="state-title">Loading photos...</div></div>
+  <div id="state-empty" class="state-box" style="display:none"><div class="state-icon">&#128444;</div><div class="state-title">No photos yet</div><div class="state-sub">Click "Upload Photos" to add images</div></div>
+  <div id="state-error" class="state-box" style="display:none"><div class="state-icon">&#9888;</div><div class="state-title">Could not load photos</div><div class="state-sub" id="error-msg"></div></div>
+  <div id="gallery-wrap" style="display:none">
+    <div class="count-row"><span class="count-badge" id="count-text"></span></div>
+    <div class="gallery-grid" id="gallery-grid"></div>
+  </div>
 </div>
 <div class="lightbox" id="lightbox">
   <button class="lightbox-close" onclick="closeLightbox()">&#215;</button>
   <button class="lightbox-nav lightbox-prev" onclick="navLightbox(-1)">&#8249;</button>
   <img class="lightbox-img" id="lightbox-img" src="" alt=""/>
   <button class="lightbox-nav lightbox-next" onclick="navLightbox(1)">&#8250;</button>
+  <div class="lightbox-caption" id="lightbox-caption"></div>
 </div>
 <script>
-var KEY='ace_gallery_v1',lbIdx=0;
-function load(){try{return JSON.parse(localStorage.getItem(KEY)||'[]');}catch(e){return[];}}
-function save(p){try{localStorage.setItem(KEY,JSON.stringify(p));}catch(e){alert('Storage full - delete some photos first.');}}
-function compress(file,cb){
-  var r=new FileReader();
-  r.onload=function(e){
-    var i=new Image();
-    i.onload=function(){
-      var mw=1400,mh=1400,w=i.width,h=i.height;
-      if(w>mw||h>mh){var s=Math.min(mw/w,mh/h);w=Math.round(w*s);h=Math.round(h*s);}
-      var c=document.createElement('canvas');c.width=w;c.height=h;
-      c.getContext('2d').drawImage(i,0,0,w,h);
-      cb({src:c.toDataURL('image/jpeg',file.size>500000?.72:.85),name:file.name,ts:Date.now()});
-    };i.src=e.target.result;
-  };r.readAsDataURL(file);
+var REPO='ULTIMATE-ACE-M/test',FOLDER='images';
+var API='https://api.github.com/repos/'+REPO+'/contents/'+FOLDER;
+var IMG=/\.(jpe?g|png|gif|webp|avif|bmp|svg)$/i;
+var images=[],lbIdx=0;
+function show(id){['state-loading','state-empty','state-error','gallery-wrap'].forEach(function(s){document.getElementById(s).style.display=s===id?'':'none';});}
+function loadGallery(){
+  show('state-loading');
+  fetch(API+'?t='+Date.now())
+    .then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json();})
+    .then(function(files){
+      images=files.filter(function(f){return f.type==='file'&&IMG.test(f.name);});
+      if(!images.length){show('state-empty');return;}
+      renderGrid();show('gallery-wrap');
+    })
+    .catch(function(e){document.getElementById('error-msg').textContent=e.message||'Check your connection.';show('state-error');});
 }
-function render(){
-  var p=load(),g=document.getElementById('gallery-grid'),e=document.getElementById('empty-state'),cw=document.getElementById('count-wrap');
-  g.innerHTML='';
-  if(!p.length){e.classList.add('show');cw.style.display='none';return;}
-  e.classList.remove('show');cw.style.display='block';
-  document.getElementById('count-text').textContent=p.length+' photo'+(p.length!==1?'s':'');
-  p.forEach(function(ph,i){
+function renderGrid(){
+  var g=document.getElementById('gallery-grid');g.innerHTML='';
+  document.getElementById('count-text').textContent=images.length+' photo'+(images.length!==1?'s':'');
+  images.forEach(function(img,i){
     var d=document.createElement('div');d.className='gallery-item';
-    d.innerHTML='<img src="'+ph.src+'" alt="'+(ph.name||'Photo')+'" loading="lazy"><div class="item-overlay"><button class="view-btn" onclick="lb('+i+',event)">View</button><button class="del-btn" onclick="del('+i+',event)">&#215;</button></div>';
-    d.addEventListener('click',function(){lb(i);});g.appendChild(d);
+    var el=document.createElement('img');el.src=img.download_url;el.alt=img.name;el.loading='lazy';
+    var ov=document.createElement('div');ov.className='item-overlay';
+    var nm=document.createElement('span');nm.className='item-name';nm.textContent=img.name;
+    ov.appendChild(nm);d.appendChild(el);d.appendChild(ov);
+    d.addEventListener('click',function(){openLightbox(i);});g.appendChild(d);
   });
 }
-function del(i,e){if(e)e.stopPropagation();var p=load();p.splice(i,1);save(p);render();}
-function lb(i,e){if(e)e.stopPropagation();var p=load();if(!p[i])return;lbIdx=i;document.getElementById('lightbox-img').src=p[i].src;document.getElementById('lightbox').classList.add('open');document.body.style.overflow='hidden';}
+function openLightbox(i){lbIdx=i;document.getElementById('lightbox-img').src=images[i].download_url;document.getElementById('lightbox-caption').textContent=images[i].name;document.getElementById('lightbox').classList.add('open');document.body.style.overflow='hidden';}
 function closeLightbox(){document.getElementById('lightbox').classList.remove('open');document.getElementById('lightbox-img').src='';document.body.style.overflow='';}
-function navLightbox(d){var p=load();lbIdx=(lbIdx+d+p.length)%p.length;document.getElementById('lightbox-img').src=p[lbIdx].src;}
-function handleFiles(files){if(!files.length)return;var p=load(),n=files.length;files.forEach(function(f){compress(f,function(ph){p.push(ph);if(!--n){save(p);render();}});});}
-var fi=document.getElementById('file-input'),uz=document.getElementById('upload-zone');
-uz.addEventListener('click',function(e){if(e.target.tagName!=='BUTTON'&&e.target.tagName!=='INPUT')fi.click();});
-uz.querySelector('.upload-btn').addEventListener('click',function(e){e.stopPropagation();fi.click();});
-fi.addEventListener('change',function(){handleFiles(Array.from(fi.files));fi.value='';});
-uz.addEventListener('dragover',function(e){e.preventDefault();uz.classList.add('drag-over');});
-uz.addEventListener('dragleave',function(){uz.classList.remove('drag-over');});
-uz.addEventListener('drop',function(e){e.preventDefault();uz.classList.remove('drag-over');handleFiles(Array.from(e.dataTransfer.files).filter(function(f){return f.type.startsWith('image/');}));});
+function navLightbox(d){lbIdx=(lbIdx+d+images.length)%images.length;document.getElementById('lightbox-img').src=images[lbIdx].download_url;document.getElementById('lightbox-caption').textContent=images[lbIdx].name;}
 document.addEventListener('keydown',function(e){var l=document.getElementById('lightbox');if(!l.classList.contains('open'))return;if(e.key==='Escape')closeLightbox();if(e.key==='ArrowRight')navLightbox(1);if(e.key==='ArrowLeft')navLightbox(-1);});
 document.getElementById('lightbox').addEventListener('click',function(e){if(e.target===this)closeLightbox();});
-render();
+loadGallery();
 </script>
 </body>
 </html>
