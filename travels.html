@@ -106,8 +106,6 @@ nav a.active { color: var(--accent); background: rgba(255,107,26,0.1); }
 }
 
 /* FILTER */
-.filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
-.filter-pill {
   padding: 7px 18px; border-radius: 22px;
   font-size: 13px; font-weight: 600; color: var(--muted);
   background: var(--glass-bg);
@@ -117,8 +115,6 @@ nav a.active { color: var(--accent); background: rgba(255,107,26,0.1); }
   box-shadow: 0 2px 8px rgba(26,15,5,0.06), inset 0 1px 0 var(--glass-top);
   cursor: pointer; transition: all 0.2s; user-select: none;
 }
-.filter-pill:hover { color: var(--text); }
-.filter-pill.active { color: var(--accent); background: rgba(255,107,26,0.1); border-color: rgba(255,107,26,0.3); }
 
 /* TRIPS */
 .trip-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
@@ -202,12 +198,7 @@ nav a.active { color: var(--accent); background: rgba(255,107,26,0.1); }
   <!-- TRIPS -->
   <p class="section-label">My Trips</p>
 
-  <div class="filter-row">
-    <div class="filter-pill active" data-filter="all">All</div>
-    <div class="filter-pill" data-filter="Asia">Asia</div>
-    <div class="filter-pill" data-filter="Europe">Europe</div>
-    <div class="filter-pill" data-filter="Oceania">Oceania</div>
-    <div class="filter-pill" data-filter="Americas">Americas</div>
+  
   </div>
 
   <div class="trip-grid" id="trip-grid">
@@ -302,9 +293,6 @@ nav a.active { color: var(--accent); background: rgba(255,107,26,0.1); }
 
 <script>
 // Filter
-document.querySelectorAll('.filter-pill').forEach(function(pill) {
-  pill.addEventListener('click', function() {
-    document.querySelectorAll('.filter-pill').forEach(function(p) { p.classList.remove('active'); });
     pill.classList.add('active');
     var filter = pill.dataset.filter;
     document.querySelectorAll('.trip-card').forEach(function(card) {
