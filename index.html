@@ -1,102 +1,420 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><title>ACE-M</title>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ACE-M</title>
 <style>
-*,::before,::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;min-height:100vh;background:#dedad5;color:#1a0f05;overflow-x:hidden;display:flex;flex-direction:column}
-body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 85% 65% at 12% 10%,rgba(255,110,20,.16) 0%,rgba(255,110,20,.06) 45%,transparent 72%),radial-gradient(ellipse 80% 70% at 88% 20%,rgba(255,80,0,.13) 0%,rgba(255,80,0,.04) 45%,transparent 70%),radial-gradient(ellipse 95% 75% at 50% 92%,rgba(255,130,40,.12) 0%,rgba(255,130,40,.04) 45%,transparent 68%)}
-nav{position:sticky;top:0;z-index:100;backdrop-filter:blur(44px) saturate(250%) brightness(1.08);-webkit-backdrop-filter:blur(44px) saturate(250%) brightness(1.08);background:rgba(255,255,255,.28);border-bottom:1.5px solid rgba(255,255,255,.72);box-shadow:0 0 0 1px rgba(0,0,0,.06),0 2px 16px rgba(0,0,0,.08)}
-.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:58px;padding:0 2rem}
-.nav-brand{font-size:1.15rem;font-weight:800;letter-spacing:-.5px;text-decoration:none;background:linear-gradient(135deg,#1a0f05 0%,#FF6B1A 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.nav-links{display:flex;gap:.25rem}
-.nav-link{font-size:.88rem;font-weight:500;text-decoration:none;color:rgba(26,15,5,.7);padding:.38rem .95rem;border-radius:20px;border:1.5px solid transparent;transition:all .22s ease;position:relative;overflow:hidden}
-.nav-link::after{content:'';position:absolute;inset:0;background:linear-gradient(130deg,rgba(255,255,255,0) 20%,rgba(255,255,255,.55) 50%,rgba(255,255,255,0) 80%);transform:translateX(-160%);transition:transform .4s ease;pointer-events:none;border-radius:inherit}
-.nav-link:hover{background:rgba(255,255,255,.45);color:#1a0f05;border-color:rgba(255,255,255,.88);box-shadow:0 0 0 1px rgba(255,255,255,.28),0 3px 10px rgba(0,0,0,.1),inset 0 2px 0 rgba(255,255,255,1)}
-.nav-link:hover::after{transform:translateX(160%)}
-.nav-link.active{background:linear-gradient(180deg,rgba(255,255,255,.8) 0%,rgba(255,255,255,.04) 44%,rgba(255,255,255,.18) 100%);color:#FF6B1A;font-weight:600;border-color:rgba(255,255,255,.92);box-shadow:0 0 0 1px rgba(255,255,255,.28),0 4px 18px rgba(0,0,0,.08),inset 0 2px 0 rgba(255,255,255,1)}
-main{flex:1;position:relative;z-index:1;display:flex;align-items:center;justify-content:center;padding:3rem 2rem}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;width:100%;max-width:1100px}
-.tile{background:linear-gradient(180deg,rgba(255,255,255,.8) 0%,rgba(255,255,255,.04) 44%,rgba(255,255,255,.18) 100%);backdrop-filter:blur(60px) saturate(220%) brightness(1.06);-webkit-backdrop-filter:blur(60px) saturate(220%) brightness(1.06);border:1.5px solid rgba(255,255,255,.92);border-bottom-color:rgba(255,255,255,.55);box-shadow:0 0 0 1px rgba(255,255,255,.28),0 10px 40px rgba(0,0,0,.1),inset 0 2px 0 rgba(255,255,255,1);border-radius:22px;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all .28s ease;position:relative;overflow:hidden;text-decoration:none;color:#1a0f05}
-.tile::before{content:'';position:absolute;top:0;left:0;right:0;height:54%;background:linear-gradient(180deg,rgba(255,255,255,.82) 0%,rgba(255,255,255,0) 100%);pointer-events:none;border-radius:inherit}
-.tile::after{content:'';position:absolute;inset:0;background:linear-gradient(130deg,rgba(255,255,255,0) 20%,rgba(255,255,255,.65) 50%,rgba(255,255,255,0) 80%);transform:translateX(-160%);transition:transform .5s ease;pointer-events:none;border-radius:inherit}
-.tile:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 0 0 1px rgba(255,255,255,.38),0 18px 52px rgba(0,0,0,.13),inset 0 2px 0 rgba(255,255,255,1)}
-.tile:hover::after{transform:translateX(160%)}
-.tile-icon{position:relative;z-index:1;margin-bottom:.5rem;opacity:.6}
-.tile-label{font-size:.95rem;font-weight:600;color:rgba(26,15,5,.45);position:relative;z-index:1;letter-spacing:.01em}
-@media(max-width:600px){.grid{grid-template-columns:repeat(2,1fr)}}
-footer{position:relative;z-index:1;border-top:1.5px solid rgba(255,255,255,.55);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px)}
-.footer-inner{max-width:1100px;margin:0 auto;padding:2.5rem 2rem;display:flex;flex-direction:column;align-items:center;gap:1.2rem}
-.socials{display:flex;gap:.75rem}
-.social-link{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:13px;background:linear-gradient(180deg,rgba(255,255,255,.8) 0%,rgba(255,255,255,.04) 44%,rgba(255,255,255,.18) 100%);backdrop-filter:blur(40px) saturate(220%);-webkit-backdrop-filter:blur(40px) saturate(220%);color:rgba(26,15,5,.65);text-decoration:none;border:1.5px solid rgba(255,255,255,.92);border-bottom-color:rgba(255,255,255,.55);box-shadow:0 0 0 1px rgba(255,255,255,.28),0 4px 16px rgba(0,0,0,.1),inset 0 2px 0 rgba(255,255,255,1);transition:all .25s ease;position:relative;overflow:hidden}
-.social-link::before{content:'';position:absolute;top:0;left:0;right:0;height:54%;background:linear-gradient(180deg,rgba(255,255,255,.82) 0%,rgba(255,255,255,0) 100%);pointer-events:none;border-radius:inherit}
-.social-link::after{content:'';position:absolute;inset:0;background:linear-gradient(130deg,rgba(255,255,255,0) 20%,rgba(255,255,255,.65) 50%,rgba(255,255,255,0) 80%);transform:translateX(-160%);transition:transform .4s ease;pointer-events:none;border-radius:inherit}
-.social-link:hover{color:#FF6B1A;transform:translateY(-3px);border-color:rgba(255,255,255,.96);box-shadow:0 0 0 1px rgba(255,255,255,.35),0 10px 28px rgba(255,107,26,.2),inset 0 2px 0 rgba(255,255,255,1)}
-.social-link:hover::after{transform:translateX(160%)}
-.social-link svg{width:20px;height:20px;position:relative;z-index:1}
-.footer-note{font-size:.78rem;color:rgba(26,15,5,.38)}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --bg:     #dedad5;
+  --accent: #FF6B1A;
+  --text:   #1a0f05;
+  --muted:  #6b5a4e;
+  --faint:  #9b8b80;
+  --glass-bg:     linear-gradient(145deg, rgba(245,243,240,0.58) 0%, rgba(215,210,203,0.40) 100%);
+  --glass-border: rgba(220,215,208,0.68);
+  --glass-top:    rgba(255,255,255,0.78);
+  --glass-btm:    rgba(26,15,5,0.05);
+  --glass-blur:   blur(60px) saturate(140%) brightness(1.05);
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  background: var(--bg); color: var(--text); min-height: 100vh;
+}
+
+/* ── BG ── */
+.bg-canvas {
+  position: fixed; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 85% 12%, rgba(255,107,26,0.22) 0%, transparent 60%),
+    radial-gradient(ellipse 55% 50% at 10% 85%, rgba(255,160,90,0.14) 0%, transparent 58%),
+    radial-gradient(ellipse 45% 40% at 55% 55%, rgba(255,210,170,0.09) 0%, transparent 55%),
+    radial-gradient(ellipse 35% 30% at 20% 30%, rgba(255,180,110,0.08) 0%, transparent 50%),
+    #dedad5;
+}
+
+/* ── GLASS ── */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1.5px solid var(--glass-border);
+  box-shadow: 0 6px 32px rgba(26,15,5,0.08), inset 0 1.5px 0 var(--glass-top), inset 0 -1px 0 var(--glass-btm);
+}
+.glass-hover {
+  transition: box-shadow 0.3s, transform 0.3s, border-color 0.3s;
+}
+.glass-hover:hover {
+  box-shadow: 0 14px 48px rgba(26,15,5,0.12), inset 0 1.5px 0 rgba(255,255,255,0.88), inset 0 -1px 0 rgba(26,15,5,0.06);
+  border-color: rgba(210,204,196,0.82);
+  transform: translateY(-2px);
+}
+
+/* ── PILL BUTTON — nav bar style ── */
+.pill-btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 7px 16px; border-radius: 22px;
+  font-size: 13px; font-weight: 600; color: var(--muted);
+  letter-spacing: -0.01em; font-family: inherit;
+  text-decoration: none; cursor: pointer;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1.5px solid var(--glass-border);
+  box-shadow: 0 4px 24px rgba(26,15,5,0.10),
+    inset 0 1.5px 0 var(--glass-top),
+    inset 0 -1px 0 var(--glass-btm);
+  transition: all 0.2s;
+}
+.pill-btn:hover { color: var(--text); background: rgba(26,15,5,0.05); }
+.pill-btn.primary {
+  background: linear-gradient(160deg, #FF7A2F 0%, #F05A0A 100%);
+  border-color: #e85f10; color: #fff;
+  box-shadow: 0 4px 16px rgba(255,107,26,0.35),
+    inset 0 1.5px 0 rgba(255,255,255,0.25),
+    inset 0 -1px 0 rgba(0,0,0,0.12);
+}
+.pill-btn.primary:hover {
+  background: linear-gradient(160deg, #FF8540 0%, #E05508 100%);
+  box-shadow: 0 6px 22px rgba(255,107,26,0.42),
+    inset 0 1.5px 0 rgba(255,255,255,0.28),
+    inset 0 -1px 0 rgba(0,0,0,0.14);
+  color: #fff; border-color: #d45009;
+}
+.pill-btn.ghost {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1.5px solid var(--glass-border);
+  box-shadow: 0 4px 24px rgba(26,15,5,0.10),
+    inset 0 1.5px 0 var(--glass-top),
+    inset 0 -1px 0 var(--glass-btm);
+}
+.pill-btn.ghost:hover { color: var(--text); background: rgba(26,15,5,0.05); }
+.pill-btn.icon { padding: 8px 10px; border-radius: 14px; gap: 0; }
+.pill-btn.icon svg { width: 17px; height: 17px; }
+
+/* ── PAGE ── */
+.page {
+  position: relative; z-index: 1;
+  min-height: 100vh;
+  padding: 0 32px 64px;
+  max-width: 1060px;
+  margin: 0 auto;
+}
+
+/* ── FLOATING NAV ── */
+.nav-wrap {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; justify-content: center;
+  padding: 18px 0 0; pointer-events: none;
+}
+nav {
+  pointer-events: all;
+  display: flex; align-items: center; gap: 2px;
+  padding: 5px 6px; border-radius: 28px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(80px) saturate(160%) brightness(1.06);
+  -webkit-backdrop-filter: blur(80px) saturate(160%) brightness(1.06);
+  border: 1.5px solid var(--glass-border);
+  box-shadow: 0 4px 24px rgba(26,15,5,0.1), inset 0 1.5px 0 var(--glass-top), inset 0 -1px 0 var(--glass-btm);
+}
+nav a {
+  display: flex; align-items: center;
+  padding: 7px 16px; border-radius: 22px;
+  font-size: 13px; font-weight: 600; color: var(--muted);
+  text-decoration: none; transition: all 0.2s; letter-spacing: -0.01em;
+}
+nav a:hover { color: var(--text); background: rgba(26,15,5,0.05); }
+nav a.active { color: var(--accent); background: rgba(255,107,26,0.1); }
+
+/* ── HERO ── */
+.hero {
+  margin-top: 28px;
+  border-radius: 26px;
+  padding: 38px 44px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  overflow: hidden;
+}
+.hero-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
+  padding-bottom: 32px;
+}
+.hero-left { display: flex; flex-direction: column; gap: 16px; }
+
+.hero-heading {
+  font-size: clamp(38px, 5vw, 56px);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  line-height: 0.95;
+  color: var(--text);
+}
+.hero-heading .acc { color: var(--accent); }
+
+.hero-bio {
+  font-size: 15px; color: var(--muted); line-height: 1.6;
+  max-width: 400px;
+}
+
+.hero-actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+
+/* Tag strip — full-width bar at the bottom of the card */
+.hero-tags {
+  display: flex; align-items: stretch;
+  width: calc(100% + 88px);
+  margin: 0 -44px;
+  border-top: 1.5px solid var(--glass-border);
+}
+.hero-tag {
+  flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 14px 16px;
+  font-size: 12px; font-weight: 600; color: var(--muted);
+  border-right: 1.5px solid var(--glass-border);
+  white-space: nowrap;
+}
+.hero-tag:last-child { border-right: none; }
+.hero-tag.active-tag { color: var(--accent); }
+.status-orb {
+  width: 7px; height: 7px; border-radius: 50%; background: #34c759;
+  animation: blink 2s ease-in-out infinite; flex-shrink: 0;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.35} }
+
+/* ── SECTION LABEL ── */
+.section-label {
+  font-size: 10px; font-weight: 800; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--faint); margin: 32px 0 14px;
+}
+
+/* ── RECENT ACTIVITY ── */
+.recent-card {
+  border-radius: 20px;
+  padding: 22px 26px;
+  display: flex; flex-direction: column; gap: 14px;
+}
+.recent-list { display: flex; flex-direction: column; gap: 8px; }
+.recent-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 11px 14px; border-radius: 12px;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1.5px solid var(--glass-border);
+  box-shadow: 0 4px 24px rgba(26,15,5,0.08), inset 0 1.5px 0 var(--glass-top), inset 0 -1px 0 var(--glass-btm);
+  text-decoration: none; color: inherit;
+  transition: all 0.2s;
+}
+.recent-item:hover {
+  background: rgba(26,15,5,0.05);
+  transform: translateX(3px);
+}
+.ri-icon { font-size: 17px; flex-shrink: 0; }
+.ri-body { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+.ri-title { font-size: 13px; font-weight: 700; color: var(--text); }
+.ri-meta { font-size: 11px; color: var(--faint); font-weight: 500; }
+.ri-arrow { font-size: 14px; color: var(--faint); transition: color 0.2s, transform 0.2s; }
+.recent-item:hover .ri-arrow { color: var(--text); transform: translateX(2px); }
+
+/* ── EXPLORE GRID ── */
+.explore-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.ex-card {
+  border-radius: 22px; padding: 26px 28px;
+  display: flex; flex-direction: column; justify-content: space-between; gap: 20px;
+  cursor: pointer; text-decoration: none; color: inherit;
+  min-height: 200px;
+  transition: box-shadow 0.3s, transform 0.3s, border-color 0.3s;
+  position: relative; overflow: hidden;
+}
+.ex-card::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 55% at 90% 10%, rgba(255,107,26,0.09) 0%, transparent 65%);
+  opacity: 0; transition: opacity 0.35s; pointer-events: none;
+}
+.ex-card:hover { box-shadow: 0 16px 52px rgba(26,15,5,0.13), inset 0 1.5px 0 rgba(255,255,255,0.9), inset 0 -1px 0 rgba(26,15,5,0.06); border-color: rgba(210,204,196,0.85); transform: translateY(-3px); }
+.ex-card:hover::before { opacity: 1; }
+
+.card-top { display: flex; align-items: flex-start; justify-content: space-between; }
+.card-icon { width: 46px; height: 46px; border-radius: 14px; background: rgba(255,107,26,0.1); border: 1px solid rgba(255,107,26,0.18); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; transition: background 0.2s, border-color 0.2s; }
+.ex-card:hover .card-icon { background: rgba(255,107,26,0.17); border-color: rgba(255,107,26,0.35); }
+.card-arrow { font-size: 18px; color: var(--faint); transition: transform 0.25s, color 0.2s; }
+.ex-card:hover .card-arrow { transform: translate(3px,-3px); color: var(--accent); }
+.card-title { font-size: 18px; font-weight: 800; letter-spacing: -0.03em; color: var(--text); }
+.card-desc { font-size: 12px; color: var(--muted); line-height: 1.6; margin-top: 6px; }
+.card-foot { display: flex; }
+
+/* ── FOOTER ── */
+.footer {
+  display: flex; flex-direction: column; align-items: center; gap: 14px;
+  padding-top: 48px;
+}
+.social-row { display: flex; gap: 10px; }
+.footer-copy { font-size: 11px; color: var(--faint); font-weight: 600; letter-spacing: 0.04em; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 760px) {
+  .page { padding: 0 16px 48px; }
+  .hero { padding: 28px 24px; }
+  .explore-grid { grid-template-columns: 1fr 1fr; }
+  nav a { padding: 7px 11px; font-size: 12px; }
+}
+@media (max-width: 500px) {
+  .explore-grid { grid-template-columns: 1fr; }
+  .hero-heading { font-size: 34px; }
+}
 </style>
 </head>
 <body>
-<nav>
-  <div class="nav-inner">
-    <a href="index.html" class="nav-brand">ACE-M</a>
-    <div class="nav-links">
-      <a href="index.html" class="nav-link active">Home</a>
-      <a href="about.html" class="nav-link">About me</a>
+<div class="bg-canvas"></div>
+
+<div class="page">
+
+  <!-- NAV -->
+  <div class="nav-wrap">
+    <nav>
+      <a href="index.html" class="active">Home</a>
+      <a href="about.html">About</a>
+      <a href="resume.html">Resume</a>
+      <a href="projects.html">Projects</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="travels.html">Travels</a>
+      <a href="setup.html">Setup</a>
+      <a href="status.html">Status</a>
+    </nav>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero glass">
+    <div class="hero-body">
+      <div class="hero-left">
+        <div class="hero-heading">Hey, I'm<br><span class="acc">ACE-M</span></div>
+        <div class="hero-bio">IT specialist, builder, and tinkerer. Welcome to my corner of the web — have a look around.</div>
+        <div class="hero-actions">
+          <a href="about.html" class="pill-btn">Who am I →</a>
+          <a href="resume.html" class="pill-btn">View Resume</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero-tags">
+      <div class="hero-tag active-tag"><div class="status-orb"></div> Open to opportunities</div>
+      <div class="hero-tag">🎓 Finishing degree · 2026</div>
+      <div class="hero-tag">🖥 IT at Infradak</div>
     </div>
   </div>
-</nav>
-<main>
-  <div class="grid">
-    <a href="gallery.html" class="tile">
-      <svg class="tile-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(255,107,26,.7)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-      <span class="tile-label">Gallery</span>
-    </a>
-    <a href="status.html" class="tile">
-      <svg class="tile-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(255,107,26,.7)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-      <span class="tile-label">Status</span>
-    </a>
-    <a href="resume.html" class="tile">
-      <svg class="tile-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(255,107,26,.7)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-      <span class="tile-label">RÃ©sumÃ©</span>
-    </a>
-    <a href="projects.html" class="tile">
-      <svg class="tile-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(255,107,26,.7)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-      <span class="tile-label">Projects</span>
-    </a>
-    <a href="travels.html" class="tile">
-      <svg class="tile-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(255,107,26,.7)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
-      <span class="tile-label">Travel Blog</span>
-    </a>
-    <a href="setup.html" class="tile">
-      <svg class="tile-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(255,107,26,.7)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-      <span class="tile-label">Setup</span>
-    </a>
-    <a href="uses.html" class="tile">
-      <svg class="tile-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(255,107,26,.7)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-      <span class="tile-label">Uses</span>
-    </a>
-    <a href="now.html" class="tile">
-      <svg class="tile-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(255,107,26,.7)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-      <span class="tile-label">Now</span>
-    </a>
-  </div>
-</main>
-<footer>
-  <div class="footer-inner">
-    <div class="socials">
-      <a href="https://www.instagram.com/_ace_m_/" class="social-link" title="Instagram" target="_blank">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+
+  <!-- RECENT -->
+  <div class="section-label">Recently</div>
+  <div class="recent-card glass glass-hover">
+    <div class="recent-list">
+      <a href="projects.html" class="recent-item">
+        <div class="ri-icon">🛠</div>
+        <div class="ri-body">
+          <div class="ri-title">New homelab project</div>
+          <div class="ri-meta">2 days ago · Projects</div>
+        </div>
+        <div class="ri-arrow">→</div>
       </a>
-      <a href="https://github.com/ULTIMATE-ACE-M" class="social-link" title="GitHub" target="_blank">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+      <a href="gallery.html" class="recent-item">
+        <div class="ri-icon">📷</div>
+        <div class="ri-body">
+          <div class="ri-title">Added gallery photos</div>
+          <div class="ri-meta">Last week · Gallery</div>
+        </div>
+        <div class="ri-arrow">→</div>
       </a>
-      <a href="https://www.linkedin.com/in/mitchell-nesselaar-1b309134a/" class="social-link" title="LinkedIn" target="_blank">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      <a href="travels.html" class="recent-item">
+        <div class="ri-icon">🗺</div>
+        <div class="ri-body">
+          <div class="ri-title">Trip to Berlin</div>
+          <div class="ri-meta">This month · Travel Blog</div>
+        </div>
+        <div class="ri-arrow">→</div>
       </a>
     </div>
-    <p class="footer-note">&#169; ACE-M</p>
   </div>
-</footer>
+
+  <!-- EXPLORE — Projects, Gallery, Travels only -->
+  <div class="section-label">Explore</div>
+  <div class="explore-grid">
+
+    <a href="projects.html" class="ex-card glass">
+      <div class="card-top">
+        <div class="card-icon">🛠</div>
+        <div class="card-arrow">↗</div>
+      </div>
+      <div>
+        <div class="card-title">Projects</div>
+        <div class="card-desc">Personal builds, experiments, and things I've made for fun or for work.</div>
+      </div>
+      <div class="card-foot">
+        <span class="pill-btn ghost">See projects</span>
+      </div>
+    </a>
+
+    <a href="gallery.html" class="ex-card glass">
+      <div class="card-top">
+        <div class="card-icon">📷</div>
+        <div class="card-arrow">↗</div>
+      </div>
+      <div>
+        <div class="card-title">Gallery</div>
+        <div class="card-desc">Photos, moments, and things worth looking at.</div>
+      </div>
+      <div class="card-foot">
+        <span class="pill-btn ghost">Browse gallery</span>
+      </div>
+    </a>
+
+    <a href="travels.html" class="ex-card glass">
+      <div class="card-top">
+        <div class="card-icon">🗺</div>
+        <div class="card-arrow">↗</div>
+      </div>
+      <div>
+        <div class="card-title">Travel Blog</div>
+        <div class="card-desc">Places I've been and trips worth writing about.</div>
+      </div>
+      <div class="card-foot">
+        <span class="pill-btn ghost">See places</span>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="social-row">
+      <a href="https://instagram.com" target="_blank" class="pill-btn ghost icon" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+        </svg>
+      </a>
+      <a href="https://github.com/ULTIMATE-ACE-M" target="_blank" class="pill-btn ghost icon" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+        </svg>
+      </a>
+      <a href="https://linkedin.com" target="_blank" class="pill-btn ghost icon" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+        </svg>
+      </a>
+    </div>
+    <div class="footer-copy">© ACE-M</div>
+  </div>
+
+</div>
 </body>
 </html>
