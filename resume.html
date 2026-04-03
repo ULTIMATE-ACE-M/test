@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume – ACE-M</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #dedad5; color: #1a0f05; line-height: 1.6;
+        }
+        body { position: relative; overflow-x: hidden; }
+        body::before {
+            content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(ellipse at 20% -10%, rgba(255,107,26,0.15), transparent 50%);
+            pointer-events: none; z-index: -1;
+        }
+        nav {
+            display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 2rem;
+            background: linear-gradient(180deg, rgba(255,255,255,0.82) 0%, rgba(255,255,255,0.44) 100%);
+            backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
+            -webkit-backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
+            border-bottom: 1.5px solid rgba(255,255,255,0.92);
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.28), 0 8px 28px rgba(0,0,0,0.09), inset 0 2px 0 rgba(255,255,255,1);
+            position: sticky; top: 0; z-index: 100;
+        }
+        .nav-brand { font-size: 1.4rem; font-weight: 700; color: #1a0f05; text-decoration: none; letter-spacing: -0.02em; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { color: #1a0f05; text-decoration: none; font-size: 0.95rem; transition: color 0.3s; }
+        .nav-links a:hover { color: #FF6B1A; }
+        main { max-width: 900px; margin: 0 auto; padding: 3rem 2rem; }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(180deg, rgba(255,255,255,0.82) 0%, rgba(255,255,255,0.44) 100%);
+            backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
+            -webkit-backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
+            border: 1.5px solid rgba(255,255,255,0.92);
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.28), 0 8px 28px rgba(0,0,0,0.09), inset 0 2px 0 rgba(255,255,255,1);
+            border-radius: 20px; padding: 2rem 2.5rem; margin-bottom: 2rem;
+            display: flex; align-items: center; gap: 2rem;
+        }
+        .hero-text h1 { font-size: 2rem; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 0.2rem; }
+        .hero-text .role { font-size: 1rem; color: #FF6B1A; font-weight: 600; margin-bottom: 0.8rem; }
+        .hero-contacts { display: flex; gap: 1.2rem; flex-wrap: wrap; }
+        .hero-contacts a, .hero-contacts span {
+            font-size: 0.85rem; color: #1a0f05; opacity: 0.7; text-decoration: none;
+            transition: opacity 0.3s, color 0.3s;
+        }
+        .hero-contacts a:hover { opacity: 1; color: #FF6B1A; }
+
+        /* Grid layout */
+        .layout { display: grid; grid-template-columns: 1fr 260px; gap: 1.5rem; }
+
+        /* Section card */
+        .card {
+            background: linear-gradient(180deg, rgba(255,255,255,0.82) 0%, rgba(255,255,255,0.44) 100%);
+            backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
+            -webkit-backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
+            border: 1.5px solid rgba(255,255,255,0.92);
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.28), 0 8px 28px rgba(0,0,0,0.09), inset 0 2px 0 rgba(255,255,255,1);
+            border-radius: 20px; padding: 1.6rem 2rem; margin-bottom: 1.5rem;
+        }
+        .card-title {
+            font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+            color: #FF6B1A; margin-bottom: 1.2rem; padding-bottom: 0.6rem;
+            border-bottom: 1px solid rgba(255,107,26,0.2);
+        }
+
+        /* Timeline */
+        .timeline { display: flex; flex-direction: column; gap: 1.2rem; }
+        .timeline-item { display: flex; gap: 1rem; }
+        .timeline-dot {
+            flex-shrink: 0; width: 10px; height: 10px; border-radius: 50%;
+            background: #FF6B1A; margin-top: 6px;
+            box-shadow: 0 0 0 3px rgba(255,107,26,0.15);
+        }
+        .timeline-line {
+            display: flex; flex-direction: column; gap: 1.2rem;
+            padding-left: 0.8rem;
+            border-left: 2px solid rgba(255,107,26,0.2);
+            margin-left: 4px;
+        }
+        .timeline-entry { padding-left: 0.8rem; }
+        .timeline-entry-inner { display: flex; gap: 0.8rem; align-items: flex-start; }
+        .tl-dot {
+            flex-shrink: 0; width: 8px; height: 8px; border-radius: 50%;
+            background: #FF6B1A; margin-top: 7px; margin-left: -1.25rem;
+            box-shadow: 0 0 0 3px rgba(255,107,26,0.15);
+        }
+        .tl-content { flex: 1; }
+        .tl-title { font-weight: 700; font-size: 0.95rem; }
+        .tl-sub { font-size: 0.82rem; opacity: 0.65; margin-bottom: 0.2rem; }
+        .tl-desc { font-size: 0.85rem; opacity: 0.8; }
+        .tl-period {
+            font-size: 0.72rem; font-weight: 600; color: #FF6B1A;
+            background: rgba(255,107,26,0.1); border-radius: 20px;
+            padding: 0.15rem 0.6rem; white-space: nowrap; margin-top: 0.2rem; display: inline-block;
+        }
+
+        /* Skills */
+        .skill-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .pill {
+            background: rgba(255,107,26,0.08); border: 1px solid rgba(255,107,26,0.2);
+            border-radius: 20px; padding: 0.3rem 0.8rem;
+            font-size: 0.8rem; font-weight: 500; color: #1a0f05;
+        }
+
+        /* Languages */
+        .lang-list { display: flex; flex-direction: column; gap: 0.6rem; }
+        .lang-item { display: flex; justify-content: space-between; align-items: center; }
+        .lang-name { font-size: 0.88rem; font-weight: 600; }
+        .lang-level {
+            font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.05em; color: #FF6B1A;
+        }
+
+        footer {
+            background: linear-gradient(180deg, rgba(255,255,255,0.82) 0%, rgba(255,255,255,0.44) 100%);
+            backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
+            -webkit-backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
+            border-top: 1.5px solid rgba(255,255,255,0.92);
+            box-shadow: 0 0 0 1px rgba(255,255,255,0.28), 0 8px 28px rgba(0,0,0,0.09), inset 0 2px 0 rgba(255,255,255,1);
+            padding: 2rem; text-align: center; margin-top: 3rem;
+        }
+        .footer-content { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem; align-items: center; }
+        .social-links { display: flex; gap: 1.5rem; justify-content: center; }
+        .social-links a { color: #1a0f05; text-decoration: none; font-size: 1.1rem; transition: color 0.3s; }
+        .social-links a:hover { color: #FF6B1A; }
+        .footer-text { font-size: 0.85rem; opacity: 0.7; }
+
+        @media (max-width: 700px) {
+            .layout { grid-template-columns: 1fr; }
+            .hero { flex-direction: column; text-align: center; }
+            .hero-contacts { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="nav-brand">ACE-M</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About me</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <!-- Hero -->
+        <div class="hero">
+            <div class="hero-text">
+                <h1>Mitchell Nesselaar</h1>
+                <p class="role">Expert IT Systems &amp; Devices</p>
+                <div class="hero-contacts">
+                    <a href="mailto:mitchellnesse@hotmail.com">mitchellnesse@hotmail.com</a>
+                    <span>+31 6 83677277</span>
+                    <span>Scherpenzeel, NL</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="layout">
+            <!-- Left column: Experience + Education -->
+            <div>
+                <!-- Experience -->
+                <div class="card">
+                    <p class="card-title">Experience</p>
+                    <div class="timeline-line">
+                        <div class="timeline-entry">
+                            <div class="timeline-entry-inner">
+                                <div class="tl-dot"></div>
+                                <div class="tl-content">
+                                    <div class="tl-title">IT Department</div>
+                                    <div class="tl-sub">Infradak Nesselaar BV</div>
+                                    <span class="tl-period">2023 – Present</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-entry">
+                            <div class="timeline-entry-inner">
+                                <div class="tl-dot"></div>
+                                <div class="tl-content">
+                                    <div class="tl-title">Service Desk Employee</div>
+                                    <div class="tl-sub">De Meerwaarde — Internship</div>
+                                    <div class="tl-desc">Helping teachers and students with hardware &amp; software problems.</div>
+                                    <span class="tl-period">2025 – 2026 · 20 weeks</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-entry">
+                            <div class="timeline-entry-inner">
+                                <div class="tl-dot"></div>
+                                <div class="tl-content">
+                                    <div class="tl-title">Service Desk Employee</div>
+                                    <div class="tl-sub">De Meerwaarde — Internship</div>
+                                    <div class="tl-desc">Helping teachers and students with hardware &amp; software problems.</div>
+                                    <span class="tl-period">2024 · 20 weeks</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-entry">
+                            <div class="timeline-entry-inner">
+                                <div class="tl-dot"></div>
+                                <div class="tl-content">
+                                    <div class="tl-title">Internship</div>
+                                    <div class="tl-sub">Infradak Nesselaar BV</div>
+                                    <span class="tl-period">2023 · 6 weeks</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-entry">
+                            <div class="timeline-entry-inner">
+                                <div class="tl-dot"></div>
+                                <div class="tl-content">
+                                    <div class="tl-title">Hardware Store</div>
+                                    <div class="tl-sub">Kluswijs, Scherpenzeel — Internship</div>
+                                    <span class="tl-period">2022 · 6 weeks</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Education -->
+                <div class="card">
+                    <p class="card-title">Education</p>
+                    <div class="timeline-line">
+                        <div class="timeline-entry">
+                            <div class="timeline-entry-inner">
+                                <div class="tl-dot"></div>
+                                <div class="tl-content">
+                                    <div class="tl-title">Expert IT Systems &amp; Devices</div>
+                                    <div class="tl-sub">Technova College Ede</div>
+                                    <span class="tl-period">2023 – 2026 (Final year)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-entry">
+                            <div class="timeline-entry-inner">
+                                <div class="tl-dot"></div>
+                                <div class="tl-content">
+                                    <div class="tl-title">VMBO Kader — Economics &amp; Entrepreneurship</div>
+                                    <div class="tl-sub">De Meerwaarde · Cambridge English Exam</div>
+                                    <span class="tl-period">2019 – 2023</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right column: Skills + Languages -->
+            <div>
+                <div class="card">
+                    <p class="card-title">Skills</p>
+                    <div class="skill-pills">
+                        <span class="pill">Azure</span>
+                        <span class="pill">Intune</span>
+                        <span class="pill">Microsoft 365</span>
+                        <span class="pill">Windows Server</span>
+                        <span class="pill">PowerShell</span>
+                        <span class="pill">Networking</span>
+                        <span class="pill">Service Desk</span>
+                        <span class="pill">Security</span>
+                        <span class="pill">Infrastructure</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <p class="card-title">Languages</p>
+                    <div class="lang-list">
+                        <div class="lang-item">
+                            <span class="lang-name">Dutch</span>
+                            <span class="lang-level">Native</span>
+                        </div>
+                        <div class="lang-item">
+                            <span class="lang-name">English</span>
+                            <span class="lang-level">Fluent</span>
+                        </div>
+                        <div class="lang-item">
+                            <span class="lang-name">Cambridge</span>
+                            <span class="lang-level">Certified</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="https://instagram.com" aria-label="Instagram">Instagram</a>
+                <a href="https://github.com" aria-label="GitHub">GitHub</a>
+                <a href="https://linkedin.com" aria-label="LinkedIn">LinkedIn</a>
+            </div>
+            <p class="footer-text">© ACE-M</p>
+        </div>
+    </footer>
+</body>
+</html>
