@@ -1,171 +1,387 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Travel Blog — ACE-M</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Travels – ACE-M</title>
+<script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson@3/dist/topojson.min.js"></script>
 <style>
-*,::before,::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;min-height:100vh;background:#dedad5;color:#1a0f05;overflow-x:hidden;display:flex;flex-direction:column}
-body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 85% 65% at 12% 10%,rgba(255,110,20,.16) 0%,rgba(255,110,20,.06) 45%,transparent 72%)}
-nav{position:sticky;top:0;z-index:100;backdrop-filter:blur(44px) saturate(250%) brightness(1.08);-webkit-backdrop-filter:blur(44px) saturate(250%) brightness(1.08);background:rgba(255,255,255,0);border-bottom:1px solid rgba(255,255,255,.3)}
-.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:58px;padding:0 2rem}
-.nav-brand{font-size:1.15rem;font-weight:800;letter-spacing:-.5px;text-decoration:none;background:linear-gradient(135deg,#1a0f05 0%,#FF6B1A 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.nav-links{display:flex;gap:.25rem}
-.nav-link{font-size:.88rem;font-weight:500;text-decoration:none;color:rgba(26,15,5,.7);padding:.38rem .95rem;border-radius:20px;border:1.5px solid transparent;transition:all .22s ease;position:relative}
-.nav-link::after{content:'';position:absolute;inset:0;background:linear-gradient(130deg,rgba(255,255,255,0) 20%,rgba(255,255,255,.55) 50%,rgba(255,255,255,0) 80%);transform:translateX(-160%);transition:transform .4s ease;border-radius:inherit;pointer-events:none}
-.nav-link:hover{background:rgba(255,255,255,.45);color:#1a0f05;border-color:rgba(255,255,255,.88);box-shadow:0 0 0 1px rgba(255,255,255,.28),0 3px 10px rgba(0,0,0,.1),inset 0 2px 0 rgba(255,255,255,2)}
-.nav-link:hover::after{transform:translateX(160%)}
-.nav-link.active{background:linear-gradient(180deg,rgba(255,255,255,.8) 0%,rgba(255,255,255,.04) 44%,rgba(255,255,255,.18) 100%);color:#FF6B1A;font-weight:600;border-color:rgba(255,255,255,.9);box-shadow:0 0 0 1px rgba(255,255,255,.9)}
-main{flex:1;position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;padding:3rem 2rem 4rem}
-.page-header{width:100%;max-width:1100px;margin-bottom:2rem}
-.page-title{font-size:2rem;font-weight:800;color:#1a0f05;letter-spacing:-.03em;margin-bottom:.35rem}
-.page-sub{font-size:.9rem;color:rgba(26,15,5,.4)}
-.filter-bar{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:2rem;width:100%;max-width:1100px}
-.filter-btn{padding:.38rem 1rem;border-radius:30px;font-size:.78rem;font-weight:600;cursor:pointer;border:1.5px solid rgba(255,255,255,.7);background:rgba(255,255,255,.45);color:rgba(26,15,5,.55);backdrop-filter:blur(20px);transition:all .2s ease}
-.filter-btn:hover{background:rgba(255,255,255,.7);color:#1a0f05;border-color:rgba(255,255,255,.9)}
-.filter-btn.active{background:linear-gradient(180deg,rgba(255,255,255,.85) 0%,rgba(255,255,255,.5) 100%);color:#1a0f05;border-color:rgba(255,255,255,.92);box-shadow:0 0 0 1px rgba(255,255,255,.28),0 4px 12px rgba(0,0,0,.08),inset 0 2px 0 rgba(255,255,255,1)}
-.travel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;width:100%;max-width:1100px}
-@media(max-width:700px){.travel-grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:450px){.travel-grid{grid-template-columns:1fr}}
-.travel-card{background:linear-gradient(180deg,rgba(255,255,255,.82) 0%,rgba(255,255,255,.44) 100%);backdrop-filter:blur(60px) saturate(220%) brightness(1.06);-webkit-backdrop-filter:blur(60px) saturate(220%) brightness(1.06);border:1.5px solid rgba(255,255,255,.92);border-bottom-color:rgba(255,255,255,.55);box-shadow:0 0 0 1px rgba(255,255,255,.28),0 8px 28px rgba(0,0,0,.09),inset 0 2px 0 rgba(255,255,255,1);border-radius:20px;cursor:pointer;text-decoration:none;color:#1a0f05;transition:transform .28s ease,box-shadow .28s ease;position:relative;overflow:hidden;display:flex;flex-direction:column}
-.travel-card::before{content:'';position:absolute;top:0;left:0;right:0;height:54%;background:linear-gradient(180deg,rgba(255,255,255,.82) 0%,rgba(255,255,255,0) 100%);pointer-events:none;border-radius:inherit;z-index:1}
-.travel-card::after{content:'';position:absolute;inset:0;background:linear-gradient(130deg,rgba(255,255,255,0) 20%,rgba(255,255,255,.65) 50%,rgba(255,255,255,0) 80%);transform:translateX(-160%);transition:transform .5s ease;pointer-events:none;border-radius:inherit;z-index:1}
-.travel-card:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 0 0 1px rgba(255,255,255,.38),0 18px 52px rgba(0,0,0,.13),inset 0 2px 0 rgba(255,255,255,1)}
-.travel-card:hover::after{transform:translateX(160%)}
-.card-img{height:180px;position:relative;overflow:hidden;border-bottom:1px solid rgba(255,255,255,.5);display:flex;align-items:center;justify-content:center;font-size:4rem;flex-shrink:0}
-.card-img-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(26,15,5,.08) 100%);pointer-events:none}
-.card-body{padding:.9rem 1rem 1rem;position:relative;z-index:2;flex:1;display:flex;flex-direction:column;gap:.3rem}
-.card-tag{display:inline-flex;align-items:center;gap:.3rem;background:rgba(255,107,26,.1);border:1px solid rgba(255,107,26,.22);border-radius:30px;padding:.15rem .6rem;font-size:.62rem;font-weight:600;color:rgba(180,65,0,.75);width:fit-content}
-.card-title{font-size:.9rem;font-weight:700;color:#1a0f05;line-height:1.3;margin-top:.1rem}
-.card-meta{font-size:.68rem;color:rgba(26,15,5,.38);margin-top:auto;padding-top:.35rem;display:flex;gap:.6rem;align-items:center}
-.meta-dot{width:3px;height:3px;border-radius:50%;background:rgba(26,15,5,.2)}
-.empty{text-align:center;padding:4rem 2rem;color:rgba(26,15,5,.35)}
-.empty-icon{font-size:2.5rem;margin-bottom:.75rem;opacity:.5}
-.empty-text{font-size:.9rem;font-weight:500}
-footer{position:relative;z-index:1;border-top:1.5px solid rgba(255,255,255,.55);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px)}
-.footer-inner{max-width:1100px;margin:0 auto;padding:2.5rem 2rem;display:flex;flex-direction:column;align-items:center;gap:1.2rem}
-.socials{display:flex;gap:.75rem}
-.social-link{position:relative;z-index:1;display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:13px;background:linear-gradient(180deg,rgba(255,255,255,.8) 0%,rgba(255,255,255,0) 100%),rgba(255,255,255,.45);border:1.5px solid rgba(255,255,255,.88);box-shadow:0 0 0 1px rgba(255,255,255,.28),0 4px 14px rgba(0,0,0,.07),inset 0 2px 0 rgba(255,255,255,1);color:rgba(26,15,5,.55);text-decoration:none;transition:all .3s ease;overflow:hidden}
-.social-link:hover{color:#FF6B1A;transform:translateY(-3px);border-color:rgba(255,255,255,.96);box-shadow:0 0 0 1px rgba(255,255,255,.35),0 10px 28px rgba(255,107,26,.2),inset 0 2px 0 rgba(255,255,255,1)}
-.social-link svg{width:20px;height:20px;position:relative;z-index:1}
-.footer-note{font-size:.78rem;color:rgba(26,15,5,.38)}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --bg:     #dedad5;
+  --accent: #FF6B1A;
+  --text:   #1a0f05;
+  --muted:  #6b5a4e;
+  --faint:  #9b8b80;
+  --glass-bg:     linear-gradient(145deg, rgba(245,243,240,0.58) 0%, rgba(215,210,203,0.40) 100%);
+  --glass-border: rgba(220,215,208,0.68);
+  --glass-top:    rgba(255,255,255,0.78);
+  --glass-btm:    rgba(26,15,5,0.05);
+  --glass-blur:   blur(60px) saturate(140%) brightness(1.05);
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  background: var(--bg); color: var(--text); min-height: 100vh;
+}
+.bg-canvas {
+  position: fixed; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 85% 12%, rgba(255,107,26,0.22) 0%, transparent 60%),
+    radial-gradient(ellipse 55% 50% at 10% 85%, rgba(255,160,90,0.14) 0%, transparent 58%),
+    radial-gradient(ellipse 45% 40% at 55% 55%, rgba(255,210,170,0.09) 0%, transparent 55%),
+    radial-gradient(ellipse 35% 30% at 20% 30%, rgba(255,180,110,0.08) 0%, transparent 50%),
+    #dedad5;
+}
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1.5px solid var(--glass-border);
+  box-shadow: 0 6px 32px rgba(26,15,5,0.08), inset 0 1.5px 0 var(--glass-top), inset 0 -1px 0 var(--glass-btm);
+}
+.page {
+  position: relative; z-index: 1;
+  min-height: 100vh;
+  padding: 0 32px 64px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.nav-wrap {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; justify-content: center;
+  padding: 18px 0 0; pointer-events: none;
+}
+nav {
+  pointer-events: all;
+  display: flex; align-items: center; gap: 2px;
+  padding: 5px 6px; border-radius: 28px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(80px) saturate(160%) brightness(1.06);
+  -webkit-backdrop-filter: blur(80px) saturate(160%) brightness(1.06);
+  border: 1.5px solid var(--glass-border);
+  box-shadow: 0 4px 24px rgba(26,15,5,0.1), inset 0 1.5px 0 var(--glass-top), inset 0 -1px 0 var(--glass-btm);
+}
+nav a {
+  display: flex; align-items: center;
+  padding: 7px 16px; border-radius: 22px;
+  font-size: 13px; font-weight: 600; color: var(--muted);
+  text-decoration: none; transition: all 0.2s; letter-spacing: -0.01em;
+}
+nav a:hover { color: var(--text); background: rgba(26,15,5,0.05); }
+nav a.active { color: var(--accent); background: rgba(255,107,26,0.1); }
+
+/* MAP */
+.map-card {
+  margin-top: 28px;
+  border-radius: 26px;
+  padding: 28px 32px 24px;
+  position: relative; overflow: hidden;
+}
+.map-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 14px; }
+.map-title { font-size: 22px; font-weight: 800; letter-spacing: -0.04em; color: var(--text); }
+.map-sub { font-size: 13px; color: var(--muted); }
+.map-legend { display: flex; gap: 16px; margin-bottom: 14px; }
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); font-weight: 600; }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+.legend-dot.visited { background: var(--accent); }
+.legend-dot.not-visited { background: rgba(26,15,5,0.1); border: 1px solid rgba(26,15,5,0.15); }
+#world-map { width: 100%; display: block; }
+#world-map .country { fill: rgba(26,15,5,0.08); stroke: rgba(255,255,255,0.5); stroke-width: 0.4; transition: fill 0.15s; cursor: pointer; }
+#world-map .country.visited { fill: var(--accent); opacity: 0.85; }
+#world-map .country:hover { fill: rgba(26,15,5,0.18); }
+#world-map .country.visited:hover { opacity: 1; }
+.map-tooltip {
+  position: absolute; display: none; pointer-events: none;
+  background: var(--text); color: #fff;
+  border-radius: 8px; padding: 5px 10px;
+  font-size: 12px; font-weight: 600; white-space: nowrap; z-index: 10;
+}
+
+/* SECTION */
+.section-label {
+  font-size: 10px; font-weight: 800; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--faint); margin: 28px 0 12px;
+}
+
+/* FILTER */
+.filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+.filter-pill {
+  padding: 7px 18px; border-radius: 22px;
+  font-size: 13px; font-weight: 600; color: var(--muted);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1.5px solid var(--glass-border);
+  box-shadow: 0 2px 8px rgba(26,15,5,0.06), inset 0 1px 0 var(--glass-top);
+  cursor: pointer; transition: all 0.2s; user-select: none;
+}
+.filter-pill:hover { color: var(--text); }
+.filter-pill.active { color: var(--accent); background: rgba(255,107,26,0.1); border-color: rgba(255,107,26,0.3); }
+
+/* TRIPS */
+.trip-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+.trip-card {
+  border-radius: 20px; padding: 22px 24px;
+  display: flex; flex-direction: column; gap: 8px;
+  transition: transform 0.2s;
+}
+.trip-card:hover { transform: translateY(-2px); }
+.trip-card.hidden { display: none; }
+.trip-flag { font-size: 32px; line-height: 1; }
+.trip-dest { font-size: 18px; font-weight: 800; letter-spacing: -0.03em; color: var(--text); }
+.trip-country { font-size: 13px; color: var(--muted); font-weight: 600; }
+.trip-meta { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
+.trip-tag {
+  font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px;
+  background: rgba(255,107,26,0.1); color: var(--accent);
+}
+
+/* FOOTER */
+.site-footer {
+  border-radius: 20px; padding: 22px 26px;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  margin-top: 8px;
+}
+.footer-brand { font-size: 15px; font-weight: 800; letter-spacing: -0.03em; color: var(--text); }
+.footer-copy { font-size: 11px; color: var(--faint); }
+.social-links { display: flex; gap: 8px; }
+.social-pill {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: 12px;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1.5px solid var(--glass-border);
+  box-shadow: 0 3px 12px rgba(26,15,5,0.07), inset 0 1px 0 var(--glass-top);
+  color: var(--muted); text-decoration: none; transition: all 0.2s;
+}
+.social-pill:hover { color: var(--text); transform: translateY(-1px); box-shadow: 0 6px 18px rgba(26,15,5,0.10), inset 0 1px 0 var(--glass-top); }
+.social-pill svg { width: 16px; height: 16px; }
+
+@media (max-width: 700px) {
+  .page { padding: 0 16px 48px; }
+  .map-card { padding: 20px 18px 18px; }
+  .trip-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
-<nav>
-  <div class="nav-inner">
-    <a href="index.html" class="nav-brand">ACE-M</a>
-    <div class="nav-links">
-      <a href="index.html" class="nav-link">Home</a>
-      <a href="about.html" class="nav-link">About me</a>
+<div class="bg-canvas"></div>
+<div class="page">
+
+  <!-- NAV -->
+  <div class="nav-wrap">
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="resume.html">Resume</a>
+      <a href="projects.html">Projects</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="travels.html" class="active">Travels</a>
+      <a href="setup.html">Setup</a>
+      <a href="status.html">Status</a>
+    </nav>
+  </div>
+
+  <!-- WORLD MAP -->
+  <div class="map-card glass" id="map-card">
+    <div class="map-header">
+      <div class="map-title">Countries Visited</div>
+      <div class="map-sub">10 countries explored</div>
+    </div>
+    <div class="map-legend">
+      <div class="legend-item"><div class="legend-dot visited"></div> Visited</div>
+      <div class="legend-item"><div class="legend-dot not-visited"></div> Not visited</div>
+    </div>
+    <svg id="world-map" height="400"></svg>
+    <div class="map-tooltip" id="map-tooltip"></div>
+  </div>
+
+  <!-- TRIPS -->
+  <p class="section-label">My Trips</p>
+
+  <div class="filter-row">
+    <div class="filter-pill active" data-filter="all">All</div>
+    <div class="filter-pill" data-filter="Asia">Asia</div>
+    <div class="filter-pill" data-filter="Europe">Europe</div>
+    <div class="filter-pill" data-filter="Oceania">Oceania</div>
+    <div class="filter-pill" data-filter="Americas">Americas</div>
+  </div>
+
+  <div class="trip-grid" id="trip-grid">
+    <div class="trip-card glass" data-region="Asia">
+      <div class="trip-flag">🇯🇵</div>
+      <div class="trip-dest">Tokyo</div>
+      <div class="trip-country">Japan</div>
+      <div class="trip-meta">
+        <span class="trip-tag">7 days</span>
+        <span class="trip-tag">Spring 2024</span>
+        <span class="trip-tag">Asia</span>
+      </div>
+    </div>
+    <div class="trip-card glass" data-region="Europe">
+      <div class="trip-flag">🇮🇹</div>
+      <div class="trip-dest">Rome</div>
+      <div class="trip-country">Italy</div>
+      <div class="trip-meta">
+        <span class="trip-tag">5 days</span>
+        <span class="trip-tag">Summer 2023</span>
+        <span class="trip-tag">Europe</span>
+      </div>
+    </div>
+    <div class="trip-card glass" data-region="Oceania">
+      <div class="trip-flag">🇳🇿</div>
+      <div class="trip-dest">Queenstown</div>
+      <div class="trip-country">New Zealand</div>
+      <div class="trip-meta">
+        <span class="trip-tag">4 days</span>
+        <span class="trip-tag">Winter 2023</span>
+        <span class="trip-tag">Oceania</span>
+      </div>
+    </div>
+    <div class="trip-card glass" data-region="Asia">
+      <div class="trip-flag">🇯🇵</div>
+      <div class="trip-dest">Kyoto</div>
+      <div class="trip-country">Japan</div>
+      <div class="trip-meta">
+        <span class="trip-tag">3 days</span>
+        <span class="trip-tag">Spring 2024</span>
+        <span class="trip-tag">Asia</span>
+      </div>
+    </div>
+    <div class="trip-card glass" data-region="Europe">
+      <div class="trip-flag">🇳🇱</div>
+      <div class="trip-dest">Amsterdam</div>
+      <div class="trip-country">Netherlands</div>
+      <div class="trip-meta">
+        <span class="trip-tag">4 days</span>
+        <span class="trip-tag">Summer 2023</span>
+        <span class="trip-tag">Europe</span>
+      </div>
+    </div>
+    <div class="trip-card glass" data-region="Americas">
+      <div class="trip-flag">🇺🇸</div>
+      <div class="trip-dest">New York</div>
+      <div class="trip-country">United States</div>
+      <div class="trip-meta">
+        <span class="trip-tag">6 days</span>
+        <span class="trip-tag">Autumn 2022</span>
+        <span class="trip-tag">Americas</span>
+      </div>
     </div>
   </div>
-</nav>
-<main>
-  <div class="page-header">
-    <div class="page-title">Travel Blog ✈️</div>
-    <div class="page-sub">Places I've been, things I've seen.</div>
-  </div>
-  <div class="filter-bar">
-    <button class="filter-btn active" onclick="filterCards('all',this)">All</button>
-    <button class="filter-btn" onclick="filterCards('asia',this)">Asia</button>
-    <button class="filter-btn" onclick="filterCards('europe',this)">Europe</button>
-    <button class="filter-btn" onclick="filterCards('oceania',this)">Oceania</button>
-    <button class="filter-btn" onclick="filterCards('americas',this)">Americas</button>
-  </div>
-  <div class="travel-grid" id="grid">
-    <a href="#" class="travel-card" data-region="asia">
-      <div class="card-img" style="background:linear-gradient(135deg,rgba(255,180,80,.2),rgba(255,107,26,.1))">
-        🗼<div class="card-img-overlay"></div>
-      </div>
-      <div class="card-body">
-        <div class="card-tag"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Asia</div>
-        <div class="card-title">Tokyo, Japan</div>
-        <div class="card-meta"><span>7 days</span><div class="meta-dot"></div><span>Spring 2024</span></div>
-      </div>
-    </a>
-    <a href="#" class="travel-card" data-region="europe">
-      <div class="card-img" style="background:linear-gradient(135deg,rgba(100,160,255,.18),rgba(60,100,200,.08))">
-        🏛️<div class="card-img-overlay"></div>
-      </div>
-      <div class="card-body">
-        <div class="card-tag" style="background:rgba(60,130,246,.1);border-color:rgba(60,130,246,.22);color:rgba(30,80,200,.7)"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Europe</div>
-        <div class="card-title">Rome, Italy</div>
-        <div class="card-meta"><span>5 days</span><div class="meta-dot"></div><span>Summer 2023</span></div>
-      </div>
-    </a>
-    <a href="#" class="travel-card" data-region="oceania">
-      <div class="card-img" style="background:linear-gradient(135deg,rgba(61,186,111,.15),rgba(30,120,70,.07))">
-        🌿<div class="card-img-overlay"></div>
-      </div>
-      <div class="card-body">
-        <div class="card-tag" style="background:rgba(61,186,111,.1);border-color:rgba(61,186,111,.22);color:rgba(30,120,70,.75)"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Oceania</div>
-        <div class="card-title">Queenstown, NZ</div>
-        <div class="card-meta"><span>4 days</span><div class="meta-dot"></div><span>Winter 2023</span></div>
-      </div>
-    </a>
-    <a href="#" class="travel-card" data-region="asia">
-      <div class="card-img" style="background:linear-gradient(135deg,rgba(255,200,100,.2),rgba(255,150,30,.1))">
-        🏯<div class="card-img-overlay"></div>
-      </div>
-      <div class="card-body">
-        <div class="card-tag"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Asia</div>
-        <div class="card-title">Kyoto, Japan</div>
-        <div class="card-meta"><span>3 days</span><div class="meta-dot"></div><span>Spring 2024</span></div>
-      </div>
-    </a>
-    <a href="#" class="travel-card" data-region="europe">
-      <div class="card-img" style="background:linear-gradient(135deg,rgba(200,160,255,.18),rgba(139,92,246,.08))">
-        🗺️<div class="card-img-overlay"></div>
-      </div>
-      <div class="card-body">
-        <div class="card-tag" style="background:rgba(60,130,246,.1);border-color:rgba(60,130,246,.22);color:rgba(30,80,200,.7)"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Europe</div>
-        <div class="card-title">Amsterdam, NL</div>
-        <div class="card-meta"><span>4 days</span><div class="meta-dot"></div><span>Summer 2023</span></div>
-      </div>
-    </a>
-    <a href="#" class="travel-card" data-region="americas">
-      <div class="card-img" style="background:linear-gradient(135deg,rgba(255,107,26,.15),rgba(200,60,0,.08))">
-        🏄<div class="card-img-overlay"></div>
-      </div>
-      <div class="card-body">
-        <div class="card-tag" style="background:rgba(180,65,0,.08);border-color:rgba(180,65,0,.2);color:rgba(140,45,0,.7)"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Americas</div>
-        <div class="card-title">New York, USA</div>
-        <div class="card-meta"><span>6 days</span><div class="meta-dot"></div><span>Autumn 2022</span></div>
-      </div>
-    </a>
-  </div>
-</main>
-<footer>
-  <div class="footer-inner">
-    <div class="socials">
-      <a href="https://www.instagram.com/_ace_m_/" class="social-link" title="Instagram" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg></a>
-      <a href="https://github.com/ULTIMATE-ACE-M" class="social-link" title="GitHub" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></a>
-      <a href="https://www.linkedin.com/in/mitchell-nesselaar-1b309134a/" class="social-link" title="LinkedIn" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+
+  <!-- FOOTER -->
+  <div class="site-footer glass">
+    <div>
+      <div class="footer-brand">ACE-M</div>
+      <div class="footer-copy">© 2026 Mitchell Nesselaar</div>
     </div>
-    <div class="footer-note">© ACE-M</div>
+    <div class="social-links">
+      <a href="https://instagram.com" target="_blank" class="social-pill" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+        </svg>
+      </a>
+      <a href="https://github.com/ULTIMATE-ACE-M" target="_blank" class="social-pill" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+        </svg>
+      </a>
+      <a href="https://linkedin.com" target="_blank" class="social-pill" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+        </svg>
+      </a>
+    </div>
   </div>
-</footer>
+</div>
+
 <script>
-function filterCards(region, btn) {
-  document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active')});
-  btn.classList.add('active');
-  var cards = document.querySelectorAll('.travel-card');
-  cards.forEach(function(card) {
-    var match = region === 'all' || card.dataset.region === region;
-    card.style.transition = 'opacity .25s ease, transform .25s ease';
-    if (match) { card.style.opacity='1'; card.style.pointerEvents=''; card.style.display=''; }
-    else { card.style.opacity='0'; card.style.pointerEvents='none'; setTimeout(function(){ card.style.display='none'; }, 250); }
+// Filter
+document.querySelectorAll('.filter-pill').forEach(function(pill) {
+  pill.addEventListener('click', function() {
+    document.querySelectorAll('.filter-pill').forEach(function(p) { p.classList.remove('active'); });
+    pill.classList.add('active');
+    var filter = pill.dataset.filter;
+    document.querySelectorAll('.trip-card').forEach(function(card) {
+      if (filter === 'all' || card.dataset.region === filter) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
   });
-  var visible = Array.from(cards).filter(function(c){ return region==='all'||c.dataset.region===region; });
-  var empty = document.getElementById('empty-state');
-  if (!visible.length && !empty) {
-    var el=document.createElement('div'); el.id='empty-state'; el.className='empty';
-    el.innerHTML='<div class="empty-icon">🗺️</div><div class="empty-text">No trips here yet.</div>';
-    document.getElementById('grid').appendChild(el);
-  } else if (empty && visible.length) { empty.remove(); }
-}
+});
+
+// World Map
+var visited = {
+  'Belgium': true, 'France': true, 'Germany': true, 'Italy': true,
+  'Netherlands': true, 'Spain': true, 'United Kingdom': true,
+  'Japan': true, 'New Zealand': true, 'United States': true
+};
+var countryNames = {
+  4:'Afghanistan',8:'Albania',12:'Algeria',20:'Andorra',24:'Angola',32:'Argentina',51:'Armenia',:36:'Australia',40:'Austria',31:'Azerbaijan',
+  44:'Bahamas',48:'Bahrain',50:'Bangladesh',52:'Barbados',112:'Belarus',56:'Belgium',84:'Belize',204:'Benin',64:'Bhutan',68:'Bolivia',
+  70:'Bosnia and Herzegovina',72:'Botswana',76:'Brazil',96:'Brunei', 100:'Bulgaria',854:'Burkina Faso',108:'Burundi',
+  116:'Cambodia',120:'Cameroon',124:'Canada',140:'Central African Republic',148:'Chad',152:'Chile',156:'China',170:'Colombia',
+  178:'Republic of the Congo', 180:'DR Congo',188:'Costa Rica',191:'Croatia',192:'Cuba',196:'Cyprus',203:'Czechia',
+  208:'Denmark',262:'Djibouti',214:'Dominican Republic',218:'Ecuador',818:'Egypt',222:'El Salvador',226:'Equatorial Guinea',
+  232:'Eritrea',233:'Estonia',748:'Eswatini',231:'Ethiopia',242:'Fiji',246:'Finland',250:'France',
+  266:'Gabon',270:'Gambia',268:'Georgia',276:'Germany',288:'Ghana',300:'Greece',320:'Guatemala',324:'Guinea',
+  624:'Guinea-Bissau',328:'Guyana',332:'Haiti',340:'Honduras',348:'Hungary',356:'India',360:'Indonesia',364:'Iran',
+  368:'Iraq',372:'Ireland',376:'Israel',380:'Italy',384:'Ivory Coast',388:'Jamaica',392:'Japan',400:'Jordan',
+  398:'Kazakhstan',404:'Kenya',408:'North Korea',410:'South Korea',414:'Kuwait',417:'Kyrgyzstan',418:'Laos',
+  428:'Latvia',422:'Lebanon',426:'Lesotho',430:'Liberia',434:'Libya',440:'Lithuania',442:'Luxembourg',
+  450:'Madagascar',454:'Malawi',458:'Malaysia',466:'Mali',478:'Mauritania',484:'Mexico',498:'Moldova',
+  496:'Mongolia',504:'Morocco',508:'Mozambique',104:'Myanmar',516:'Namibia',524:'Nepal',528:'Netherlands',
+  554:'New Zealand',558:'Nicaragua',562:'Niger',566:'Nigeria',578:'Norway',512:'Oman',586:'Pakistan',
+  591:'Panama',598:'Papua New Guinea',600:'Paraguay',604:'Peru',608:'Philippines',616:'Poland',620:'Portugal',
+  634:'Qatar',642:'Romania',643:'Russia',646:'Rwanda',682:'Saudi Arabia',686:'Senegal',694:'Sierra Leone',
+  703:'Slovakia',705:'Slovenia',706:'Somalia',710:'South Africa',728:'South Sudan',724:'Spain',144:'Sri Lanka',
+  729:'Sudan',740:'Suriname',752:'Sweden',756:'Switzerland',760:'Syria',158:'Taiwan',762:'Tajikistan',
+  764:'Thailand',768:'Togo',780:'Trinidad and Tobago',788:'Tunisia',792:'Turkey',795:'Turkmenistan',
+  800:'Uganda',804:'Ukraine',784:'United Arab Emirates',826:'United Kingdom',840:'United States',
+  858:'Uruguay',860:'Uzbekistan',862:'Venezuela',704:'Vietnam',887:'Yemen',894:'Zambia',716:'Zimbabwe'
+};
+var nameToId = {};
+for (var id in countryNames) { nameToId[countryNames[id]] = +id; }
+var visitedIds = Object.keys(visited).filter(function(n){ return visited[n]; }).map(function(n){ return nameToId[n]; }).filter(Boolean);
+
+(function() {
+  var card = document.getElementById('map-card');
+  var svgEl = document.getElementById('world-map');
+  var tip = document.getElementById('map-tooltip');
+  var W = card.clientWidth - 64;
+  var H = Math.round(W * 0.5);
+  svgEl.setAttribute('height', H);
+  var svg = d3.select('#world-map');
+  var proj = d3.geoNaturalEarth1().scale(W / 6.5).translate([W / 2, H / 2]);
+  var path = d3.geoPath().projection(proj);
+  svg.append('path').datum({type:'Sphere'}).attr('d', path).attr('fill','rgba(26,15,5,.04)').attr('stroke','rgba(255,255,255,.35)').attr('stroke-width',.5);
+  var graticule = d3.geoGraticule();
+  svg.append('path').datum(graticule()).attr('d', path).attr('fill','none').attr('stroke','rgba(255,255,255,.2)').attr('stroke-width',.3);
+  d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json').then(function(world) {
+    var features = topojson.feature(world, world.objects.countries).features;
+    svg.selectAll('.country').data(features).enter().append('path')
+      .attr('class', function(d){ return visitedIds.indexOf(+d.id) > -1 ? 'country visited' : 'country'; })
+      .attr('d', path)
+      .on('mousemove', function(event, d) {
+        var name = countryNames[+d.id] || 'Unknown';
+        var rect = card.getBoundingClientRect();
+        tip.style.display = 'block';
+        tip.style.left = (event.clientX - rect.left + 14) + 'px';
+        tip.style.top = (event.clientY - rect.top - 42) + 'px';
+        tip.textContent = name;
+      })
+      .on('mouseleave', function() { tip.style.display = 'none'; });
+  }).catch(function() {
+    svgEl.insertAdjacentHTML('afterend', '<p style="text-align:center;color:rgba(26,15,5,.4);padding:2rem 0">Map unavailable</p>');
+  });
+})();
 </script>
 </body>
 </html>
