@@ -1,164 +1,264 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Projects — ACE-M</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Projects – ACE-M</title>
 <style>
-*,::before,::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Segoe UI',sans-serif;min-height:100vh;background:#dedad5;color:#1a0f05;overflow-x:hidden;display:flex;flex-direction:column}
-body::before{content:'';position:absolute;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 85% 65% at 12% 10%,rgba(255,110,20,.16) 0%,rgba(255,180,20,.06) 45%,transparent 80%)}
-nav{position:sticky;top:0;z-index:100;backdrop-filter:blur(44px) saturate(250%) brightness(1.08);-webkit-backdrop-filter:blur(44px) saturate(250%) brightness(1.08);background:rgba(255,255,255,.72);border-bottom:1.5px solid rgba(255,255,255,.9)}
-.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:58px;padding:0 2rem}
-.nav-brand{font-size:1.15rem;font-weight:800;letter-spacing:-.5px;text-decoration:none;background:linear-gradient(135deg,#1a0f05 0%,#FF6B1A 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.nav-links{display:flex;gap:.25rem}
-.nav-link{font-size:.88rem;font-weight:500;text-decoration:none;color:rgba(26,15,5,.7);padding:.38rem .95rem;border-radius:20px;border:1.5px solid transparent;transition:all .22s ease}
-.nav-link:hover{background:rgba(255,255,255,.45);color:#1a0f05;border-color:rgba(255,255,255,.88);box-shadow:0 0 0 1px rgba(255,255,255,.28),0 3px 10px rgba(0,0,0,.1),inset 0 2px 0 rgba(255,255,255,.8)}
-.nav-link.active{background:linear-gradient(180deg,rgba(255,255,255,.8) 0%,rgba(255,255,255,.04) 44%,rgba(255,255,255,.18) 100%);color:#FF6B1A;font-weight:600;border-color:rgba(255,255,255,.85)}
-main{flex:1;position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;padding:3rem 2rem 4rem}
-.page-header{width:100%;max-width:1100px;margin-bottom:2rem}
-.page-title{font-size:2rem;font-weight:800;color:#1a0f05;letter-spacing:-.03em;margin-bottom:.35rem}
-.page-sub{font-size:.9rem;color:rgba(26,15,5,.4)}
-.status{display:inline-flex;align-items:center;gap:4px;font-size:.7rem;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:.02em}
-.status-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
-.status-idea{background:rgba(100,140,255,.13);color:#4a6cf7;border:1px solid rgba(100,140,255,.25)}
-.status-idea .status-dot{background:#4a6cf7}
-.status-wip{background:rgba(255,107,26,.13);color:#e85d00;border:1px solid rgba(255,107,26,.3)}
-.status-wip .status-dot{background:#FF6B1A}
-.status-hold{background:rgba(120,120,120,.12);color:#777;border:1px solid rgba(120,120,120,.22)}
-.status-hold .status-dot{background:#aaa}
-.status-done{background:rgba(34,180,100,.13);color:#1a9955;border:1px solid rgba(34,180,100,.28)}
-.status-done .status-dot{background:#22b464}
-.featured-wrap{width:100%;max-width:1100px;margin-bottom:2rem}
-.featured-label{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(26,15,5,.35);margin-bottom:.7rem}
-.featured-card{background:linear-gradient(135deg,rgba(255,107,26,.14) 0%,rgba(255,255,255,.82) 50%,rgba(255,255,255,.72) 100%);backdrop-filter:blur(60px) saturate(220%) brightness(1.06);-webkit-backdrop-filter:blur(60px) saturate(220%) brightness(1.06);border:1.5px solid rgba(255,255,255,.92);box-shadow:0 0 0 1px rgba(255,255,255,.28),0 12px 40px rgba(0,0,0,.1),inset 0 2px 0 rgba(255,255,255,1);border-radius:22px;padding:2rem 2.2rem;display:flex;align-items:center;gap:2.5rem;text-decoration:none;color:inherit;transition:transform .22s ease,box-shadow .22s ease}
-.featured-card:hover{transform:translateY(-3px);box-shadow:0 0 0 1px rgba(255,255,255,.28),0 20px 50px rgba(0,0,0,.13),inset 0 2px 0 rgba(255,255,255,1)}
-.feat-icon-wrap{width:90px;height:90px;border-radius:20px;background:linear-gradient(135deg,rgba(255,107,26,.18),rgba(255,200,150,.25));border:1.5px solid rgba(255,255,255,.8);display:flex;align-items:center;justify-content:center;font-size:2.8rem;flex-shrink:0;box-shadow:inset 0 1px 0 rgba(255,255,255,.9)}
-.feat-badge{font-size:.68rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#FF6B1A;margin-bottom:.45rem}
-.feat-title{font-size:1.5rem;font-weight:800;color:#1a0f05;letter-spacing:-.02em;margin-bottom:.5rem}
-.feat-desc{font-size:.9rem;color:rgba(26,15,5,.6);line-height:1.6;max-width:600px;margin-bottom:.8rem}
-.feat-footer{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap}
-.feat-tech{font-size:.75rem;color:rgba(26,15,5,.4);font-weight:500}
-.feat-link{font-size:.78rem;font-weight:600;color:#FF6B1A;text-decoration:none;display:flex;align-items:center;gap:4px;padding:.3rem .8rem;border-radius:20px;background:rgba(255,107,26,.1);border:1px solid rgba(255,107,26,.25);transition:all .2s}
-.feat-link:hover{background:rgba(255,107,26,.18);border-color:rgba(255,107,26,.4)}
-.grid-label{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(26,15,5,.35);margin-bottom:.7rem;width:100%;max-width:1100px}
-.project-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;width:100%;max-width:1100px}
-@media(max-width:700px){.project-grid{grid-template-columns:repeat(2,1fr)}.featured-card{flex-direction:column;gap:1.2rem}.feat-icon-wrap{width:70px;height:70px;font-size:2rem}}
-@media(max-width:460px){.project-grid{grid-template-columns:1fr}}
-.project-card{background:linear-gradient(180deg,rgba(255,255,255,.82) 0%,rgba(255,255,255,.44) 100%);backdrop-filter:blur(60px) saturate(220%) brightness(1.06);-webkit-backdrop-filter:blur(60px) saturate(220%) brightness(1.06);border:1.5px solid rgba(255,255,255,.92);box-shadow:0 0 0 1px rgba(255,255,255,.28),0 8px 28px rgba(0,0,0,.09),inset 0 2px 0 rgba(255,255,255,1);border-radius:20px;padding:1.4rem;display:flex;flex-direction:column;gap:.5rem;text-decoration:none;color:inherit;transition:transform .22s ease,box-shadow .22s ease}
-.project-card:hover{transform:translateY(-3px);box-shadow:0 0 0 1px rgba(255,255,255,.28),0 16px 40px rgba(0,0,0,.12),inset 0 2px 0 rgba(255,255,255,1)}
-.card-icon-wrap{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin-bottom:.3rem;border:1.5px solid rgba(255,255,255,.75);box-shadow:inset 0 1px 0 rgba(255,255,255,.9)}
-.card-title{font-size:1rem;font-weight:700;color:#1a0f05;letter-spacing:-.01em}
-.card-desc{font-size:.82rem;color:rgba(26,15,5,.55);line-height:1.55;flex:1}
-.card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:.3rem;flex-wrap:wrap;gap:.4rem}
-.card-tech{font-size:.72rem;color:rgba(26,15,5,.35);font-weight:500}
-footer{position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.6);background:rgba(255,255,255,.3);backdrop-filter:blur(20px)}
-.footer-inner{max-width:1100px;margin:0 auto;padding:1.4rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
-.socials{display:flex;gap:.6rem}
-.social-link{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;background:rgba(255,255,255,.6);border:1.5px solid rgba(255,255,255,.9);color:#1a0f05;text-decoration:none;transition:all .2s}
-.social-link:hover{background:rgba(255,255,255,.9);transform:translateY(-2px)}
-.social-link svg{width:16px;height:16px}
-.footer-note{font-size:.78rem;color:rgba(26,15,5,.35);font-weight:500}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --bg:     #dedad5;
+  --accent: #FF6B1A;
+  --text:   #1a0f05;
+  --muted:  #6b5a4e;
+  --faint:  #9b8b80;
+  --glass-bg:     linear-gradient(145deg, rgba(245,243,240,0.58) 0%, rgba(215,210,203,0.40) 100%);
+  --glass-border: rgba(220,215,208,0.68);
+  --glass-top:    rgba(255,255,255,0.78);
+  --glass-btm:    rgba(26,15,5,0.05);
+  --glass-blur:   blur(60px) saturate(140%) brightness(1.05);
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  background: var(--bg); color: var(--text); min-height: 100vh;
+}
+.bg-canvas {
+  position: fixed; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 85% 12%, rgba(255,107,26,0.22) 0%, transparent 60%),
+    radial-gradient(ellipse 55% 50% at 10% 85%, rgba(255,160,90,0.14) 0%, transparent 58%),
+    radial-gradient(ellipse 45% 40% at 55% 55%, rgba(255,210,170,0.09) 0%, transparent 55%),
+    radial-gradient(ellipse 35% 30% at 20% 30%, rgba(255,180,110,0.08) 0%, transparent 50%),
+    #dedad5;
+}
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1.5px solid var(--glass-border);
+  box-shadow: 0 6px 32px rgba(26,15,5,0.08), inset 0 1.5px 0 var(--glass-top), inset 0 -1px 0 var(--glass-btm);
+}
+.page {
+  position: relative; z-index: 1;
+  min-height: 100vh;
+  padding: 0 32px 64px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.nav-wrap {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; justify-content: center;
+  padding: 18px 0 0; pointer-events: none;
+}
+nav {
+  pointer-events: all;
+  display: flex; align-items: center; gap: 2px;
+  padding: 5px 6px; border-radius: 28px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(80px) saturate(160%) brightness(1.06);
+  -webkit-backdrop-filter: blur(80px) saturate(160%) brightness(1.06);
+  border: 1.5px solid var(--glass-border);
+  box-shadow: 0 4px 24px rgba(26,15,5,0.1), inset 0 1.5px 0 var(--glass-top), inset 0 -1px 0 var(--glass-btm);
+}
+nav a {
+  display: flex; align-items: center;
+  padding: 7px 16px; border-radius: 22px;
+  font-size: 13px; font-weight: 600; color: var(--muted);
+  text-decoration: none; transition: all 0.2s; letter-spacing: -0.01em;
+}
+nav a:hover { color: var(--text); background: rgba(26,15,5,0.05); }
+nav a.active { color: var(--accent); background: rgba(255,107,26,0.1); }
+
+/* FEATURED */
+.featured-card {
+  margin-top: 28px;
+  border-radius: 26px;
+  padding: 36px 40px;
+}
+.featured-label {
+  font-size: 10px; font-weight: 800; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 12px;
+}
+.featured-title { font-size: clamp(24px, 3.5vw, 36px); font-weight: 800; letter-spacing: -0.04em; color: var(--text); margin-bottom: 8px; }
+.featured-desc { font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 16px; }
+.tag-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.tag {
+  font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 20px;
+  background: rgba(26,15,5,0.07); color: var(--muted);
+}
+.tag.done { background: rgba(34,197,94,0.12); color: #15803d; }
+
+/* SECTION LABEL */
+.section-label {
+  font-size: 10px; font-weight: 800; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--faint); margin: 28px 0 12px;
+}
+
+/* PROJECT GRID */
+.project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+.project-card {
+  border-radius: 20px; padding: 24px 26px;
+  display: flex; flex-direction: column; gap: 10px;
+  transition: transform 0.2s;
+}
+.project-card:hover { transform: translateY(-2px); }
+.project-icon { font-size: 28px; line-height: 1; }
+.project-name { font-size: 16px; font-weight: 800; letter-spacing: -0.03em; color: var(--text); }
+.project-desc { font-size: 13px; color: var(--muted); line-height: 1.5; flex: 1; }
+.project-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.project-tag {
+  font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px;
+  background: rgba(26,15,5,0.06); color: var(--faint);
+}
+.project-tag.done { background: rgba(34,197,94,0.12); color: #15803d; }
+.project-tag.wip { background: rgba(255,107,26,0.1); color: var(--accent); }
+
+/* FOOTER */
+.site-footer {
+  border-radius: 20px; padding: 22px 26px;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  margin-top: 8px;
+}
+.footer-brand { font-size: 15px; font-weight: 800; letter-spacing: -0.03em; color: var(--text); }
+.footer-copy { font-size: 11px; color: var(--faint); }
+.social-links { display: flex; gap: 8px; }
+.social-pill {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: 12px;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1.5px solid var(--glass-border);
+  box-shadow: 0 3px 12px rgba(26,15,5,0.07), inset 0 1px 0 var(--glass-top);
+  color: var(--muted); text-decoration: none; transition: all 0.2s;
+}
+.social-pill:hover { color: var(--text); transform: translateY(-1px); box-shadow: 0 6px 18px rgba(26,15,5,0.10), inset 0 1px 0 var(--glass-top); }
+.social-pill svg { width: 16px; height: 16px; }
+
+@media (max-width: 700px) {
+  .page { padding: 0 16px 48px; }
+  .featured-card { padding: 24px 22px; }
+  .project-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
-<nav>
-  <div class="nav-inner">
-    <a href="index.html" class="nav-brand">ACE-M</a>
-    <div class="nav-links">
-      <a href="index.html" class="nav-link">Home</a>
-      <a href="about.html" class="nav-link">About me</a>
+<div class="bg-canvas"></div>
+<div class="page">
+
+  <!-- NAV -->
+  <div class="nav-wrap">
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="resume.html">Resume</a>
+      <a href="projects.html" class="active">Projects</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="travels.html">Travels</a>
+      <a href="setup.html">Setup</a>
+      <a href="status.html">Status</a>
+    </nav>
+  </div>
+
+  <!-- FEATURED -->
+  <div class="featured-card glass">
+    <div class="featured-label">⭐ Featured Project</div>
+    <div class="featured-title">Travel Blog Platform</div>
+    <div class="featured-desc">A personal travel blog built from scratch with a custom CMS, photo gallery, and interactive world map. Tracks trips, gear, and experiences in a clean glass UI.</div>
+    <div class="tag-row">
+      <span class="tag done">✓ Finished</span>
+      <span class="tag">HTML</span>
+      <span class="tag">CSS</span>
+      <span class="tag">JavaScript</span>
     </div>
   </div>
-</nav>
-<main>
-  <div class="page-header">
-    <div class="page-title">Projects</div>
-    <div class="page-sub">Things I've built, am building, and want to build</div>
-  </div>
-  <div class="featured-wrap">
-    <div class="featured-label">⭐ Featured</div>
-    <a href="travels.html" class="featured-card">
-      <div class="feat-icon-wrap">🌏</div>
-      <div>
-        <div class="feat-badge">Featured Project</div>
-        <div class="feat-title">Travel Blog Platform</div>
-        <div class="feat-desc">A custom static site built to document my travels around the world. Features a glass-card UI, region filter system, and responsive grid — all hand-coded without any frameworks.</div>
-        <div class="feat-footer">
-          <span class="status status-done"><span class="status-dot"></span>Finished</span>
-          <span class="feat-tech">HTML · CSS · JavaScript</span>
-          <span class="feat-link">View project →</span>
-        </div>
-      </div>
-    </a>
-  </div>
-  <div class="grid-label">All Projects</div>
+
+  <!-- ALL PROJECTS -->
+  <p class="section-label">All Projects</p>
   <div class="project-grid">
-    <a href="#" class="project-card">
-      <div class="card-icon-wrap" style="background:linear-gradient(135deg,rgba(100,180,255,.18),rgba(180,220,255,.25))">📷</div>
-      <div class="card-title">Photo Gallery</div>
-      <div class="card-desc">A clean image gallery with lightbox viewer, category tags, and a masonry-style responsive grid.</div>
-      <div class="card-footer">
-        <span class="status status-done"><span class="status-dot"></span>Finished</span>
-        <span class="card-tech">HTML · CSS</span>
+    <div class="project-card glass">
+      <div class="project-icon">🌍</div>
+      <div class="project-name">Travel Blog Platform</div>
+      <div class="project-desc">Personal travel site with interactive map, gallery, and trip tracking.</div>
+      <div class="project-tags">
+        <span class="project-tag done">Finished</span>
+        <span class="project-tag">HTML/CSS/JS</span>
       </div>
-    </a>
-    <a href="#" class="project-card">
-      <div class="card-icon-wrap" style="background:linear-gradient(135deg,rgba(130,220,130,.18),rgba(180,240,180,.25))">📱</div>
-      <div class="card-title">Habit Tracker App</div>
-      <div class="card-desc">iOS app for tracking daily habits with streaks, reminders, and a weekly stats view.</div>
-      <div class="card-footer">
-        <span class="status status-wip"><span class="status-dot"></span>Work in Progress</span>
-        <span class="card-tech">Swift</span>
-      </div>
-    </a>
-    <a href="#" class="project-card">
-      <div class="card-icon-wrap" style="background:linear-gradient(135deg,rgba(200,150,255,.18),rgba(220,190,255,.25))">🤖</div>
-      <div class="card-title">AI Writing Tool</div>
-      <div class="card-desc">A GPT-powered assistant that helps draft, refine, and repurpose written content with custom prompt templates.</div>
-      <div class="card-footer">
-        <span class="status status-hold"><span class="status-dot"></span>On Hold</span>
-        <span class="card-tech">Python · OpenAI</span>
-      </div>
-    </a>
-    <a href="#" class="project-card">
-      <div class="card-icon-wrap" style="background:linear-gradient(135deg,rgba(255,210,100,.18),rgba(255,230,160,.25))">📊</div>
-      <div class="card-title">Personal Dashboard</div>
-      <div class="card-desc">A home screen dashboard pulling in weather, calendar, and habit data in one glanceable view.</div>
-      <div class="card-footer">
-        <span class="status status-idea"><span class="status-dot"></span>Idea</span>
-        <span class="card-tech">React</span>
-      </div>
-    </a>
-    <a href="#" class="project-card">
-      <div class="card-icon-wrap" style="background:linear-gradient(135deg,rgba(255,150,150,.18),rgba(255,190,190,.25))">🎮</div>
-      <div class="card-title">2D Platformer Game</div>
-      <div class="card-desc">A side-scrolling platformer with hand-drawn sprite art and procedurally generated levels.</div>
-      <div class="card-footer">
-        <span class="status status-idea"><span class="status-dot"></span>Idea</span>
-        <span class="card-tech">Unity · C#</span>
-      </div>
-    </a>
-    <a href="#" class="project-card">
-      <div class="card-icon-wrap" style="background:linear-gradient(135deg,rgba(100,220,200,.18),rgba(160,240,230,.25))">🔧</div>
-      <div class="card-title">CLI Utility Belt</div>
-      <div class="card-desc">A collection of command-line tools for automating repetitive dev tasks like file renaming, git log parsing, and more.</div>
-      <div class="card-footer">
-        <span class="status status-wip"><span class="status-dot"></span>Work in Progress</span>
-        <span class="card-tech">Node.js</span>
-      </div>
-    </a>
-  </div>
-</main>
-<footer>
-  <div class="footer-inner">
-    <div class="socials">
-      <a href="https://www.instagram.com/_ace_m_/" class="social-link" title="Instagram" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor"/></svg></a>
-      <a href="https://github.com/ULTIMATE-ACE-M" class="social-link" title="GitHub" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></a>
-      <a href="https://www.linkedin.com/in/mitchell-nesselaar-1b309134a/" class="social-link" title="LinkedIn" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
     </div>
-    <div class="footer-note">© ACE-M</div>
+    <div class="project-card glass">
+      <div class="project-icon">🖥</div>
+      <div class="project-name">Home Lab Setup</div>
+      <div class="project-desc">Self-hosted infrastructure with Windows Server, Azure AD, and network monitoring.</div>
+      <div class="project-tags">
+        <span class="project-tag wip">In Progress</span>
+        <span class="project-tag">Windows Server</span>
+      </div>
+    </div>
+    <div class="project-card glass">
+      <div class="project-icon">⚡</div>
+      <div class="project-name">PowerShell Automation</div>
+      <div class="project-desc">Scripts for automating IT tasks — user provisioning, device config, reporting.</div>
+      <div class="project-tags">
+        <span class="project-tag done">Finished</span>
+        <span class="project-tag">PowerShell</span>
+      </div>
+    </div>
+    <div class="project-card glass">
+      <div class="project-icon">☁️</div>
+      <div class="project-name">Azure Cloud Migration</div>
+      <div class="project-desc">Planning and execution of on-premise to Azure cloud migration at Infradak.</div>
+      <div class="project-tags">
+        <span class="project-tag done">Finished</span>
+        <span class="project-tag">Azure</span>
+        <span class="project-tag">Intune</span>
+      </div>
+    </div>
+    <div class="project-card glass">
+      <div class="project-icon">📷</div>
+      <div class="project-name">Photo Gallery System</div>
+      <div class="project-desc">GitHub-backed photo gallery with auto-loading, lightbox, and lazy loading.</div>
+      <div class="project-tags">
+        <span class="project-tag done">Finished</span>
+        <span class="project-tag">GitHub API</span>
+      </div>
+    </div>
+    <div class="project-card glass">
+      <div class="project-icon">📊</div>
+      <div class="project-name">Service Status Dashboard</div>
+      <div class="project-desc">Real-time monitoring dashboard for school and work services with auto-refresh.</div>
+      <div class="project-tags">
+        <span class="project-tag done">Finished</span>
+        <span class="project-tag">JavaScript</span>
+      </div>
+    </div>
   </div>
-</footer>
+
+  <!-- FOOTER -->
+  <div class="site-footer glass">
+    <div>
+      <div class="footer-brand">ACE-M</div>
+      <div class="footer-copy">© 2026 Mitchell Nesselaar</div>
+    </div>
+    <div class="social-links">
+      <a href="https://instagram.com" target="_blank" class="social-pill" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+        </svg>
+      </a>
+      <a href="https://github.com/ULTIMATE-ACE-M" target="_blank" class="social-pill" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+        </svg>
+      </a>
+      <a href="https://linkedin.com" target="_blank" class="social-pill" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
 </body>
-        </html>
+</html>
