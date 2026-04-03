@@ -1,236 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Setup/Gear – ACE-M</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html, body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #dedad5; color: #1a0f05; line-height: 1.6;
-        }
-        body { position: relative; overflow-x: hidden; }
-        body::before {
-            content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(ellipse at 20% -10%, rgba(255,107,26,0.15), transparent 50%);
-            pointer-events: none; z-index: -1;
-        }
-        nav {
-            display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 2rem;
-            background: linear-gradient(180deg, rgba(255,255,255,0.82) 0%, rgba(255,255,255,0.44) 100%);
-            backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
-            -webkit-backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
-            border-bottom: 1.5px solid rgba(255,255,255,0.92);
-            box-shadow: 0 0 0 1px rgba(255,255,255,0.28), 0 8px 28px rgba(0,0,0,0.09), inset 0 2px 0 rgba(255,255,255,1);
-            position: sticky; top: 0; z-index: 100;
-        }
-        .nav-brand { font-size: 1.4rem; font-weight: 700; color: #1a0f05; text-decoration: none; letter-spacing: -0.02em; }
-        .nav-links { display: flex; gap: 2rem; list-style: none; }
-        .nav-links a { color: #1a0f05; text-decoration: none; font-size: 0.95rem; transition: color 0.3s; }
-        .nav-links a:hover { color: #FF6B1A; }
-        main { max-width: 1200px; margin: 0 auto; padding: 3rem 2rem; }
-        .page-header { margin-bottom: 3rem; }
-        .page-title { font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
-        .page-subtitle { font-size: 1.1rem; color: #1a0f05; opacity: 0.75; }
-        .section { margin-bottom: 3rem; }
-        .section-header {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 1.2rem; padding-bottom: 0.8rem;
-            border-bottom: 1px solid rgba(255,255,255,0.3);
-        }
-        .section-title {
-            font-size: 1.1rem; font-weight: 700; text-transform: uppercase;
-            letter-spacing: 0.08em; color: #FF6B1A;
-            display: flex; align-items: center; gap: 0.6rem;
-        }
-        .section-link { color: #1a0f05; font-size: 0.85rem; text-decoration: none; opacity: 0.6; transition: opacity 0.3s; }
-        .section-link:hover { opacity: 1; color: #FF6B1A; }
-        .tiles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 1rem; }
-        .tile {
-            background: linear-gradient(180deg, rgba(255,255,255,0.82) 0%, rgba(255,255,255,0.44) 100%);
-            backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
-            -webkit-backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
-            border: 1.5px solid rgba(255,255,255,0.92);
-            box-shadow: 0 0 0 1px rgba(255,255,255,0.28), 0 8px 28px rgba(0,0,0,0.09), inset 0 2px 0 rgba(255,255,255,1);
-            border-radius: 16px; padding: 0.9rem 1rem;
-            display: flex; flex-direction: column; align-items: center; gap: 0.3rem;
-            min-width: 110px; cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            text-align: center; text-decoration: none; color: inherit;
-        }
-        .tile:hover { transform: translateY(-3px); box-shadow: 0 0 0 1px rgba(255,255,255,0.28), 0 12px 36px rgba(0,0,0,0.12), inset 0 2px 0 rgba(255,255,255,1); }
-        .tile.fav { background: linear-gradient(135deg, rgba(255,107,26,0.15), rgba(255,255,255,0.88)); border-color: rgba(255,107,26,0.3); }
-        .tile-badge { font-size: 0.65rem; font-weight: 700; color: #FF6B1A; text-transform: uppercase; letter-spacing: 0.05em; }
-        .tile-emoji { font-size: 1.6rem; line-height: 1; }
-        .tile-name { font-size: 0.78rem; font-weight: 700; line-height: 1.2; }
-        .tile-subtitle { font-size: 0.65rem; opacity: 0.6; line-height: 1.1; }
-        footer {
-            background: linear-gradient(180deg, rgba(255,255,255,0.82) 0%, rgba(255,255,255,0.44) 100%);
-            backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
-            -webkit-backdrop-filter: blur(60px) saturate(220%) brightness(1.06);
-            border-top: 1.5px solid rgba(255,255,255,0.92);
-            box-shadow: 0 0 0 1px rgba(255,255,255,0.28), 0 8px 28px rgba(0,0,0,0.09), inset 0 2px 0 rgba(255,255,255,1);
-            padding: 2rem; text-align: center; margin-top: 3rem;
-        }
-        .footer-content { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem; align-items: center; }
-        .social-links { display: flex; gap: 1.5rem; justify-content: center; }
-        .social-links a { color: #1a0f05; text-decoration: none; font-size: 1.1rem; transition: color 0.3s; }
-        .social-links a:hover { color: #FF6B1A; }
-        .footer-text { font-size: 0.85rem; opacity: 0.7; }
-        @media (max-width: 768px) {
-            nav { padding: 1rem 1.5rem; }
-            .nav-links { gap: 1.5rem; font-size: 0.9rem; }
-            main { padding: 2rem 1.5rem; }
-            .page-title { font-size: 1.8rem; }
-            .tiles-grid { grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 0.8rem; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Setup / Gear – ACE-M</title>
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --bg:     #dedad5;
+  --accent: #FF6B1A;
+  --text:   #1a0f05;
+  --muted:  #6b5a4e;
+  --faint:  #9b8b80;
+  --glass-bg:     linear-gradient(145deg, rgba(245,243,240,0.58) 0%, rgba(215,210,203,0.40) 100%);
+  --glass-border: rgba(220,215,208,0.68);
+  --glass-top:    rgba(255,255,255,0.78);
+  --glass-btm:    rgba(26,15,5,0.05);
+  --glass-blur:   blur(60px) saturate(140%) brightness(1.05);
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  background: var(--bg); color: var(--text); min-height: 100vh;
+}
+.bg-canvas {
+  position: fixed; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 85% 12%, rgba(255,107,26,0.22) 0%, transparent 60%),
+    radial-gradient(ellipse 55% 50% at 10% 85%, rgba(255,160,90,0.14) 0%, transparent 58%),
+    radial-gradient(ellipse 45% 40% at 55% 55%, rgba(255,210,170,0.09) 0%, transparent 55%),
+    radial-gradient(ellipse 35% 30% at 20% 30%, rgba(255,180,110,0.08) 0%, transparent 50%),
+    #dedad5;
+}
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1.5px solid var(--glass-border);
+  box-shadow: 0 6px 32px rgba(26,15,5,0.08), inset 0 1.5px 0 var(--glass-top), inset 0 -1px 0 var(--glass-btm);
+}
+.page {
+  position: relative; z-index: 1;
+  min-height: 100vh;
+  padding: 0 32px 64px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.nav-wrap {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; justify-content: center;
+  padding: 18px 0 0; pointer-events: none;
+}
+nav {
+  pointer-events: all;
+  display: flex; align-items: center; gap: 2px;
+  padding: 5px 6px; border-radius: 28px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(80px) saturate(160%) brightness(1.06);
+  -webkit-backdrop-filter: blur(80px) saturate(160%) brightness(1.06);
+  border: 1.5px solid var(--glass-border);
+  box-shadow: 0 4px 24px rgba(26,15,5,0.1), inset 0 1.5px 0 var(--glass-top), inset 0 -1px 0 var(--glass-btm);
+}
+nav a {
+  display: flex; align-items: center;
+  padding: 7px 16px; border-radius: 22px;
+  font-size: 13px; font-weight: 600; color: var(--muted);
+  text-decoration: none; transition: all 0.2s; letter-spacing: -0.01em;
+}
+nav a:hover { color: var(--text); background: rgba(26,15,5,0.05); }
+nav a.active { color: var(--accent); background: rgba(255,107,26,0.1); }
+
+/* HERO */
+.setup-hero {
+  margin-top: 28px;
+  border-radius: 26px;
+  padding: 36px 44px;
+}
+.setup-hero-title { font-size: clamp(30px, 4.5vw, 46px); font-weight: 800; letter-spacing: -0.05em; color: var(--text); margin-bottom: 8px; }
+.setup-hero-sub { font-size: 14px; color: var(--muted); line-height: 1.5; }
+
+/* SECTION LABEL */
+.section-label {
+  font-size: 10px; font-weight: 800; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--faint); margin: 28px 0 12px;
+}
+
+/* CATEGORY GRID */
+.cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+.cat-card {
+  border-radius: 22px; padding: 28px 26px;
+  text-decoration: none;
+  display: flex; flex-direction: column; gap: 12px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+.cat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(26,15,5,0.12), inset 0 1.5px 0 var(--glass-top), inset 0 -1px 0 var(--glass-btm);
+}
+.cat-icon { font-size: 40px; line-height: 1; }
+.cat-name { font-size: 18px; font-weight: 800; letter-spacing: -0.03em; color: var(--text); }
+.cat-desc { font-size: 13px; color: var(--muted); line-height: 1.4; }
+.cat-arrow {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 12px; font-weight: 700; color: var(--accent); margin-top: 4px;
+}
+
+/* FOOTER */
+.site-footer {
+  border-radius: 20px; padding: 22px 26px;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  margin-top: 8px;
+}
+.footer-brand { font-size: 15px; font-weight: 800; letter-spacing: -0.03em; color: var(--text); }
+.footer-copy { font-size: 11px; color: var(--faint); }
+.social-links { display: flex; gap: 8px; }
+.social-pill {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: 12px;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1.5px solid var(--glass-border);
+  box-shadow: 0 3px 12px rgba(26,15,5,0.07), inset 0 1px 0 var(--glass-top);
+  color: var(--muted); text-decoration: none; transition: all 0.2s;
+}
+.social-pill:hover { color: var(--text); transform: translateY(-1px); box-shadow: 0 6px 18px rgba(26,15,5,0.10), inset 0 1px 0 var(--glass-top); }
+.social-pill svg { width: 16px; height: 16px; }
+
+@media (max-width: 700px) {
+  .page { padding: 0 16px 48px; }
+  .setup-hero { padding: 26px 22px; }
+  .cat-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
 </head>
 <body>
+<div class="bg-canvas"></div>
+<div class="page">
+
+  <!-- NAV -->
+  <div class="nav-wrap">
     <nav>
-        <a href="index.html" class="nav-brand">ACE-M</a>
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About me</a></li>
-        </ul>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="resume.html">Resume</a>
+      <a href="projects.html">Projects</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="travels.html">Travels</a>
+      <a href="setup.html" class="active">Setup</a>
+      <a href="status.html">Status</a>
     </nav>
+  </div>
 
-    <main>
-        <div class="page-header">
-            <h1 class="page-title">Setup/Gear</h1>
-            <p class="page-subtitle">Everything I use, carry and rely on</p>
-        </div>
+  <!-- HERO -->
+  <div class="setup-hero glass">
+    <div class="setup-hero-title">⚙️ Setup / Gear</div>
+    <div class="setup-hero-sub">Everything I use — at my desk, in my bag, and on the go.</div>
+  </div>
 
-        <!-- Desk Section -->
-        <section class="section">
-            <div class="section-header">
-                <h2 class="section-title">🖥 DESK</h2>
-                <a href="setup-desk.html" class="section-link">View all →</a>
-            </div>
-            <div class="tiles-grid">
-                <a href="setup-desk.html" class="tile fav">
-                    <span class="tile-badge">⭐ Favourite</span>
-                    <span class="tile-emoji">💻</span>
-                    <span class="tile-name">MacBook Pro</span>
-                    <span class="tile-subtitle">M3 Pro·16"</span>
-                </a>
-                <a href="setup-desk.html" class="tile">
-                    <span class="tile-emoji">🖥</span>
-                    <span class="tile-name">LG 27" 4K</span>
-                    <span class="tile-subtitle">USB-C</span>
-                </a>
-                <a href="setup-desk.html" class="tile">
-                    <span class="tile-emoji">⌨️</span>
-                    <span class="tile-name">Keychron Q3</span>
-                    <span class="tile-subtitle">Brown switches</span>
-                </a>
-                <a href="setup-desk.html" class="tile">
-                    <span class="tile-emoji">🖱</span>
-                    <span class="tile-name">MX Master 3S</span>
-                    <span class="tile-subtitle">Logitech</span>
-                </a>
-                <a href="setup-desk.html" class="tile">
-                    <span class="tile-emoji">💡</span>
-                    <span class="tile-name">Key Light Air</span>
-                    <span class="tile-subtitle">Elgato</span>
-                </a>
-            </div>
-        </section>
+  <!-- CATEGORIES -->
+  <p class="section-label">Categories</p>
+  <div class="cat-grid">
+    <a class="cat-card glass" href="setup-desk.html">
+      <div class="cat-icon">🖥</div>
+      <div class="cat-name">Desk</div>
+      <div class="cat-desc">My main workstation — displays, peripherals, and docking.</div>
+      <div class="cat-arrow">Explore →</div>
+    </a>
+    <a class="cat-card glass" href="setup-bag.html">
+      <div class="cat-icon">🎒</div>
+      <div class="cat-name">Bag</div>
+      <div class="cat-desc">What I carry every day — the essentials in my EDC setup.</div>
+      <div class="cat-arrow">Explore →</div>
+    </a>
+    <a class="cat-card glass" href="setup-mobile.html">
+      <div class="cat-icon">📱</div>
+      <div class="cat-name">Mobile</div>
+      <div class="cat-desc">Phone, watch, and portable gear I carry with me daily.</div>
+      <div class="cat-arrow">Explore →</div>
+    </a>
+    <a class="cat-card glass" href="setup-audio.html">
+      <div class="cat-icon">🎧</div>
+      <div class="cat-name">Audio</div>
+      <div class="cat-desc">Headphones, microphones, monitors, and audio interfaces.</div>
+      <div class="cat-arrow">Explore →</div>
+    </a>
+  </div>
 
-        <!-- Bag Section -->
-        <section class="section">
-            <div class="section-header">
-                <h2 class="section-title">🎒 BAG</h2>
-                <a href="setup-bag.html" class="section-link">View all →</a>
-            </div>
-            <div class="tiles-grid">
-                <a href="setup-bag.html" class="tile fav">
-                    <span class="tile-badge">⭐ Favourite</span>
-                    <span class="tile-emoji">🎒</span>
-                    <span class="tile-name">Peak Design</span>
-                    <span class="tile-subtitle">Everyday 20L</span>
-                </a>
-                <a href="setup-bag.html" class="tile">
-                    <span class="tile-emoji">🔌</span>
-                    <span class="tile-name">Anker Hub</span>
-                    <span class="tile-subtitle">7-in-1 USB-C</span>
-                </a>
-                <a href="setup-bag.html" class="tile">
-                    <span class="tile-emoji">🔋</span>
-                    <span class="tile-name">PowerCore</span>
-                    <span class="tile-subtitle">20,000mAh</span>
-                </a>
-                <a href="setup-bag.html" class="tile">
-                    <span class="tile-emoji">🔊</span>
-                    <span class="tile-name">AirFly Pro</span>
-                    <span class="tile-subtitle">BT transmitter</span>
-                </a>
-            </div>
-        </section>
-
-        <!-- Mobile Section -->
-        <section class="section">
-            <div class="section-header">
-                <h2 class="section-title">📱 MOBILE</h2>
-                <a href="setup-mobile.html" class="section-link">View all →</a>
-            </div>
-            <div class="tiles-grid">
-                <a href="setup-mobile.html" class="tile fav">
-                    <span class="tile-badge">⭐ Favourite</span>
-                    <span class="tile-emoji">📱</span>
-                    <span class="tile-name">iPhone 15 Pro</span>
-                    <span class="tile-subtitle">Titanium</span>
-                </a>
-                <a href="setup-mobile.html" class="tile">
-                    <span class="tile-emoji">⌚</span>
-                    <span class="tile-name">Apple Watch</span>
-                    <span class="tile-subtitle">Series 9</span>
-                </a>
-                <a href="setup-mobile.html" class="tile">
-                    <span class="tile-emoji">🎵</span>
-                    <span class="tile-name">AirPods Pro</span>
-                    <span class="tile-subtitle">2nd gen</span>
-                </a>
-            </div>
-        </section>
-
-        <!-- Audio Section -->
-        <section class="section">
-            <div class="section-header">
-                <h2 class="section-title">🎧 AUDIO</h2>
-                <a href="setup-audio.html" class="section-link">View all →</a>
-            </div>
-            <div class="tiles-grid">
-                <a href="setup-audio.html" class="tile fav">
-                    <span class="tile-badge">⭐ Favourite</span>
-                    <span class="tile-emoji">🎧</span>
-                    <span class="tile-name">Sony XM5</span>
-                    <span class="tile-subtitle">ANC headphones</span>
-                </a>
-                <a href="setup-audio.html" class="tile">
-                    <span class="tile-emoji">🎙</span>
-                    <span class="tile-name">Blue Yeti</span>
-                    <span class="tile-subtitle">USB mic</span>
-                </a>
-                <a href="setup-audio.html" class="tile">
-                    <span class="tile-emoji">🔈</span>
-                    <span class="tile-name">Yamaha HS5</span>
-                    <span class="tile-subtitle">Studio monitors</span>
-                </a>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="footer-content">
-            <div class="social-links">
-                <a href="https://instagram.com" aria-label="Instagram">Instagram</a>
-                <a href="https://github.com" aria-label="GitHub">GitHub</a>
-                <a href="https://linkedin.com" aria-label="LinkedIn">LinkedIn</a>
-            </div>
-            <p class="footer-text">© ACE-M</p>
-        </div>
-    </footer>
+  <!-- FOOTER -->
+  <div class="site-footer glass">
+    <div>
+      <div class="footer-brand">ACE-M</div>
+      <div class="footer-copy">© 2026 Mitchell Nesselaar</div>
+    </div>
+    <div class="social-links">
+      <a href="https://instagram.com" target="_blank" class="social-pill" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+        </svg>
+      </a>
+      <a href="https://github.com/ULTIMATE-ACE-M" target="_blank" class="social-pill" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+        </svg>
+      </a>
+      <a href="https://linkedin.com" target="_blank" class="social-pill" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
 </body>
 </html>
