@@ -320,19 +320,14 @@ function setStatus(id, state) {
 }
 
 function checkService(svc) {
-  var start = Date.now();
   var done = false;
   var timeout = setTimeout(function() {
     if (!done) { done = true; setStatus(svc.id, 'offline'); }
-  }, 8000);
-
-  fetch('https://api.allorigins.win/get?url=' + encodeURIComponent(svc.url), { cache: 'no-cache' })
-    .then(function(r) {
+  }, 6000);
+  fetch(svc.url, { mode: 'no-cors', cache: 'no-cache' })
+    .then(function() {
       clearTimeout(timeout);
-      if (done) return;
-      done = true;
-      var ms = Date.now() - start;
-      setStatus(svc.id, r.ok ? (ms > 3000 ? 'degraded' : 'online') : 'degraded');
+      if (!done) { done = true; setStatus(svc.id, 'online'); }
     })
     .catch(function() {
       clearTimeout(timeout);
