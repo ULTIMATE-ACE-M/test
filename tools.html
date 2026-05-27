@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tools – ACE-M</title>
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root { --bg:#dedad5; --accent:#FF6B1A; --text:#1a0f05; --muted:#6b5a4e; --faint:#9b8b80; --glass-bg:linear-gradient(145deg,rgba(245,243,240,0.58) 0%,rgba(215,210,203,0.40) 100%); --glass-border:rgba(220,215,208,0.68); --glass-top:rgba(255,255,255,0.78); --glass-btm:rgba(26,15,5,0.05); --glass-blur:blur(60px) saturate(140%) brightness(1.05); }
+html { scroll-behavior: smooth; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+.bg-canvas { position: fixed; inset: 0; z-index: 0; background: radial-gradient(ellipse 70% 60% at 85% 12%, rgba(255,107,26,0.22) 0%, transparent 60%), radial-gradient(ellipse 55% 50% at 10% 85%, rgba(255,160,90,0.14) 0%, transparent 58%), radial-gradient(ellipse 45% 40% at 55% 55%, rgba(255,210,170,0.09) 0%, transparent 55%), radial-gradient(ellipse 35% 30% at 20% 30%, rgba(255,180,110,0.08) 0%, transparent 50%), #dedad5; }
+.glass { background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); border: 1.5px solid var(--glass-border); box-shadow: 0 6px 32px rgba(26,15,5,0.08), inset 0 1.5px 0 var(--glass-top), inset 0 -1px 0 var(--glass-btm); }
+.page { position: relative; z-index: 1; min-height: 100vh; padding: 0 32px 64px; max-width: 1000px; margin: 0 auto; }
+.nav-wrap { position: sticky; top: 0; z-index: 100; display: flex; justify-content: center; padding: 18px 0 0; pointer-events: none; }
+nav { pointer-events: all; display: flex; align-items: center; gap: 2px; padding: 5px 6px; border-radius: 28px; background: var(--glass-bg); backdrop-filter: blur(80px) saturate(160%) brightness(1.06); -webkit-backdrop-filter: blur(80px) saturate(160%) brightness(1.06); border: 1.5px solid var(--glass-border); box-shadow: 0 4px 24px rgba(26,15,5,0.1), inset 0 1.5px 0 var(--glass-top), inset 0 -1px 0 var(--glass-btm); }
+nav a { display: flex; align-items: center; padding: 7px 16px; border-radius: 22px; font-size: 13px; font-weight: 600; color: var(--muted); text-decoration: none; transition: all 0.2s; letter-spacing: -0.01em; }
+nav a:hover { color: var(--text); background: rgba(26,15,5,0.05); }
+nav a.active { color: var(--accent); background: rgba(255,107,26,0.1); }
+.breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--faint); margin: 20px 0 0; font-weight: 600; }
+.breadcrumb a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.breadcrumb a:hover { color: var(--text); }
+.breadcrumb-sep { opacity: 0.4; }
+.setup-sub-hero { margin-top: 12px; border-radius: 26px; padding: 32px 40px; }
+.hero-title { font-size: clamp(28px, 4vw, 42px); font-weight: 800; letter-spacing: -0.05em; color: var(--text); margin-bottom: 6px; }
+.hero-sub { font-size: 14px; color: var(--muted); }
+.section-label { font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--faint); margin: 28px 0 12px; }
+.gear-card { border-radius: 20px; overflow: hidden; margin-bottom: 14px; }
+.gear-item { display: flex; align-items: flex-start; gap: 16px; padding: 18px 22px; border-bottom: 1px solid var(--glass-border); transition: background 0.15s; }
+.gear-item:last-child { border-bottom: none; }
+.gear-item:hover { background: rgba(26,15,5,0.02); }
+.gear-icon { font-size: 28px; flex-shrink: 0; margin-top: 2px; }
+.gear-info { flex: 1; }
+.gear-name { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 3px; display: flex; align-items: center; gap: 8px; }
+.gear-fav { font-size: 12px; }
+.gear-spec { font-size: 12px; color: var(--accent); font-weight: 600; margin-bottom: 4px; }
+.gear-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.gear-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+.gear-tag { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; background: rgba(26,15,5,0.06); color: var(--faint); }
+.site-footer { border-radius: 20px; padding: 22px 26px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+.footer-brand { font-size: 15px; font-weight: 800; letter-spacing: -0.03em; color: var(--text); }
+.footer-copy { font-size: 11px; color: var(--faint); }
+.social-links { display: flex; gap: 8px; }
+.social-pill { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 12px; background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); border: 1.5px solid var(--glass-border); box-shadow: 0 3px 12px rgba(26,15,5,0.07), inset 0 1px 0 var(--glass-top); color: var(--muted); text-decoration: none; transition: all 0.2s; }
+.social-pill:hover { color: var(--text); transform: translateY(-1px); box-shadow: 0 6px 18px rgba(26,15,5,0.10), inset 0 1px 0 var(--glass-top); }
+.social-pill svg { width: 16px; height: 16px; }
+@media (max-width: 700px) { .page { padding: 0 16px 48px; } .setup-sub-hero { padding: 24px 20px; } }
+
+.tool-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 32px; }
+.tool-card { background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur); border: 1.5px solid var(--glass-border); border-radius: 20px; padding: 28px; display: flex; flex-direction: column; gap: 16px; transition: transform 0.2s, box-shadow 0.2s; }
+.tool-card:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(26,15,5,0.08); }
+.tool-card.tool-soon { opacity: 0.65; }
+.tool-top { display: flex; align-items: center; gap: 14px; }
+.tool-icon-box { width: 52px; height: 52px; border-radius: 14px; background: rgba(255,107,26,0.1); display: flex; align-items: center; justify-content: center; font-size: 26px; flex-shrink: 0; }
+.tool-name { font-size: 18px; font-weight: 700; color: var(--text); line-height: 1.2; }
+.tool-desc { font-size: 14px; color: var(--muted); line-height: 1.6; }
+.tool-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tool-tag { font-size: 11px; font-weight: 600; color: var(--muted); background: rgba(107,90,78,0.1); border-radius: 20px; padding: 3px 10px; }
+.tool-launch { display: inline-flex; align-items: center; gap: 6px; margin-top: auto; padding: 10px 20px; background: var(--accent); color: #fff; border-radius: 22px; text-decoration: none; font-size: 13px; font-weight: 700; transition: opacity 0.2s, transform 0.15s; width: fit-content; }
+.tool-launch:hover { opacity: 0.88; transform: translateY(-1px); }
+.tool-soon-badge { display: inline-flex; align-items: center; gap: 6px; margin-top: auto; padding: 10px 20px; background: rgba(107,90,78,0.12); color: var(--muted); border-radius: 22px; font-size: 13px; font-weight: 700; width: fit-content; cursor: default; }
+@media (max-width: 600px) { .tool-grid { grid-template-columns: 1fr; } }
+</style>
+<body>
+<div class="bg-canvas"></div>
+<div class="page">
+  <div class="nav-wrap">
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="projects.html">Projects</a>
+      <a href="tools.html" class="active">Tools</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="travels.html">Travels</a>
+      <a href="setup.html">Setup</a>
+    </nav>
+  </div>
+
+  <div class="setup-sub-hero glass">
+    <div class="hero-title">🛠 Tools</div>
+    <div class="hero-sub">Small tools I built to make work easier.</div>
+  </div>
+
+  <p class="section-label">All Tools</p>
+
+  <div class="tool-grid">
+
+    <div class="tool-card glass">
+      <div class="tool-top">
+        <div class="tool-icon-box">📌</div>
+        <div class="tool-name">Packet Tracer Reference Sheet</div>
+      </div>
+      <div class="tool-desc">A quick-access reference for Cisco Packet Tracer — commands, device configs, and topology setups all in one place.</div>
+      <div class="tool-tags">
+        <span class="tool-tag">Networking</span>
+        <span class="tool-tag">Cisco</span>
+        <span class="tool-tag">Reference</span>
+      </div>
+      <a href="https://ultimate-ace-m.github.io/ACE-Packet-Tracer/" target="_blank" class="tool-launch">Launch →</a>
+    </div>
+
+    <div class="tool-card glass tool-soon">
+      <div class="tool-top">
+        <div class="tool-icon-box">🔧</div>
+        <div class="tool-name">Packet Tracer Builder</div>
+      </div>
+      <div class="tool-desc">A visual builder for constructing and documenting Packet Tracer network topologies. Work in progress.</div>
+      <div class="tool-tags">
+        <span class="tool-tag">Networking</span>
+        <span class="tool-tag">Cisco</span>
+        <span class="tool-tag">Builder</span>
+      </div>
+      <span class="tool-soon-badge">Coming soon</span>
+    </div>
+
+  </div>
+
+</div>
+</body>
+</html>
